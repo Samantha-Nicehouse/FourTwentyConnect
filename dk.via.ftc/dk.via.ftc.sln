@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dk.via.ftc.web", "dk.via.ftc.web\dk.via.ftc.web.csproj", "{4D4D1963-34B1-45A7-898F-121A7AA73C25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dk.via.ftc.bll", "dk.via.ftc.bll\dk.via.ftc.bll.csproj", "{45A066AE-42A2-4C9F-8291-F80A584C2B6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dk.via.ftc.api", "dk.via.ftc.api\dk.via.ftc.api.csproj", "{FBD4DC3A-1FA0-454D-93C9-B0B4A31CCD15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D4D1963-34B1-45A7-898F-121A7AA73C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D4D1963-34B1-45A7-898F-121A7AA73C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D4D1963-34B1-45A7-898F-121A7AA73C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D4D1963-34B1-45A7-898F-121A7AA73C25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45A066AE-42A2-4C9F-8291-F80A584C2B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A066AE-42A2-4C9F-8291-F80A584C2B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A066AE-42A2-4C9F-8291-F80A584C2B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A066AE-42A2-4C9F-8291-F80A584C2B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD4DC3A-1FA0-454D-93C9-B0B4A31CCD15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD4DC3A-1FA0-454D-93C9-B0B4A31CCD15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD4DC3A-1FA0-454D-93C9-B0B4A31CCD15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD4DC3A-1FA0-454D-93C9-B0B4A31CCD15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
