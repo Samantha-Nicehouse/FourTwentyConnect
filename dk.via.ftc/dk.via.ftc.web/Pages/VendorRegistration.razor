@@ -1,0 +1,62 @@
+﻿@page "/VendorRegistration";
+@using dk.via.ftc.web.Models;
+<h3>VendorRegistration</h3>
+<EditForm Model="@newVendorAdmin" OnValidSubmit="@AddNewVendorAdmin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        UserName:<br />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.UserName" />
+    </div>
+    <div class="form-group">
+        Password:<br />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Password" />
+    </div>
+    <div class="form-group">
+        Email:<br />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Email" />
+    </div>
+    <div class="form-group">
+        First Name:<br />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.FirstName" />
+    </div>
+    <div class="form-group">
+        Last Name:<br />
+        <InputNumber rows="1" @bind-Value="newVendorAdmin.LastName" />
+    </div>
+    <div class="form-group">
+        Vendor Name:<br />
+        <InputNumber rows="1" @bind-Value="newVendor.VendorName" />
+    </div>
+    <div class="form-group">
+        Vendor Licence:<br />
+        <InputNumber rows="1" @bind-Value="newVendor.vendorLicense" />
+    </div>
+    <div class="form-group">
+        Vendor Country:<br />
+        <InputTextArea rows="1" @bind-Value="newVendor.Country" />
+    </div>
+    <div class="form-group">
+        Vendor State/Province:<br />
+        <InputTextArea rows="1" @bind-Value="newVendor.stateProvince" />
+    </div>
+    <div class="form-group">
+        Vendor City:<br />
+        <InputTextArea rows="1" @bind-Value="newVendor.City" />
+    </div>
+    <p class="actions">
+        <button class="btn btn-outline-dark" type="submit">Create</button>
+    </p>
+</EditForm>
+
+@code {
+    private readonly VendorAdmin newVendorAdmin = new VendorAdmin();
+    private readonly Vendor newVendor = new Vendor();
+
+    private async Task AddNewVendorAdmin()
+    {
+        await AdultService.AddAdultAsync(newAdult);
+        NavigationManager.NavigateTo("/", true);
+    }
+}
