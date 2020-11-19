@@ -11,8 +11,8 @@ namespace dk.via.ftc.web.Data
     {
         private string vendorAdminFile = "vendorAdmins.json";
         private string vendorsFile = "vendors.json";
-        private IList<Vendor> vendors;
-        private IList<VendorAdmin> vendorAdmins;
+        private IList<VendorView> vendors;
+        private IList<VendorAdminView> vendorAdmins;
 
         public AdminService()
         {
@@ -24,7 +24,7 @@ namespace dk.via.ftc.web.Data
             else
             {
                 var content = File.ReadAllText(vendorsFile);
-                vendors = JsonSerializer.Deserialize<List<Vendor>>(content);
+                vendors = JsonSerializer.Deserialize<List<VendorView>>(content);
             }
             if (!File.Exists(vendorAdminFile))
             {
@@ -34,24 +34,24 @@ namespace dk.via.ftc.web.Data
             else
             {
                 var content = File.ReadAllText(vendorAdminFile);
-                vendorAdmins = JsonSerializer.Deserialize<List<VendorAdmin>>(content);
+                vendorAdmins = JsonSerializer.Deserialize<List<VendorAdminView>>(content);
             }
         }
-        public async Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
+        public async Task AddVendorAdminAsync(VendorAdminView vendorAdmin)
         {
             vendorAdmins.Add(vendorAdmin);
             WriteVendorAdminToFile();
         }
-        public async Task AddVendorAsync(Vendor vendor)
+        public async Task AddVendorAsync(VendorView vendor)
         {
             vendors.Add(vendor);
             WriteVendorAdminToFile();
         }
         private void SeedVendor()
         {
-            Vendor[] ps =
+            VendorView[] ps =
             {
-                new Vendor
+                new VendorView
                 {
                     VendorId = 1,
                     VendorName = "React",
@@ -60,7 +60,7 @@ namespace dk.via.ftc.web.Data
                     Country = "Germany",
                     stateProvince = "test"
                 },
-                new Vendor
+                new VendorView
                 {
                     VendorId = 2,
                     VendorName = "PharmaSupply",
@@ -75,9 +75,9 @@ namespace dk.via.ftc.web.Data
 
     private void SeedVendorAdmin()
     {
-    VendorAdmin[] va =
+    VendorAdminView[] va =
     {
-            new VendorAdmin
+            new VendorAdminView
 
             {
                 VendorId = 1,
@@ -85,7 +85,7 @@ namespace dk.via.ftc.web.Data
                 Email = "a@react.com",
                 LastName = "The Builder"
             },
-            new VendorAdmin
+            new VendorAdminView
                 {
                 VendorId = 2,
                 Password = "pha123",

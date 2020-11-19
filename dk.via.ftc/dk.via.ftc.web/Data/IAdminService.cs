@@ -8,7 +8,7 @@ namespace dk.via.ftc.web.Data
 {
     interface IAdminService
     {
-        Task AddVendorAdminAsync(VendorAdmin vendorAdmin);
-        Task AddVendorAsync(Vendor vendor);
+        Task AddVendorAdminAsync(VendorAdminView vendorAdmin);
+        Task AddVendorAsync(VendorView vendor);
     }
 }

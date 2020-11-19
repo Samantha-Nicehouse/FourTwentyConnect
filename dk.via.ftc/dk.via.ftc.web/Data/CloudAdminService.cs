@@ -17,7 +17,7 @@ namespace dk.via.ftc.web.Data
         {
             client = new HttpClient();
         }
-        public async Task AddVendorAsync(Vendor vendor)
+        public async Task AddVendorAsync(VendorView vendor)
         {
             string vendorAsJson = JsonSerializer.Serialize(vendor);
             HttpContent content = new StringContent(vendorAsJson,
@@ -25,7 +25,7 @@ namespace dk.via.ftc.web.Data
                 "application/json");
             await client.PutAsync(uri + "/Vendor", content);
         }
-        public async Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
+        public async Task AddVendorAdminAsync(VendorAdminView vendorAdmin)
         {
             string vendorAsJson = JsonSerializer.Serialize(vendorAdmin);
             HttpContent content = new StringContent(vendorAsJson,

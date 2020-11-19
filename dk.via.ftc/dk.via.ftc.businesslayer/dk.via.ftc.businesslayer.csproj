@@ -14,8 +14,4 @@
     <ProjectReference Include="..\dk.via.ftc.web\dk.via.ftc.web.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataAccess\" />
-  </ItemGroup>
-
 </Project>

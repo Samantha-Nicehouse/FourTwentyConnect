@@ -6,32 +6,22 @@ using System.IO;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
-namespace dk.via.ftc.web.Models
+namespace dk.via.ftc.businesslayer.Models
 {
     public class Vendor
     
     {
-        [Key]
-        [JsonPropertyName("vendorId")]
+
         public int VendorId { get; set; }
 
-        [JsonPropertyName("vendorName")] public string VendorName { get; set; }
+        public string VendorName { get; set; }
 
-        
-        [Required]
-        [JsonPropertyName("vendorLicense")]
         public string vendorLicense { get; set; }
         
-        [Required]
-        [JsonPropertyName("city")]
         public string City { get; set; }
         
-        [Required]
-        [JsonPropertyName("country")]
         public string Country { get; set; }
 
-        [Required]
-        [JsonPropertyName("stateProvince")]
         public string stateProvince { get; set; }
         
         public void Update(Vendor vendorToUpdate)

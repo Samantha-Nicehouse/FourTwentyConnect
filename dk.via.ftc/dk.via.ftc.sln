@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dk.via.ftc.businesslayer", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketTest", "SocketTest\SocketTest.csproj", "{D433CC88-2698-448E-B0BE-7BC202F8DCE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dk.via.ftc.dal", "dk.via.ftc.dal\dk.via.ftc.dal.csproj", "{2F07A636-7269-4C60-AA1D-1F86A5654EEE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dk.via.databaselayer", "dk.via.databaselayer\dk.via.databaselayer.csproj", "{EC7D18C9-0A55-4D48-A56C-2270625D5773}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{D433CC88-2698-448E-B0BE-7BC202F8DCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D433CC88-2698-448E-B0BE-7BC202F8DCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D433CC88-2698-448E-B0BE-7BC202F8DCE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F07A636-7269-4C60-AA1D-1F86A5654EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F07A636-7269-4C60-AA1D-1F86A5654EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F07A636-7269-4C60-AA1D-1F86A5654EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F07A636-7269-4C60-AA1D-1F86A5654EEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC7D18C9-0A55-4D48-A56C-2270625D5773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC7D18C9-0A55-4D48-A56C-2270625D5773}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC7D18C9-0A55-4D48-A56C-2270625D5773}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC7D18C9-0A55-4D48-A56C-2270625D5773}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

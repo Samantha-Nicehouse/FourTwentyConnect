@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace dk.via.ftc.web.Models
+namespace dk.via.ftc.businesslayer.Models
 {
     public class VendorAdmin : User
     {
-        [JsonPropertyName("vendorId")]
         public int VendorId { get; set; }
 
         public void Update(VendorAdmin vendorToUpdate)

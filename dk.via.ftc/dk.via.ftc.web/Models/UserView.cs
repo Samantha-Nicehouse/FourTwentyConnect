@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dk.via.ftc.web.Models
 {
-    public class User
+    public class UserView
     {
         [Key]
         [JsonPropertyName("userName")]
@@ -28,7 +28,7 @@ namespace dk.via.ftc.web.Models
         [JsonPropertyName("lastName")]
         public string LastName { get; set; }
 
-        public void Update(User userToUpdate)
+        public void Update(UserView userToUpdate)
         {
             Password = userToUpdate.Password;
             Email = userToUpdate.Email;

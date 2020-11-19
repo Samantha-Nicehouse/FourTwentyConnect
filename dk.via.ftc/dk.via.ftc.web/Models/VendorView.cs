@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace dk.via.ftc.web.Models
 {
-    public class Vendor
+    public class VendorView
     
     {
         [Key]
@@ -34,7 +34,7 @@ namespace dk.via.ftc.web.Models
         [JsonPropertyName("stateProvince")]
         public string stateProvince { get; set; }
         
-        public void Update(Vendor vendorToUpdate)
+        public void Update(VendorView vendorToUpdate)
         {
             VendorId = vendorToUpdate.VendorId;
             VendorName = vendorToUpdate.VendorName;
@@ -59,9 +59,9 @@ namespace dk.via.ftc.web.Models
             }
         }
 
-        public static Vendor FromBytes(byte[] buffer)
+        public static VendorView FromBytes(byte[] buffer)
         {
-            Vendor retVal = new Vendor();
+            VendorView retVal = new VendorView();
 
             using (MemoryStream ms = new MemoryStream(buffer))
             {

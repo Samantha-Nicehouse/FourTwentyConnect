@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace dk.via.ftc.web.Models
 {
-    public class VendorAdmin : User
+    public class VendorAdminView : UserView
     {
         [JsonPropertyName("vendorId")]
         public int VendorId { get; set; }
 
-        public void Update(VendorAdmin vendorToUpdate)
+        public void Update(VendorAdminView vendorToUpdate)
         {
             base.Update(vendorToUpdate);
         }
