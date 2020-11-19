@@ -37,14 +37,14 @@ namespace dk.via.ftc.web.Data
                 vendorAdmins = JsonSerializer.Deserialize<List<VendorAdmin>>(content);
             }
         }
-        public async Task AddVendorAdminAsync(Vendor vendor, VendorAdmin vendorAdmin)
+        public async Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
         {
-            var max = vendors.Max(vendor => vendor.VendorId);
-            vendor.VendorId = ++max;
-            vendors.Add(vendor);
-            WriteVendorToFile();
-            vendorAdmin.VendorId = vendor.VendorId;
             vendorAdmins.Add(vendorAdmin);
+            WriteVendorAdminToFile();
+        }
+        public async Task AddVendorAsync(Vendor vendor)
+        {
+            vendors.Add(vendor);
             WriteVendorAdminToFile();
         }
         private void SeedVendor()

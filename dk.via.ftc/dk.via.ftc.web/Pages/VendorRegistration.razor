@@ -1,5 +1,8 @@
 ﻿@page "/VendorRegistration";
 @using dk.via.ftc.web.Models;
+@using dk.via.ftc.web.Data;
+@inject IAdminService AdminService
+@inject NavigationManager NavigationManager
 <h3>VendorRegistration</h3>
 <EditForm Model="@newVendorAdmin" OnValidSubmit="@AddNewVendorAdmin">
     <DataAnnotationsValidator />
@@ -23,15 +26,15 @@
     </div>
     <div class="form-group">
         Last Name:<br />
-        <InputNumber rows="1" @bind-Value="newVendorAdmin.LastName" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.LastName" />
     </div>
     <div class="form-group">
         Vendor Name:<br />
-        <InputNumber rows="1" @bind-Value="newVendor.VendorName" />
+        <InputTextArea rows="1" @bind-Value="newVendor.VendorName" />
     </div>
     <div class="form-group">
         Vendor Licence:<br />
-        <InputNumber rows="1" @bind-Value="newVendor.vendorLicense" />
+        <InputTextArea rows="1" @bind-Value="newVendor.vendorLicense" />
     </div>
     <div class="form-group">
         Vendor Country:<br />
@@ -56,7 +59,7 @@
 
     private async Task AddNewVendorAdmin()
     {
-        await AdultService.AddAdultAsync(newAdult);
+        await AdminService.AddVendorAsync(newVendor);
         NavigationManager.NavigateTo("/", true);
     }
 }
