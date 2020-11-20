@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using dk.via.ftc.web.Models;
 using System.Diagnostics;
+using dk.via.businesslayer.Data.Services;
 using dk.via.ftc.businesslayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Vendor = dk.via.ftc.businesslayer.Models.Vendor;
@@ -16,30 +17,24 @@ namespace dk.via.ftc.businesslayer.Controllers
     [ApiController]
     public class VendorController : ControllerBase
     {
-        private readonly VendorContext _context;
+        private VendorService service;
 
-        public VendorController(VendorContext context)
+        public VendorController(IVendorService vendorService)
         {
-            _context = context;
+            this.service = new VendorService();
+            
         }
         // GET: api/<ValuesController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vendor>>> GetVendors()
         {
-            return await _context.Vendors.ToListAsync();
+            return null;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Vendor>> GetVendor(int id)
         {
-            var vendor = await _context.Vendors.FindAsync(id);
-
-            if (vendor == null)
-            {
-                return NotFound();
-            }
-
-            return vendor;
+            return null;
         }
 
         // POST api/<ValuesController>
@@ -51,8 +46,7 @@ namespace dk.via.ftc.businesslayer.Controllers
         [HttpPut]
         public async Task PutVendor(Vendor vendor)
         {
-            _context.Vendors.Add(vendor);
-            await _context.SaveChangesAsync();
+            await service.AddVendorDbAsync(vendor);
         }
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]

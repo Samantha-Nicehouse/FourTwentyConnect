@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dk.via.businesslayer.Data.Services;
 
 namespace dk.via.businesslayer
 {
@@ -18,9 +19,8 @@ namespace dk.via.businesslayer
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<VendorContext>(opt =>
-               opt.UseInMemoryDatabase("Vendors"));
             services.AddControllers();
+            services.AddScoped<IVendorService, VendorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

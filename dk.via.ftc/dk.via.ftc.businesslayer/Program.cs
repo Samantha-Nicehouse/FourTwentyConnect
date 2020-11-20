@@ -26,7 +26,7 @@ namespace dk.via.businesslayer
         }
         static async Task MainAsync(string[] args)
         {
-            await SocketClientJson();
+            //await SocketClientJson();
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -63,19 +63,16 @@ namespace dk.via.businesslayer
             vendor.City = "City";
             vendor.Country = "Country";
             vendor.stateProvince = "State";
-            
-           // string jsonString = JsonSerializer.Serialize(vendor);
             string output = JsonConvert.SerializeObject(vendor);
             SocketClient client = new SocketClient("localhost", 4012);
             try
             {
                 if (await client.Connect())
                 {
-                    //Debug.WriteLine("Sending");
+              
                     await client.Send(output);
-                    //Debug.WriteLine("Recieving");
                     recData = await client.ReceiveBytes();
-                    //TODO: Read the JSON received from Java Server
+                   
                 }
                 Console.WriteLine("Received data: " + Encoding.UTF8.GetString(recData));
             }
