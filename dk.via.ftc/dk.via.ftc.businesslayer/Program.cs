@@ -5,10 +5,15 @@ using Microsoft.Extensions.Logging;
 using SockNet.ClientSocket;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using dk.via.ftc.businesslayer.Models;
+using Newtonsoft.Json;
+
 
 namespace dk.via.businesslayer
 {
@@ -21,7 +26,7 @@ namespace dk.via.businesslayer
         }
         static async Task MainAsync(string[] args)
         {
-            await SocketClient1();
+            await SocketClientJson();
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -33,10 +38,13 @@ namespace dk.via.businesslayer
         {
             TcpClient tcpClient = new TcpClient("127.0.0.1", 4012);
             NetworkStream stream = tcpClient.GetStream();
+            TextWriter tw = new StreamWriter(stream, Encoding.UTF8);
+            JsonWriter writer = new JsonTextWriter(tw);
 
             // send to server
             string message = "Hello from client";
             byte[] dataToServer = Encoding.ASCII.GetBytes(message);
+            
             stream.Write(dataToServer, 0, dataToServer.Length);
 
             // read response
@@ -45,16 +53,61 @@ namespace dk.via.businesslayer
             string response = Encoding.ASCII.GetString(fromServer, 0, bytesRead);
             tcpClient.Close();
         }
-        public static async Task SocketClient1()
+        
+        public static async Task SocketClientJson()
         {
             byte[] recData = null;
-            SocketClient client = new SocketClient("127.0.0.1", 4012);
+            Vendor vendor = new Vendor();
+            vendor.VendorName = "Name";
+            vendor.vendorLicense = "12345678";
+            vendor.City = "City";
+            vendor.Country = "Country";
+            vendor.stateProvince = "State";
+            
+           // string jsonString = JsonSerializer.Serialize(vendor);
+            string output = JsonConvert.SerializeObject(vendor);
+            SocketClient client = new SocketClient("localhost", 4012);
             try
             {
                 if (await client.Connect())
                 {
-                    await client.Send("this is a test");
+                    //Debug.WriteLine("Sending");
+                    await client.Send(output);
+                    //Debug.WriteLine("Recieving");
                     recData = await client.ReceiveBytes();
+                    //TODO: Read the JSON received from Java Server
+                }
+                Console.WriteLine("Received data: " + Encoding.UTF8.GetString(recData));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception raised: " + e);
+            }
+            //...
+            client.Disconnect();
+        }
+        public static async Task SocketClient1()
+        {
+            
+            SocketClient client = new SocketClient("localhost", 4012);
+            
+            byte[] recData = null;
+            Vendor vendor = new Vendor();
+            vendor.VendorName = "Name";
+            vendor.vendorLicense = "12345678";
+            vendor.City = "City";
+            vendor.Country = "Country";
+            vendor.stateProvince = "State";
+            byte[] sendData = vendor.ToBytes();
+            try
+            {
+                if (await client.Connect())
+                {
+                    Debug.WriteLine("Sending"+sendData);
+                    await client.Send(sendData);
+
+                    recData = await client.ReceiveBytes();
+                    Debug.WriteLine("Recieving"+recData);
                 }
                 Console.WriteLine("Received data: " + Encoding.UTF8.GetString(recData));
             }

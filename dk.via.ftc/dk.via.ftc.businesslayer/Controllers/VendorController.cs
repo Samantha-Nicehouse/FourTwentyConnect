@@ -8,6 +8,7 @@ using dk.via.ftc.web.Models;
 using System.Diagnostics;
 using dk.via.ftc.businesslayer.Models;
 using Microsoft.EntityFrameworkCore;
+using Vendor = dk.via.ftc.businesslayer.Models.Vendor;
 
 namespace dk.via.ftc.businesslayer.Controllers
 {

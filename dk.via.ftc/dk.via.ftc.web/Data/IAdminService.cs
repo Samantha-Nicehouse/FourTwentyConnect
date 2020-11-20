@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dk.via.ftc.web.Data
 {
-    interface IAdminService
+    public interface IAdminService
     {
         Task AddVendorAdminAsync(VendorAdminView vendorAdmin);
         Task AddVendorAsync(VendorView vendor);

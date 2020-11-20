@@ -5,20 +5,27 @@ using System.Globalization;
 using System.IO;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+//using Microsoft.EntityFrameworkCore;
 
-namespace dk.via.ftc.businesslayer.Models
+
+namespace dk.via.ftc.web.Models
 {
+   
     public class Vendor
     
     {
         
 
-        public string VendorName { get; set; }
+         public string VendorName { get; set; }
 
+        
+       
         public string vendorLicense { get; set; }
         
+       
         public string City { get; set; }
         
+       
         public string Country { get; set; }
 
         public string stateProvince { get; set; }
@@ -31,7 +38,7 @@ namespace dk.via.ftc.businesslayer.Models
             Country = vendorToUpdate.Country;
             stateProvince = vendorToUpdate.stateProvince;
         }
-        
+
         public byte[] ToBytes()
         {
             using (MemoryStream ms = new MemoryStream())

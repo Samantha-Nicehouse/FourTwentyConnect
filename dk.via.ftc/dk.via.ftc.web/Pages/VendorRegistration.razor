@@ -3,6 +3,7 @@
 @using dk.via.ftc.web.Data;
 @inject IAdminService AdminService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
 <h3>VendorRegistration</h3>
 <EditForm Model="@newVendorAdmin" OnValidSubmit="@AddNewVendorAdmin">
     <DataAnnotationsValidator />
@@ -54,8 +55,8 @@
 </EditForm>
 
 @code {
-    private readonly VendorAdmin newVendorAdmin = new VendorAdmin();
-    private readonly Vendor newVendor = new Vendor();
+    private readonly VendorAdminView newVendorAdmin = new VendorAdminView();
+    private readonly VendorView newVendor = new VendorView();
 
     private async Task AddNewVendorAdmin()
     {
