@@ -22,7 +22,6 @@ namespace dk.via.ftc.businesslayer.Controllers
         public VendorController(IVendorService vendorService)
         {
             this.service = new VendorService();
-            
         }
         // GET: api/<ValuesController>
         [HttpGet]
