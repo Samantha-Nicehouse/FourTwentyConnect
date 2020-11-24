@@ -1,45 +1,53 @@
 package dk.via.Connect.Database.DTO;
 
-public class VendorDTO {
+public class VendorDTO extends DTO {
 
     private String vendorId;
     private String VendorName;
     private String vendorLicense;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private int phoneNumber;
+    private String FirstName;
+    private String LastName;
+    private String Email;
     private String City;
     private String Country;
     private String stateProvince;
-    private String username;
-    private String password;
+    private String UserName;
+    private String Password;
+    private VendorAdmin vendorAdmin;
 
-    public VendorDTO() {
-    }
-
-    public VendorDTO(String vendorName, String vendorLicense, String city, String country, String stateProvince) {
+    public VendorDTO(String vendorName, String vendorLicense, String city, String country, String stateProvince, String username, String password, String firstName, String lastName, String email) {
         this.VendorName = vendorName;
         this.vendorLicense = vendorLicense;
         this.City = city;
         this.Country = country;
         this.stateProvince = stateProvince;
+        this.UserName = username;
+        this.Password = password;
+        this.FirstName = firstName;
+        this.LastName = lastName;
+        this.Email = email;
+
     }
+
+    public VendorAdmin getVendorAdmin() {
+        return vendorAdmin;
+    }
+
     public String getVendorId(){return vendorId;}
     public String getUsername() {
-        return username;
+        return UserName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.UserName = username;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.Password = password;
     }
 
     public String getVendorName() {
@@ -51,36 +59,29 @@ public class VendorDTO {
     }
 
     public String getFirstName() {
-        return firstName;
+        return FirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.FirstName = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return LastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.LastName = lastName;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.Email = email;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public String getVendorLicence() {
         return vendorLicense;

@@ -2,24 +2,22 @@ package dk.via.Connect.Database.Service;
 
 import com.google.gson.Gson;
 import dk.via.Connect.Database.DTO.VendorDTO;
-import dk.via.Connect.Database.Model.VendorDAO;
+import dk.via.Connect.Database.DTO.VendorDAOImpl;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class DatabaseClientHandler implements Runnable {
     Socket client;
-    VendorDAO dataAccessObj;
+    VendorDAOImpl dataAccessObj;
     Gson gson;
     private BufferedReader in;
     private PrintWriter out;
     private boolean running;
 
 
-    public DatabaseClientHandler(Socket client, VendorDAO dataAccessObj) throws IOException {
+    public DatabaseClientHandler(Socket client, VendorDAOImpl dataAccessObj) throws IOException {
         this.client = client;
         this.dataAccessObj = dataAccessObj;
         gson = new Gson();
@@ -61,6 +59,13 @@ public class DatabaseClientHandler implements Runnable {
 
     private String serviceRequest(String request) {
         VendorDTO dto = gson.fromJson(request, VendorDTO.class);
+        // there is a field in the DTO that states the type of requestor
+        // if it is a vendor, we convert the DTO to a VendorDTO, search/update/create
+        // else if it is a dispensary, we convert the DTO to a DispensaryDTO, search/update/create
+        // else if it is a strain, we convert the DTO to a StrainDTO,  search/update/create
+        // search all fields where name = ? and city = ? - name and city variables would have data
+        // filterVariables = comma-separated list of fields to search by
+        // update vendor set name = ? and city = ? where id = ?, -id, name and city variables would have data
         boolean success = dataAccessObj.createVendor(dto.getVendorName(),
                 dto.getVendorLicence(), dto.getCity(), dto.getCountry(), dto.getStateProvince());
         return success ? "Vendor has been created successfully" : "Ērror creating vendor";

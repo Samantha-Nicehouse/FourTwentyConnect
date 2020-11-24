@@ -1,6 +1,6 @@
 package dk.via.Connect.Database.Service;
 
-import dk.via.Connect.Database.Model.VendorDAO;
+import dk.via.Connect.Database.DTO.VendorDAOImpl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,13 +9,13 @@ import java.net.Socket;
 public class Server {
     int PORT = 4012;
     boolean running;
-    VendorDAO dao;
+    VendorDAOImpl dao;
     // This is the listener for socket connections from
     // the C# web layer
     // This spurns a new thread when a new client connection comes in
     public Server(){
         try {
-            dao = new VendorDAO();
+            dao = new VendorDAOImpl();
             ServerSocket serverSocket = new ServerSocket(PORT);
 
             running = true;
