@@ -63,6 +63,7 @@ namespace dk.via.businesslayer
             vendor.City = "City";
             vendor.Country = "Country";
             vendor.stateProvince = "State";
+            
             string output = JsonConvert.SerializeObject(vendor);
             SocketClient client = new SocketClient("localhost", 4012);
             try
@@ -72,7 +73,7 @@ namespace dk.via.businesslayer
               
                     await client.Send(output);
                     recData = await client.ReceiveBytes();
-                   
+                    Console.WriteLine(recData);
                 }
                 Console.WriteLine("Received data: " + Encoding.UTF8.GetString(recData));
             }

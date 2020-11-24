@@ -1,4 +1,4 @@
-package dk.via.Connect.Database.Model;
+package dk.via.Connect.Database.DTO;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +22,7 @@ public class Vendor {
     public Vendor() {
     }
 
-    public Vendor( String vendorName, String vendorLicence, String city, String country, String stateProvince) {
+    public Vendor(String vendorName, String vendorLicence, String city, String country, String stateProvince) {
 
         VendorName = vendorName;
         VendorLicence = vendorLicence;

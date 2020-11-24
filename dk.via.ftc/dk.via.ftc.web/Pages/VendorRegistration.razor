@@ -31,23 +31,23 @@
     </div>
     <div class="form-group">
         Vendor Name:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.VendorName" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.VendorName" />
     </div>
     <div class="form-group">
         Vendor License:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.vendorLicense" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.vendorLicense" />
     </div>
     <div class="form-group">
         Vendor Country:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.Country" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Country" />
     </div>
     <div class="form-group">
         Vendor State/Province:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.stateProvince" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.stateProvince" />
     </div>
     <div class="form-group">
         Vendor City:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.City" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.City" />
     </div>
     <p class="actions">
         <button class="btn btn-outline-dark" type="submit">Create</button>
@@ -60,7 +60,8 @@
 
     private async Task AddNewVendorAdmin()
     {
-        await AdminService.AddVendorAsync(newVendor);
+        //await AdminService.AddVendorAsync(newVendor);
+        await AdminService.AddVendorAdminAsync(newVendorAdmin);
         NavigationManager.NavigateTo("/", true);
     }
 }

@@ -10,6 +10,7 @@ using dk.via.businesslayer.Data.Services;
 using dk.via.ftc.businesslayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Vendor = dk.via.ftc.businesslayer.Models.Vendor;
+using VendorAdmin = dk.via.ftc.businesslayer.Models.VendorAdmin;
 
 namespace dk.via.ftc.businesslayer.Controllers
 {
@@ -42,11 +43,16 @@ namespace dk.via.ftc.businesslayer.Controllers
         {
         }
 
-        [HttpPut]
+       /* [HttpPut]
         public async Task PutVendor(Vendor vendor)
         {
             await service.AddVendorDbAsync(vendor);
-        }
+            
+        }*/
+        
+    
+        
+      
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)

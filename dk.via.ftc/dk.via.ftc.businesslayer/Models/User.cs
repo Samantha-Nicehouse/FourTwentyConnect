@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dk.via.ftc.businesslayer.Models
 {
-    public class User
+    public interface User
     {
         public string UserName { get; set; }
 

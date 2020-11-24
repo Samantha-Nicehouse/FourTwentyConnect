@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+
 namespace dk.via.ftc.web.Data
 {
     public class CloudAdminService : IAdminService
@@ -31,7 +32,7 @@ namespace dk.via.ftc.web.Data
             HttpContent content = new StringContent(vendorAsJson,
                 Encoding.UTF8,
                 "application/json");
-            await client.PutAsync(uri + "/VendorAdmins", content);
+            await client.PutAsync(uri + "/VendorAdmin", content);
         }
     }
 }

@@ -1,6 +1,6 @@
 package dk.via.Connect.Database.DTO;
 
-public class VendorDTO extends DTO {
+public class VendorRegistrationDTO extends DTO {
 
     private String vendorId;
     private String VendorName;
@@ -15,7 +15,7 @@ public class VendorDTO extends DTO {
     private String Password;
     private VendorAdmin vendorAdmin;
 
-    public VendorDTO(String vendorName, String vendorLicense, String city, String country, String stateProvince, String username, String password, String firstName, String lastName, String email) {
+    public VendorRegistrationDTO(String vendorName, String vendorLicense, String city, String country, String stateProvince, String username, String password, String firstName, String lastName, String email) {
         this.VendorName = vendorName;
         this.vendorLicense = vendorLicense;
         this.City = city;

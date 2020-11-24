@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace dk.via.ftc.web.Models
 {
-    public class UserView
+    public interface UserView
     {
         [Key]
         [JsonPropertyName("userName")]
         public string UserName { get; set; }
 
-        [JsonPropertyName("password")] public string Password { get; set; }
+        [JsonPropertyName("password")] 
+        [StringLength(15, MinimumLength = 8, ErrorMessage = "Password has to be between 8 and 15 characters.")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
 
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         [JsonPropertyName("email")]
         public string Email { get; set; }
 

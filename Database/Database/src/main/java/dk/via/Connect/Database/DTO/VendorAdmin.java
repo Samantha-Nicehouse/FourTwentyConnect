@@ -1,4 +1,4 @@
-package dk.via.Connect.Database.Model;
+package dk.via.Connect.Database.DTO;
 
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "vendorAdmin")
+@Table(name = "vendor_admin")
 public class VendorAdmin {
 
 
@@ -76,5 +76,33 @@ public class VendorAdmin {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.firstName);
+        hash = 79 * hash + Objects.hashCode(this.lastName);
+        hash = 79 * hash + Objects.hashCode(this.username);
+        hash = 79 * hash + Objects.hashCode(this.password);
+        return hash;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof VendorAdmin)) return false;
+       VendorAdmin that = (VendorAdmin) obj;
+        return this.vendorId.equals(that.vendorId);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("VendorAdmin{");
+        sb.append(", username=").append(getUsername());
+        sb.append(", password=").append(getPassword());
+        sb.append(", firstname=").append(getFirstName());
+        sb.append(", lastname=").append(getLastName());
+        sb.append(", email=").append(getEmail());
+        sb.append('}');
+        return sb.toString();
     }
 }

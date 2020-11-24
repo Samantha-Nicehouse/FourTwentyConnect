@@ -81,6 +81,11 @@ namespace dk.via.ftc.web.Data
 
             {
                 VendorId = 1,
+                VendorName = "React",
+                    vendorLicense = "LA28123",
+                    City = "Berlin",
+                    Country = "Germany",
+                    stateProvince = "test",
                 Password = "lanext",
                 Email = "a@react.com",
                 LastName = "The Builder"
@@ -88,6 +93,11 @@ namespace dk.via.ftc.web.Data
             new VendorAdminView
                 {
                 VendorId = 2,
+                VendorName = "PharmaSupply",
+                    vendorLicense = "LA23899",
+                    City = "Berlin",
+                    Country = "Germany",
+                    stateProvince = "test",
                 Password = "pha123",
                 Email = "a@pharmasupply.com",
                 LastName = "Supply"
