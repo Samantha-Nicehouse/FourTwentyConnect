@@ -1,21 +1,23 @@
 ﻿@page "/VendorRegistration";
 @using dk.via.ftc.web.Models;
 @using dk.via.ftc.web.Data;
+@using dk.via.ftc.businesslayer.Models
+@using System.Diagnostics
 @inject IAdminService AdminService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 <h3>VendorRegistration</h3>
-<EditForm Model="@newVendorAdmin" OnValidSubmit="@AddNewVendorAdmin">
+<EditForm Model="@newVendor" OnValidSubmit="@AddNewVendorAdmin">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="form-group">
         UserName:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.UserName" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username" />
     </div>
     <div class="form-group">
         Password:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Password" />
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Pass" />
     </div>
     <div class="form-group">
         Email:<br />
@@ -31,23 +33,23 @@
     </div>
     <div class="form-group">
         Vendor Name:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.VendorName" />
+        <InputTextArea rows="1" @bind-Value="newVendor.VendorName" />
     </div>
     <div class="form-group">
         Vendor License:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.vendorLicense" />
+        <InputTextArea rows="1" @bind-Value="newVendor.vendorLicense" />
     </div>
     <div class="form-group">
         Vendor Country:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Country" />
+        <InputTextArea rows="1" @bind-Value="newVendor.Country" />
     </div>
     <div class="form-group">
         Vendor State/Province:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.stateProvince" />
+        <InputTextArea rows="1" @bind-Value="newVendor.stateProvince" />
     </div>
     <div class="form-group">
         Vendor City:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.City" />
+        <InputTextArea rows="1" @bind-Value="newVendor.City" />
     </div>
     <p class="actions">
         <button class="btn btn-outline-dark" type="submit">Create</button>
@@ -55,13 +57,23 @@
 </EditForm>
 
 @code {
-    private readonly VendorAdminView newVendorAdmin = new VendorAdminView();
-    private readonly VendorView newVendor = new VendorView();
+    private readonly VendorAdmin newVendorAdmin = new VendorAdmin();
+    private readonly Vendor newVendor = new Vendor();
 
     private async Task AddNewVendorAdmin()
     {
-        //await AdminService.AddVendorAsync(newVendor);
-        await AdminService.AddVendorAdminAsync(newVendorAdmin);
-        NavigationManager.NavigateTo("/", true);
+        VendorVendorAdmin vvA = new VendorVendorAdmin();
+        vvA.vendor = newVendor;
+        vvA.vendorAdmin = newVendorAdmin;
+        var status = await AdminService.AddVendorVendorAdminAsync(vvA);
+        Debug.WriteLine("status="+status.ToString());
+        if (status.Equals("202"))
+        {
+            NavigationManager.NavigateTo("/", true); 
+        }
+        else
+        {
+            Debug.WriteLine(status);
+        }
     }
 }

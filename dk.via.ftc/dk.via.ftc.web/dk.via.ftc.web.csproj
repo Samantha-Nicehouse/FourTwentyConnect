@@ -4,4 +4,12 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\dk.via.ftc.businesslayer\dk.via.ftc.businesslayer.csproj" />
+    </ItemGroup>
+
 </Project>

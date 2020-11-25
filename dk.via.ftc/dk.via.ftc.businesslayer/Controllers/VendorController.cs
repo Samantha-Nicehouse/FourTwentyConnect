@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using dk.via.ftc.web.Models;
 using System.Diagnostics;
 using dk.via.businesslayer.Data.Services;
 using dk.via.ftc.businesslayer.Models;
@@ -18,11 +17,11 @@ namespace dk.via.ftc.businesslayer.Controllers
     [ApiController]
     public class VendorController : ControllerBase
     {
-        private VendorService service;
+        private VendorService_v2 service;
 
-        public VendorController(IVendorService vendorService)
+        public VendorController(IVendorService_v2 vendorService)
         {
-            this.service = new VendorService();
+            this.service = new VendorService_v2();
         }
         // GET: api/<ValuesController>
         [HttpGet]
@@ -42,13 +41,12 @@ namespace dk.via.ftc.businesslayer.Controllers
         public void Post([FromBody] string value)
         {
         }
-
-       /* [HttpPut]
-        public async Task PutVendor(Vendor vendor)
+       [HttpPut]
+        public async Task<ActionResult> RegisterVendorVendorAdmin(VendorVendorAdmin vvA)
         {
-            await service.AddVendorDbAsync(vendor);
+            return new OkObjectResult(new{message = await service.AddVendorVendorAdminAsync(vvA)});
             
-        }*/
+        }
         
     
         

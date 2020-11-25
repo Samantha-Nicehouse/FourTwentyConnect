@@ -1,23 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace dk.via.ftc.businesslayer.Models
 {
-    public class VendorAdmin : Vendor, User
+    [Table("vendor_admin",Schema = "SEP3")]
+    public class VendorAdmin
     {
-        public int VendorId { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        [JsonPropertyName("username"),Key]
+        public string Username { get; set; }
+        [JsonPropertyName("vendor_id")]
+        public string VendorId { get; set; }
+        [ForeignKey(nameof(VendorId))]
+        
+        [JsonPropertyName("pass")]
+        public string Pass { get; set; }
+        [JsonPropertyName("email")]
         public string Email { get; set; }
+        [JsonPropertyName("first_name")]
         public string FirstName { get; set; }
+        [JsonPropertyName("last_name")]
         public string LastName { get; set; }
+        [JsonPropertyName("phone")]
+        public string Phone { get; set; }
 
-        public void Update(VendorAdmin vendorToUpdate)
-        {
-            base.Update(vendorToUpdate);
-        }
+        public virtual Vendor Vendor { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace dk.via.businesslayer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IVendorService, VendorService>();
+            services.AddScoped<IVendorService_v2, VendorService_v2>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

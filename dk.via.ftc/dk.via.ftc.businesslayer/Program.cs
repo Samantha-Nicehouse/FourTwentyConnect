@@ -24,16 +24,16 @@ namespace dk.via.businesslayer
             MainAsync(args).GetAwaiter().GetResult();
             CreateHostBuilder(args).Build().Run();
         }
+
         static async Task MainAsync(string[] args)
         {
             //await SocketClientJson();
         }
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+
         public static void SocketClient()
         {
             TcpClient tcpClient = new TcpClient("127.0.0.1", 4012);
@@ -44,7 +44,7 @@ namespace dk.via.businesslayer
             // send to server
             string message = "Hello from client";
             byte[] dataToServer = Encoding.ASCII.GetBytes(message);
-            
+
             stream.Write(dataToServer, 0, dataToServer.Length);
 
             // read response
@@ -53,7 +53,7 @@ namespace dk.via.businesslayer
             string response = Encoding.ASCII.GetString(fromServer, 0, bytesRead);
             tcpClient.Close();
         }
-        
+
         public static async Task SocketClientJson()
         {
             byte[] recData = null;
@@ -63,59 +63,28 @@ namespace dk.via.businesslayer
             vendor.City = "City";
             vendor.Country = "Country";
             vendor.stateProvince = "State";
-            
+
             string output = JsonConvert.SerializeObject(vendor);
             SocketClient client = new SocketClient("localhost", 4012);
             try
             {
                 if (await client.Connect())
                 {
-              
+
                     await client.Send(output);
                     recData = await client.ReceiveBytes();
                     Console.WriteLine(recData);
                 }
+
                 Console.WriteLine("Received data: " + Encoding.UTF8.GetString(recData));
             }
             catch (Exception e)
             {
                 Console.WriteLine("Exception raised: " + e);
             }
+
             //...
             client.Disconnect();
         }
-        public static async Task SocketClient1()
-        {
-            
-            SocketClient client = new SocketClient("localhost", 4012);
-            
-            byte[] recData = null;
-            Vendor vendor = new Vendor();
-            vendor.VendorName = "Name";
-            vendor.vendorLicense = "12345678";
-            vendor.City = "City";
-            vendor.Country = "Country";
-            vendor.stateProvince = "State";
-            byte[] sendData = vendor.ToBytes();
-            try
-            {
-                if (await client.Connect())
-                {
-                    Debug.WriteLine("Sending"+sendData);
-                    await client.Send(sendData);
-
-                    recData = await client.ReceiveBytes();
-                    Debug.WriteLine("Recieving"+recData);
-                }
-                Console.WriteLine("Received data: " + Encoding.UTF8.GetString(recData));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception raised: " + e);
-            }
-            //...
-            client.Disconnect();
-        }
-
     }
 }

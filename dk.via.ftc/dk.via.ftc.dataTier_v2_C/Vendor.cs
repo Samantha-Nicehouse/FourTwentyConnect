@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 #nullable disable
 
-namespace dk.via.ftc.businesslayer.Models
+namespace dk.via.ftc.dataTier_v2_C
 {
     [Table("vendor",Schema = "SEP3")]
     public class Vendor

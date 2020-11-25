@@ -1,18 +1,17 @@
-﻿using dk.via.ftc.web.Models;
+﻿using dk.via.ftc.businesslayer.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dk.via.ftc.web.Data
 {
     public class AdminService : IAdminService
     {
-        private string vendorAdminFile = "vendorAdmins.json";
         private string vendorsFile = "vendors.json";
-        private IList<VendorView> vendors;
-        private IList<VendorAdminView> vendorAdmins;
+        private IList<Vendor> vendors;
 
         public AdminService()
         {
@@ -24,45 +23,39 @@ namespace dk.via.ftc.web.Data
             else
             {
                 var content = File.ReadAllText(vendorsFile);
-                vendors = JsonSerializer.Deserialize<List<VendorView>>(content);
+                vendors = JsonSerializer.Deserialize<List<Vendor>>(content);
             }
-            if (!File.Exists(vendorAdminFile))
-            {
-                SeedVendorAdmin();
-                WriteVendorAdminToFile();
-            }
-            else
-            {
-                var content = File.ReadAllText(vendorAdminFile);
-                vendorAdmins = JsonSerializer.Deserialize<List<VendorAdminView>>(content);
-            }
+            
         }
-        public async Task AddVendorAdminAsync(VendorAdminView vendorAdmin)
-        {
-            vendorAdmins.Add(vendorAdmin);
-            WriteVendorAdminToFile();
-        }
-        public async Task AddVendorAsync(VendorView vendor)
+        public async Task AddVendorAsync(Vendor vendor)
         {
             vendors.Add(vendor);
-            WriteVendorAdminToFile();
         }
+
+        public Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<ActionResult<string>> AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void SeedVendor()
         {
-            VendorView[] ps =
+            Vendor[] ps =
             {
-                new VendorView
+                new Vendor
                 {
-                    VendorId = 1,
                     VendorName = "React",
                     vendorLicense = "LA28123",
                     City = "Berlin",
                     Country = "Germany",
                     stateProvince = "test"
                 },
-                new VendorView
+                new Vendor
                 {
-                    VendorId = 2,
                     VendorName = "PharmaSupply",
                     vendorLicense = "LA23899",
                     City = "Berlin",
@@ -73,49 +66,10 @@ namespace dk.via.ftc.web.Data
             vendors = ps.ToList();
         }
 
-    private void SeedVendorAdmin()
-    {
-    VendorAdminView[] va =
-    {
-            new VendorAdminView
-
-            {
-                VendorId = 1,
-                VendorName = "React",
-                    vendorLicense = "LA28123",
-                    City = "Berlin",
-                    Country = "Germany",
-                    stateProvince = "test",
-                Password = "lanext",
-                Email = "a@react.com",
-                LastName = "The Builder"
-            },
-            new VendorAdminView
-                {
-                VendorId = 2,
-                VendorName = "PharmaSupply",
-                    vendorLicense = "LA23899",
-                    City = "Berlin",
-                    Country = "Germany",
-                    stateProvince = "test",
-                Password = "pha123",
-                Email = "a@pharmasupply.com",
-                LastName = "Supply"
-            }
-            };
-            vendorAdmins = va.ToList();
-        }
-
-
         private void WriteVendorToFile()
         {
             var productsAsJson = JsonSerializer.Serialize(vendors);
             File.WriteAllText(vendorsFile, productsAsJson);
-        }
-        private void WriteVendorAdminToFile()
-        {
-            var productsAsJson = JsonSerializer.Serialize(vendorAdmins);
-            File.WriteAllText(vendorAdminFile, productsAsJson);
         }
     }
 }

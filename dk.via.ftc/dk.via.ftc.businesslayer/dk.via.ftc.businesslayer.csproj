@@ -11,8 +11,4 @@
     <PackageReference Include="SockNet" Version="1.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\dk.via.ftc.web\dk.via.ftc.web.csproj" />
-  </ItemGroup>
-
 </Project>

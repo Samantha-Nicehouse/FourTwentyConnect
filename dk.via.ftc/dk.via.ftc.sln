@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dk.via.ftc.businesslayer", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketTest", "SocketTest\SocketTest.csproj", "{D433CC88-2698-448E-B0BE-7BC202F8DCE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dk.via.ftc.dataTier_v2_C", "dk.via.ftc.dataTier_v2_C\dk.via.ftc.dataTier_v2_C.csproj", "{882BDFD5-5F14-456B-9FAC-FF33404C1A4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D433CC88-2698-448E-B0BE-7BC202F8DCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D433CC88-2698-448E-B0BE-7BC202F8DCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D433CC88-2698-448E-B0BE-7BC202F8DCE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{882BDFD5-5F14-456B-9FAC-FF33404C1A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{882BDFD5-5F14-456B-9FAC-FF33404C1A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{882BDFD5-5F14-456B-9FAC-FF33404C1A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{882BDFD5-5F14-456B-9FAC-FF33404C1A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

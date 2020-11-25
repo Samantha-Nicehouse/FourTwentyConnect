@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using dk.via.ftc.web.Models;
 using Newtonsoft.Json;
 using SockNet.ClientSocket;
 
@@ -13,7 +12,7 @@ namespace dk.via.businesslayer.Data.Services
     {
         private SocketClient client = new SocketClient("localhost", 4012);
         
-        public async Task AddVendorAdminDbAsync(VendorAdmin vendorAdmin)
+        /*public async Task AddVendorAdminDbAsync(VendorAdmin vendorAdmin)
         {
             byte[] recData = null;
             string output = JsonConvert.SerializeObject(vendorAdmin);
@@ -36,7 +35,7 @@ namespace dk.via.businesslayer.Data.Services
              }
              //...
              
-                    }
+                    }*/
                     
                 }
            

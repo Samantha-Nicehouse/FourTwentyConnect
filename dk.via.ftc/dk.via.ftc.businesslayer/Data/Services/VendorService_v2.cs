@@ -1,22 +1,17 @@
-﻿using dk.via.ftc.web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using dk.via.ftc.businesslayer.Models;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace dk.via.ftc.web.Data
+namespace dk.via.businesslayer.Data.Services
 {
-    public class CloudAdminService : IAdminService
+    public class VendorService_v2 : IVendorService_v2
     {
-        private string uri = "https://localhost:44373/api";
+        private string uri = "https://localhost:44301/db";
         private readonly HttpClient client;
-        public CloudAdminService()
+        public VendorService_v2()
         {
             client = new HttpClient();
         }
@@ -36,13 +31,15 @@ namespace dk.via.ftc.web.Data
                 "application/json");
             await client.PutAsync(uri + "/VendorAdmin", content);
         }
-        public async Task<ActionResult<string>> AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
+        
+        public async Task<ActionResult> AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
         {
             string vendorAsJson = JsonSerializer.Serialize(vvA);
             HttpContent content = new StringContent(vendorAsJson,
                 Encoding.UTF8,
                 "application/json");
-            return await client.PutAsync(uri + "/Vendor", content);
+            return new OkObjectResult(new{message = await client.PutAsync(uri + "/Vendor", content)});
         }
+        
     }
 }
