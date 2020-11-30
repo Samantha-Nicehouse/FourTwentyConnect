@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dk.via.businesslayer.Data.Services;
+using dk.via.ftc.businesslayer.Persistence;
+using dk.via.ftc.businesslayer.Data.Services;
 
 namespace dk.via.businesslayer
 {
@@ -21,6 +23,8 @@ namespace dk.via.businesslayer
         {
             services.AddControllers();
             services.AddScoped<IVendorService_v2, VendorService_v2>();
+            services.AddScoped<IStrainAPIService, StrainAPIService>();
+            services.AddDbContext<StrainContext>(options => options.UseInMemoryDatabase(databaseName: "Strains"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

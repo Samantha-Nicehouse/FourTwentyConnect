@@ -71,5 +71,10 @@ namespace dk.via.ftc.web.Data
             var productsAsJson = JsonSerializer.Serialize(vendors);
             File.WriteAllText(vendorsFile, productsAsJson);
         }
+
+        Task<ActionResult> IAdminService.AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

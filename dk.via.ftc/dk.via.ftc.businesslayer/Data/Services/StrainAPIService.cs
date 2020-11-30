@@ -1,5 +1,7 @@
 ﻿using dk.via.ftc.businesslayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +15,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
 {
     public class StrainAPIService : IStrainAPIService
     {
-        private string uri = "https://localhost:44301/db";
+        private string uri = "https://strainapi.evanbusse.com/03N4JvC/strains/search/";
         private string uriDb = "https://localhost:44301/db";
         private readonly HttpClient client;
 
@@ -23,9 +25,12 @@ namespace dk.via.ftc.businesslayer.Data.Services
         }
         public async Task<IList<Strain>> GetAllStrainsAsync()
         {
-            Task<string> stringAsync = client.GetStringAsync(uri + "/Adults");
+          
+            Task<string> stringAsync = client.GetStringAsync(uri + "all");
             string message = await stringAsync;
-            List<Strain> result = JsonSerializer.Deserialize<List<Strain>>(message);
+            List<Strain> result = System.Text.Json.JsonSerializer.Deserialize<List<Strain>>(message);
+            Debug.WriteLine(result);
+            Debug.WriteLine(message);
             return result;
         }
 
@@ -33,11 +38,11 @@ namespace dk.via.ftc.businesslayer.Data.Services
             IList<Strain> strains = await GetAllStrainsAsync();
             foreach(Strain strain in strains)
             {
-                string strainAsJson = JsonSerializer.Serialize(strain);
+                string strainAsJson = System.Text.Json.JsonSerializer.Serialize(strain);
                 HttpContent content = new StringContent(strainAsJson,
                 Encoding.UTF8,
                 "application/json");
-                await client.PutAsync(uri + "/Strain", content);
+                //await client.PutAsync(uriDb + "/Strain", content);
                 Debug.WriteLine("Strain:" + strain.StrainName+"Updated");
             }
         }

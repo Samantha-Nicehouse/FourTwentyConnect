@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
-namespace dk.via.ftc.dataTier_v2_C
+namespace dk.via.ftc.businesslayer.Models
 {
     public partial class Strain
     {
         public Strain()
         {
             Products = new HashSet<Product>();
-            StrainIndications = new HashSet<StrainIndication>();
         }
-
+        [JsonPropertyName("")]
         public string StrainName { get; set; }
-        public string Race { get; set; }
+        [JsonPropertyName("id")]
         public int StrainId { get; set; }
+        [JsonPropertyName("race")]
+        public string Race { get; set; }
+        [JsonPropertyName("flavors")]
+        public List<string> Flavors { get; set; }
+        [JsonPropertyName("effects")]
+        public Effects Effects { get; set; }
+        
+        
 
         public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<StrainIndication> StrainIndications { get; set; }
     }
 }

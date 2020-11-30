@@ -13,7 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using dk.via.ftc.businesslayer.Models;
 using Newtonsoft.Json;
-
+using dk.via.ftc.businesslayer.Persistence;
+using Microsoft.Extensions.DependencyInjection;
+using dk.via.ftc.businesslayer.Data;
 
 namespace dk.via.businesslayer
 {
@@ -22,7 +24,18 @@ namespace dk.via.businesslayer
         public static void Main(string[] args)
         {
             MainAsync(args).GetAwaiter().GetResult();
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<StrainContext>();
+
+                DataGenerator.Initialize(services);
+            }
+
+            //Continue to run the application
+            host.Run();
         }
 
         static async Task MainAsync(string[] args)
