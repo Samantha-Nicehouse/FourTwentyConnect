@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 #nullable disable
 
-namespace dk.via.ftc.dataTier_v2_C
+namespace dk.via.ftc.dataTier_v2_C.Models
 {
     [Table("vendor",Schema = "SEP3")]
     public class Vendor
@@ -24,5 +24,10 @@ namespace dk.via.ftc.dataTier_v2_C
         public string stateProvince { get; set; }
         [JsonPropertyName("country")]
         public string Country { get; set; }
+        
+        public IList<VendorAdmin> VendorAdmins
+        {
+            get; set;
+        }
     }
 }
