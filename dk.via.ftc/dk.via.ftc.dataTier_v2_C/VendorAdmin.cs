@@ -28,6 +28,6 @@ namespace dk.via.ftc.dataTier_v2_C.Models
         [JsonPropertyName("phone")]
         public string Phone { get; set; }
 
-        public virtual Vendor Vendor { get; set; }
+      
     }
 }
