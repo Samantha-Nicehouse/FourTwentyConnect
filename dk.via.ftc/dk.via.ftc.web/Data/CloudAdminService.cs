@@ -42,7 +42,13 @@ namespace dk.via.ftc.web.Data
             HttpContent content = new StringContent(vendorAsJson,
                 Encoding.UTF8,
                 "application/json");
-            return await client.PutAsync(uri + "/Vendor", content);
+            await client.PutAsync(uri + "/Vendor", content);
+            return null;
+        }
+
+        Task<ActionResult> IAdminService.AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
+        {
+            throw new NotImplementedException();
         }
     }
 }

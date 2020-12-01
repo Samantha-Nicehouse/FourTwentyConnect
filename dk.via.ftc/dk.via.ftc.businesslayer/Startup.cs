@@ -10,6 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dk.via.businesslayer.Data.Services;
+using dk.via.ftc.businesslayer.Persistence;
+using dk.via.ftc.businesslayer.Data.Services;
+using Microsoft.Extensions.Caching.Memory;
+using dk.via.ftc.businesslayer.Data;
 
 namespace dk.via.businesslayer
 {
@@ -20,11 +24,14 @@ namespace dk.via.businesslayer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMemoryCache();
             services.AddScoped<IVendorService_v2, VendorService_v2>();
+            services.AddSingleton<IStrainAPIService, StrainAPIService>();
+            services.AddSingleton<StrainContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IStrainAPIService sa, StrainContext sc)
         {
             if (env.IsDevelopment())
             {
@@ -39,11 +46,13 @@ namespace dk.via.businesslayer
             };
             app.UseWebSockets(wsOptions);
             app.UseRouting();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }
