@@ -29,5 +29,7 @@ namespace dk.via.ftc.dataTier_v2_C.Models
         {
             get; set;
         }
+
+        public IEnumerable<Catalog> Catalogs { get; set; }
     }
 }

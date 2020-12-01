@@ -11,6 +11,8 @@ namespace dk.via.ftc.dataTier_v2_C.Models
     [Table("vendor_admin",Schema = "SEP3")]
     public class VendorAdmin
     {
+        
+
         [JsonPropertyName("username"),Key]
         public string Username { get; set; }
         [JsonPropertyName("vendor_id")]
@@ -28,6 +30,6 @@ namespace dk.via.ftc.dataTier_v2_C.Models
         [JsonPropertyName("phone")]
         public string Phone { get; set; }
 
-      
+        public Vendor Vendor { get; }
     }
 }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-#nullable disable
-
-namespace dk.via.ftc.dataTier_v2_C
+namespace dk.via.ftc.businesslayer.Models
 {
-    public partial class PurchaseOrder
+    public class PurchaseOrder
     {
         public PurchaseOrder()
         {
@@ -26,3 +23,5 @@ namespace dk.via.ftc.dataTier_v2_C
         public virtual ICollection<Orderline> Orderlines { get; set; }
     }
 }
+
+  

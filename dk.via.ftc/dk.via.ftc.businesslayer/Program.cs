@@ -11,14 +11,23 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using CLR.Entity;
+using dk.via.businesslayer;
 using dk.via.ftc.businesslayer.Models;
+using FlitBit.Json;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using JsonNode = JsonIndex.JsonNode;
 
 
 namespace dk.via.businesslayer
 {
-    public class Program
-    {
+   public class Program
+   {
+   
+             
+       
         public static void Main(string[] args)
         {
             MainAsync(args).GetAwaiter().GetResult();
@@ -28,6 +37,8 @@ namespace dk.via.businesslayer
         static async Task MainAsync(string[] args)
         {
             //await SocketClientJson();
+            
+            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -87,4 +98,6 @@ namespace dk.via.businesslayer
             client.Disconnect();
         }
     }
+
+   
 }

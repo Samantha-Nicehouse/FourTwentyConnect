@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using dk.via.ftc.dataTier_v2_C.Models;
+
 
 #nullable disable
 
-namespace dk.via.ftc.dataTier_v2_C
+namespace dk.via.ftc.businesslayer.Models
+
 {
-    [Table("catalog",Schema = "SEP3")]
-    public partial class Catalog
-    
+  
+    public class Catalog
+        
+
+        
     {
+        public Catalog()
+        {
+           
+        }
         [JsonPropertyName("catalog_id"), Key]
         public int CatalogId { get; set; }
         [JsonPropertyName("reserved_inventory")]
