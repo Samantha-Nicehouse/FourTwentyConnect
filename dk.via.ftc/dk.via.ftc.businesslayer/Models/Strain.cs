@@ -12,7 +12,7 @@ namespace dk.via.ftc.businesslayer.Models
         {
             Products = new HashSet<Product>();
         }
-        //[JsonPropertyName(Strain)]
+        [JsonPropertyName("strainname")]
         public string StrainName { get; set; }
         [JsonPropertyName("id")]
         public int StrainId { get; set; }

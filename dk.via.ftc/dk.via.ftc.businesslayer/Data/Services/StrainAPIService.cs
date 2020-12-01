@@ -24,26 +24,18 @@ namespace dk.via.ftc.businesslayer.Data.Services
         }
         public async Task<List<StrainAPIObj>> GetAllStrainsAsync()
         {
-            /*Task<string> stringAsync = client.GetStringAsync(uri + "all");
-            string message = await stringAsync;
-            
-            return result;*/
-            return null;
-        }
-
-        public async Task UpdateStrainsDatabaseAsync() {
             List<Task> listOfTasks = new List<Task>();
             Task<string> stringAsync = client.GetStringAsync(uri + "all");
             string message;
             message = await stringAsync;
             List<StrainAPIObj> strains = new List<StrainAPIObj>();
 
-            string messageTrim = message.Substring(1, message.Length-1);
+            string messageTrim = message.Substring(1, message.Length - 1); // Remove {} wrap
             for (int i = messageTrim.Length; i > 10;)
-            
+
             {
-                    string strainName = messageTrim.Substring(0, messageTrim.IndexOf(":{"));
-                string strainNameCut = messageTrim.Replace(strainName + ":", "");
+                string strainName = messageTrim.Substring(0, messageTrim.IndexOf(":{")); // Gets the name of strain
+                string strainNameCut = messageTrim.Replace(strainName + ":", ""); // removes name of strain
                 string strainCut;
                 if (strainNameCut.IndexOf("},") > 0)
                 {
@@ -72,16 +64,11 @@ namespace dk.via.ftc.businesslayer.Data.Services
 
             }
             await Task.WhenAll(listOfTasks);
-            Console.WriteLine("Strain Count" + strains.Count);
-            /*foreach(Strain strain in strains)
-            {
-                string strainAsJson = System.Text.Json.JsonSerializer.Serialize(strain);
-                HttpContent content = new StringContent(strainAsJson,
-                Encoding.UTF8,
-                "application/json");
-                //await client.PutAsync(uriDb + "/Strain", content);
-                Debug.WriteLine("Strain:" + strain.StrainName+"Updated");
-            }*/
+            return strains;
+        }
+
+        public async Task UpdateStrainsDatabaseAsync() {
+            
         }
         public static Task ExecuteTask(string Item)
         {

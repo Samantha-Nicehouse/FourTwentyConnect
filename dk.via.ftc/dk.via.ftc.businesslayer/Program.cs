@@ -16,28 +16,38 @@ using Newtonsoft.Json;
 using dk.via.ftc.businesslayer.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using dk.via.ftc.businesslayer.Data;
+using dk.via.ftc.businesslayer.Data.Services;
+using Microsoft.AspNetCore;
 
 namespace dk.via.businesslayer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            MainAsync(args).GetAwaiter().GetResult();
-            var host = CreateHostBuilder(args).Build();
+            var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<StrainContext>();
-
-                DataGenerator.Initialize(services);
+                try
+                {
+                    var context = services.GetRequiredService<StrainContext>();
+                    await DataGenerator.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
             }
 
-            //Continue to run the application
             host.Run();
         }
-
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+        }
         static async Task MainAsync(string[] args)
         {
             //await SocketClientJson();
