@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace dk.via.businesslayer.Data.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private string uri = "https://localhost:44301/db";
         private readonly HttpClient client;

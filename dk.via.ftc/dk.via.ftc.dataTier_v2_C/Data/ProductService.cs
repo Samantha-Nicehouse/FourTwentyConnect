@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using dk.via.ftc.dataTier_v2_C.Persistence;
 
 namespace dk.via.ftc.dataTier_v2_C.Data
@@ -15,6 +16,7 @@ namespace dk.via.ftc.dataTier_v2_C.Data
                     {
                         return product;
                     }
+                    Console.WriteLine(product.ProductName);
                 }
 
                 return null;
