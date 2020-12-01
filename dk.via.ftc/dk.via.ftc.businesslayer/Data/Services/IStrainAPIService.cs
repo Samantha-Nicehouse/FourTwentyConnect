@@ -1,4 +1,5 @@
 ﻿using dk.via.ftc.businesslayer.Models;
+using dk.via.ftc.businesslayer.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
 {
     public interface IStrainAPIService
     {
-        public Task<IList<Strain>> GetAllStrainsAsync();
+        public Task<List<StrainAPIObj>> GetAllStrainsAsync();
 
         public Task UpdateStrainsDatabaseAsync();
     }

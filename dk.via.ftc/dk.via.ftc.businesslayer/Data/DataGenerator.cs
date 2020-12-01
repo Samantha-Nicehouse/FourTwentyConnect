@@ -24,13 +24,14 @@ namespace dk.via.ftc.businesslayer.Data
                     return;   // Data was already seeded
                 }*/
                 StrainAPIService sa = new StrainAPIService();
-                IList<Strain> strains = await sa.GetAllStrainsAsync();
+                /*List<Strain> strains = await sa.GetAllStrainsAsync();
                 foreach (Strain strain in strains)
                 {
                     string strainAsJson = System.Text.Json.JsonSerializer.Serialize(strain);
                     Debug.WriteLine("Strain:" + strain.StrainName + "Updated");
-                }
-                context.SaveChanges();
+                }*/
+               await sa.UpdateStrainsDatabaseAsync();
+                //context.SaveChanges();
             }
         }
     }
