@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using dk.via.ftc.dataTier_v2_C.Models;
 
-#nullable disable
-
-namespace dk.via.ftc.dataTier_v2_C
+namespace dk.via.ftc.businesslayer.Models
 {
-    [Table("orderline",Schema = "SEP3")]
     public partial class Orderline
     {
         [JsonPropertyName("orderline_id"), Key]
@@ -31,3 +24,4 @@ namespace dk.via.ftc.dataTier_v2_C
         public virtual Vendor Vendor { get; set; }
     }
 }
+

@@ -22,6 +22,7 @@ namespace dk.via.ftc.dataTier_v2_C
             services.AddControllers();
             services.AddDbContext<FTCDBContext>();
             services.AddScoped<IVendorService, VendorService>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

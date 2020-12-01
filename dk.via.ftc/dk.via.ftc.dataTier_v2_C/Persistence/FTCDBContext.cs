@@ -7,6 +7,8 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
     {
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<VendorAdmin> VendorAdmins{get;set;}
+        
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql("Host=b8zxgsmnlkoj6ypd21ro-postgresql.services.clever-cloud.com;Database=b8zxgsmnlkoj6ypd21ro;Username=u1qvxb47lih4lpp0hmzp;Password=L9CBWOWE3tlB0kpuncgG;");
@@ -89,6 +91,48 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .HasForeignKey(d => d.VendorId)
                     .HasConstraintName("fk_vendor_id");
             });
+            
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("product", "SEP3");
+
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.GrowType)
+                    .HasMaxLength(1)
+                    .HasColumnName("grow_type")
+                    .HasDefaultValueSql("'flower'::bpchar");
+
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(30)
+                    .HasColumnName("product_name");
+
+                entity.Property(e => e.StrainId).HasColumnName("strain_id");
+
+                entity.Property(e => e.ThcContent).HasColumnName("thc_content");
+
+                entity.Property(e => e.Unit)
+                    .HasMaxLength(1)
+                    .HasColumnName("unit")
+                    .HasDefaultValueSql("'gm'::bpchar");
+
+                entity.Property(e => e.VendorId)
+                    .IsRequired()
+                    .HasColumnName("vendor_id");
+
+                entity.HasOne(d => d.Strain)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.StrainId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("product_strain_id_fkey");
+
+                /*entity.HasOne(d => d.Vendor)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.VendorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("product_vendor_id_fkey");*/
+            });
+
         }
     }
 }
