@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
 namespace dk.via.ftc.dataTier_v2_C
-
 {
-    [Table("dispensary_admin",Schema = "SEP3")]
     public partial class DispensaryAdmin
     {
         public string Username { get; set; }

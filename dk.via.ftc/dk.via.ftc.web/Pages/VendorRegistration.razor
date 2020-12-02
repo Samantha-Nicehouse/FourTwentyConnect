@@ -65,15 +65,6 @@
         VendorVendorAdmin vvA = new VendorVendorAdmin();
         vvA.vendor = newVendor;
         vvA.vendorAdmin = newVendorAdmin;
-        var status = await AdminService.AddVendorVendorAdminAsync(vvA);
-        Debug.WriteLine("status="+status.ToString());
-        if (status.Equals("202"))
-        {
-            NavigationManager.NavigateTo("/", true); 
-        }
-        else
-        {
-            Debug.WriteLine(status);
-        }
+        await AdminService.AddVendorVendorAdminAsync(vvA);
     }
 }

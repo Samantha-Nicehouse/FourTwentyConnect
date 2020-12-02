@@ -72,7 +72,7 @@ namespace dk.via.ftc.web.Data
             File.WriteAllText(vendorsFile, productsAsJson);
         }
 
-        Task<ActionResult> IAdminService.AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
+        Task IAdminService.AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
         {
             throw new System.NotImplementedException();
         }

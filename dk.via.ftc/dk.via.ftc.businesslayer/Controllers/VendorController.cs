@@ -42,9 +42,9 @@ namespace dk.via.ftc.businesslayer.Controllers
         {
         }
        [HttpPut]
-        public async Task<ActionResult> RegisterVendorVendorAdmin(VendorVendorAdmin vvA)
+        public async Task RegisterVendorVendorAdmin(VendorVendorAdmin vvA)
         {
-            return new OkObjectResult(new{message = await service.AddVendorVendorAdminAsync(vvA)});
+            await service.AddVendorVendorAdminAsync(vvA);
             
         }
         

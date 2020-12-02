@@ -13,6 +13,6 @@ namespace dk.via.ftc.web.Data
         Task AddVendorAsync(Vendor vendor);
         Task AddVendorAdminAsync(VendorAdmin vendorAdmin);
 
-        Task<ActionResult> AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin);
+        Task AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin);
     }
 }

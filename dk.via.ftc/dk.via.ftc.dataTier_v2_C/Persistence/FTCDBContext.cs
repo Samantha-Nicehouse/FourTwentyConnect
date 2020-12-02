@@ -33,12 +33,12 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .HasMaxLength(15)
                     .HasColumnName("country");
 
-                entity.Property(e => e.stateProvince)
+                entity.Property(e => e.State)
                     .IsRequired()
                     .HasMaxLength(15)
                     .HasColumnName("state");
 
-                entity.Property(e => e.vendorLicense)
+                entity.Property(e => e.VendorLicense)
                     .IsRequired()
                     .HasMaxLength(8)
                     .HasColumnName("vendor_license");
@@ -48,12 +48,20 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .HasMaxLength(20)
                     .HasColumnName("vendor_name");
             });
+
             modelBuilder.Entity<VendorAdmin>(entity =>
             {
+                entity.HasKey(e => e.Username)
+                    .HasName("vendor_admin_username_key");
+
                 entity.ToTable("vendor_admin", "SEP3");
 
-                entity.HasIndex(e => e.Username, "vendor_admin_username_key")
+                entity.HasIndex(e => e.Email, "vendor_admin_email_uindex")
                     .IsUnique();
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(15)
+                    .HasColumnName("username");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -79,19 +87,14 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .HasMaxLength(15)
                     .HasColumnName("phone");
 
-                entity.Property(e => e.Username)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("username");
-
                 entity.Property(e => e.VendorId).HasColumnName("vendor_id");
 
                 entity.HasOne(d => d.Vendor)
-                    .WithMany()
+                    .WithMany(p => p.VendorAdmins)
                     .HasForeignKey(d => d.VendorId)
                     .HasConstraintName("fk_vendor_id");
             });
-            
+
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("product", "SEP3");
@@ -99,7 +102,7 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
                 entity.Property(e => e.GrowType)
-                    .HasMaxLength(1)
+                    .HasColumnType("character varying")
                     .HasColumnName("grow_type")
                     .HasDefaultValueSql("'flower'::bpchar");
 
@@ -112,7 +115,7 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                 entity.Property(e => e.ThcContent).HasColumnName("thc_content");
 
                 entity.Property(e => e.Unit)
-                    .HasMaxLength(1)
+                    .HasColumnType("character varying")
                     .HasColumnName("unit")
                     .HasDefaultValueSql("'gm'::bpchar");
 
@@ -120,17 +123,11 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .IsRequired()
                     .HasColumnName("vendor_id");
 
-                entity.HasOne(d => d.Strain)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.StrainId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("product_strain_id_fkey");
-
-                /*entity.HasOne(d => d.Vendor)
+                entity.HasOne(d => d.Vendor)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.VendorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("product_vendor_id_fkey");*/
+                    .HasConstraintName("fk_vendor_id");
             });
 
         }

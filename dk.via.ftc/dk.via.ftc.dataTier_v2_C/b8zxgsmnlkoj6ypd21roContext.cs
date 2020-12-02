@@ -1,5 +1,4 @@
 ﻿using System;
-using dk.via.ftc.dataTier_v2_C.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -34,7 +33,6 @@ namespace dk.via.ftc.dataTier_v2_C
         public virtual DbSet<Featname> Featnames { get; set; }
         public virtual DbSet<GeocodeSetting> GeocodeSettings { get; set; }
         public virtual DbSet<GeocodeSettingsDefault> GeocodeSettingsDefaults { get; set; }
-        public virtual DbSet<Indication> Indications { get; set; }
         public virtual DbSet<LoaderLookuptable> LoaderLookuptables { get; set; }
         public virtual DbSet<LoaderPlatform> LoaderPlatforms { get; set; }
         public virtual DbSet<LoaderVariable> LoaderVariables { get; set; }
@@ -51,8 +49,6 @@ namespace dk.via.ftc.dataTier_v2_C
         public virtual DbSet<SecondaryUnitLookup> SecondaryUnitLookups { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<StateLookup> StateLookups { get; set; }
-        public virtual DbSet<Strain> Strains { get; set; }
-        public virtual DbSet<StrainIndication> StrainIndications { get; set; }
         public virtual DbSet<StreetTypeLookup> StreetTypeLookups { get; set; }
         public virtual DbSet<Tabblock> Tabblocks { get; set; }
         public virtual DbSet<Tract> Tracts { get; set; }
@@ -1229,17 +1225,6 @@ namespace dk.via.ftc.dataTier_v2_C
                 entity.Property(e => e.Unit).HasColumnName("unit");
             });
 
-            modelBuilder.Entity<Indication>(entity =>
-            {
-                entity.ToTable("indication", "SEP3");
-
-                entity.Property(e => e.IndicationId).HasColumnName("indication_id");
-
-                entity.Property(e => e.MedicalName)
-                    .HasMaxLength(20)
-                    .HasColumnName("medical_name");
-            });
-
             modelBuilder.Entity<LoaderLookuptable>(entity =>
             {
                 entity.HasKey(e => e.LookupName)
@@ -1380,11 +1365,11 @@ namespace dk.via.ftc.dataTier_v2_C
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("orderline_product_id_fkey");
 
-                //entity.HasOne(d => d.Vendor)
-                //    .WithMany(p => p.Orderlines)
-                //    .HasForeignKey(d => d.VendorId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("orderline_vendor_id_fkey");
+                entity.HasOne(d => d.Vendor)
+                    .WithMany(p => p.Orderlines)
+                    .HasForeignKey(d => d.VendorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("orderline_vendor_id_fkey");
             });
 
             modelBuilder.Entity<PagcGaz>(entity =>
@@ -1636,7 +1621,7 @@ namespace dk.via.ftc.dataTier_v2_C
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
                 entity.Property(e => e.GrowType)
-                    .HasMaxLength(1)
+                    .HasColumnType("character varying")
                     .HasColumnName("grow_type")
                     .HasDefaultValueSql("'flower'::bpchar");
 
@@ -1649,7 +1634,7 @@ namespace dk.via.ftc.dataTier_v2_C
                 entity.Property(e => e.ThcContent).HasColumnName("thc_content");
 
                 entity.Property(e => e.Unit)
-                    .HasMaxLength(1)
+                    .HasColumnType("character varying")
                     .HasColumnName("unit")
                     .HasDefaultValueSql("'gm'::bpchar");
 
@@ -1657,17 +1642,11 @@ namespace dk.via.ftc.dataTier_v2_C
                     .IsRequired()
                     .HasColumnName("vendor_id");
 
-                entity.HasOne(d => d.Strain)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.StrainId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("product_strain_id_fkey");
-
-                /*entity.HasOne(d => d.Vendor)
+                entity.HasOne(d => d.Vendor)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.VendorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("product_vendor_id_fkey");*/
+                    .HasConstraintName("fk_vendor_id");
             });
 
             modelBuilder.Entity<PurchaseOrder>(entity =>
@@ -1811,45 +1790,6 @@ namespace dk.via.ftc.dataTier_v2_C
                     .HasMaxLength(2)
                     .HasColumnName("statefp")
                     .IsFixedLength(true);
-            });
-
-            modelBuilder.Entity<Strain>(entity =>
-            {
-                entity.ToTable("strain", "SEP3");
-
-                entity.Property(e => e.StrainId).HasColumnName("strain_id");
-
-                entity.Property(e => e.Race)
-                    .HasMaxLength(10)
-                    .HasColumnName("race");
-
-                entity.Property(e => e.StrainName)
-                    .HasMaxLength(30)
-                    .HasColumnName("strain_name");
-            });
-
-            modelBuilder.Entity<StrainIndication>(entity =>
-            {
-                entity.HasKey(e => new { e.IndicationId, e.StrainId })
-                    .HasName("strain_indication_pkey");
-
-                entity.ToTable("strain_indication", "SEP3");
-
-                entity.Property(e => e.IndicationId).HasColumnName("indication_id");
-
-                entity.Property(e => e.StrainId).HasColumnName("strain_id");
-
-                entity.HasOne(d => d.Indication)
-                    .WithMany(p => p.StrainIndications)
-                    .HasForeignKey(d => d.IndicationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("strain_indication_indication_id_fkey");
-
-                entity.HasOne(d => d.Strain)
-                    .WithMany(p => p.StrainIndications)
-                    .HasForeignKey(d => d.StrainId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("strain_indication_strain_id_fkey");
             });
 
             modelBuilder.Entity<StreetTypeLookup>(entity =>
@@ -2004,12 +1944,12 @@ namespace dk.via.ftc.dataTier_v2_C
                     .HasMaxLength(15)
                     .HasColumnName("country");
 
-                entity.Property(e => e.stateProvince)
+                entity.Property(e => e.State)
                     .IsRequired()
                     .HasMaxLength(15)
                     .HasColumnName("state");
 
-                entity.Property(e => e.vendorLicense)
+                entity.Property(e => e.VendorLicense)
                     .IsRequired()
                     .HasMaxLength(8)
                     .HasColumnName("vendor_license");

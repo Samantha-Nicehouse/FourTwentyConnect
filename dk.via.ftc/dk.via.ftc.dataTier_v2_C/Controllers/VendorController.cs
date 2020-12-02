@@ -44,9 +44,9 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutVendorRegistration(VendorVendorAdmin vvA)
+        public async Task PutVendorRegistration(VendorVendorAdmin vvA)
          {
-             return new OkObjectResult(new{message=await service.AddVendorVendorAdmin(vvA)});
+             await service.AddVendorVendorAdmin(vvA);
          }
 
 

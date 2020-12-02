@@ -8,6 +8,6 @@ namespace dk.via.businesslayer.Data.Services
     {
         public Task AddVendorAsync(Vendor vendor);
         public Task AddVendorAdminAsync(VendorAdmin vendorAdmin);
-        public Task<ActionResult> AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin);
+        public Task AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin);
     }
 }

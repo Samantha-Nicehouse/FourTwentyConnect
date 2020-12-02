@@ -6,30 +6,35 @@ using System.Text.Json.Serialization;
 
 #nullable disable
 
-namespace dk.via.ftc.dataTier_v2_C.Models
+namespace dk.via.ftc.dataTier_v2_C
 {
-    [Table("vendor",Schema = "SEP3")]
-    public class Vendor
+    [Table("vendor", Schema = "SEP3")]
+    public partial class Vendor
     {
-        [JsonPropertyName("vendorId"),Key]
+        public Vendor()
+        {
+            Catalogs = new HashSet<Catalog>();
+            Orderlines = new HashSet<Orderline>();
+            Products = new HashSet<Product>();
+            VendorAdmins = new HashSet<VendorAdmin>();
+        }
+        [JsonPropertyName("vendor_id"), Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string VendorId { get; set; }
         [JsonPropertyName("vendorName")]
         public string VendorName { get; set; }
         [JsonPropertyName("vendorLicense")]
-        public string vendorLicense { get; set; }
+        public string VendorLicense { get; set; }
         [JsonPropertyName("city")]
         public string City { get; set; }
         [JsonPropertyName("stateProvince")]
-        public string stateProvince { get; set; }
+        public string State { get; set; }
         [JsonPropertyName("country")]
         public string Country { get; set; }
-        
-        public IList<VendorAdmin> VendorAdmins
-        {
-            get; set;
-        }
 
-        public IEnumerable<Catalog> Catalogs { get; set; }
+        public virtual ICollection<Catalog> Catalogs { get; set; }
+        public virtual ICollection<Orderline> Orderlines { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<VendorAdmin> VendorAdmins { get; set; }
     }
 }
