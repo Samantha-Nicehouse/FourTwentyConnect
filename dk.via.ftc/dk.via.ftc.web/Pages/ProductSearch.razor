@@ -1,0 +1,145 @@
+﻿@page "/ProductSearch"
+@using dk.via.ftc.web.Data
+@using dk.via.ftc.businesslayer.Models
+@inject IProductService ProductService;
+@inject IJSRuntime JsRuntime
+<h3>ProductSearch</h3>
+
+<p>
+    Filter by User Id: <input type="number" @oninput="@((arg)=> FilterByUserId(arg))" style="width:50px"/>
+</p>
+<p>
+    Filter by completed status:
+    <select class="form-control selectpicker" @onchange="@((arg) => FilterByCompletedStatus(arg))" style="width:100px">
+        <option>Both</option>
+        <option>False</option>
+        <option>True</option>
+    </select>
+</p>
+@if (todosToShow == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!allTodos.Any())
+{
+    <p>
+        <em>No To Do items exist.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Strain Name</th>
+            <th>Medical Indications</th>
+            <th>THC Content</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (ProductStrain item in todosToShow)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.strainname</td>
+                <td>@DisplayEffect(@item.effects.medical)</td>
+                <td>@item.ThcContent</td>
+                <td>
+
+                    <button class="btn-info" @onclick="@(() => ViewMore(item))">
+                        View More
+                    </button>
+                    
+
+                </td>
+                
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private IList<ProductStrain> todosToShow;
+    private IList<ProductStrain> allTodos;
+
+    private int? filterById;
+    private bool? filterByIsCompleted;
+
+
+    private string DisplayEffect(List<string> effects)
+    {
+        int count = effects.Count;
+        string str = "";
+        foreach (string effect in effects)
+        {
+            if (count == 1)
+            {
+                str +=effect;
+            }
+            else
+            {
+                str +=effect + ", ";
+            }
+            count--;
+        }
+        return str;
+    }
+   
+        protected override async Task OnInitializedAsync() {
+            allTodos = await ProductService.GetProductsAllProductsAsync();
+            todosToShow = allTodos;
+        }
+    
+
+    private async Task ViewMore(ProductStrain ps)
+    {
+        //var todoToRemove = allTodos.First(t => t.TodoId == todoId);
+        //await TodoService.RemoveTodoAsync(todoId);
+        //allTodos.Remove(todoToRemove);
+    }
+
+    private async Task CompletedChange(ChangeEventArgs evt, ProductStrain todo)
+    {
+        
+        //todo.IsCompleted = (bool) evt.Value;
+        //await TodoService.UpdateAsync(todo);
+    }
+
+    private void FilterByUserId(ChangeEventArgs args)
+    {
+        filterById = null;
+        try
+        {
+            filterById = int.Parse(args.Value.ToString());
+        }
+        catch (Exception e)
+        {
+        }
+        ExecuteFilter();
+    }
+
+    private void FilterByCompletedStatus(ChangeEventArgs args)
+    {
+        filterByIsCompleted = null;
+        try
+        {
+            filterByIsCompleted = bool.Parse(args.Value.ToString());
+        }
+    catch(Exception e){}
+        ExecuteFilter();
+    }
+
+    private void ExecuteFilter()
+    {
+        todosToShow = allTodos.Where(t =>
+            (filterById != null && t.ProductId == filterById || filterById == null) &&
+            (filterByIsCompleted != null && t.IsAvailable == filterByIsCompleted || filterByIsCompleted == null)
+            ).ToList();
+    }
+}

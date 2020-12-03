@@ -1,0 +1,37 @@
+﻿@page "/Products"
+@using dk.via.ftc.web.Data
+@using dk.via.ftc.businesslayer.Models
+@inject IProductService ProductService
+@inject IJSRuntime JsRuntime
+<h3>Products</h3>
+<div id="productsWrapper" class="row">
+    @foreach (ProductStrain product in products) {
+        <div class="col-sm-3">
+            <a asp-page="/order" asp-route-id="@product.ProductId" title="Order @product.ProductName">
+                <div class="productInfo">
+                    <h3>@product.strainname</h3>
+                    @foreach (string effect in product.effects.medical)
+                    {
+                        <p class="effect">@effect</p>
+                    }
+                    
+                </div>
+            </a>
+            <div >
+                <p class="price float-left">$@string.Format("{0:f}", product.AvailableInventory)</p>
+                <button class="btn btn-sm btn-dark order-button float-right">
+                    Order Now
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+
+@code {
+    IList<ProductStrain> products = new List<ProductStrain>();
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetProductsAllProductsAsync();
+    }    
+}

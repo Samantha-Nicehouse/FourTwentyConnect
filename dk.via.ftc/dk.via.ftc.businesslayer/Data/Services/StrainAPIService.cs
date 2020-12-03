@@ -44,7 +44,6 @@ namespace dk.via.ftc.businesslayer.Data.Services
                     StrainAPIObj strain = JsonSerializer.Deserialize<StrainAPIObj>(strainCut);
                     strain.strainname = strainName;
                     strains.Add(strain);
-                    Console.WriteLine(strainName);
                     messageTrim = strainRemove;
                     i = messageTrim.Length;
                 }
@@ -58,7 +57,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
                     Console.WriteLine(strainName);
                     i = 0;
                 }
-                listOfTasks.Add(ExecuteTask("" + i));
+                listOfTasks.Add(ExecuteTask(strainName + " Added"));
 
 
 
@@ -72,7 +71,6 @@ namespace dk.via.ftc.businesslayer.Data.Services
         }
         public static Task ExecuteTask(string Item)
         {
-            Task.Delay(10);
             Console.WriteLine($"TaskExecuted: {Item}");
             return Task.CompletedTask;
         }

@@ -6,6 +6,7 @@
 @inject IAdminService AdminService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
+@using Syncfusion.Blazor.DropDowns
 <h3>VendorRegistration</h3>
 <EditForm Model="@newVendor" OnValidSubmit="@AddNewVendorAdmin">
     <DataAnnotationsValidator />
@@ -41,8 +42,18 @@
     </div>
     <div class="form-group">
         Vendor Country:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.Country" />
-    </div>
+        <select class="form-control" style="width: 20%" @bind="newVendor.Country">
+            
+                <option value="Select Country"></option>
+                @foreach(var Countries in Country)
+                {
+                    <option value="@Countries.Code"> @Countries.Name </option>
+                }
+            }
+            
+            </select>
+        </div>
+    
     <div class="form-group">
         Vendor State/Province:<br />
         <InputTextArea rows="1" @bind-Value="newVendor.stateProvince" />
@@ -65,6 +76,37 @@
         VendorVendorAdmin vvA = new VendorVendorAdmin();
         vvA.vendor = newVendor;
         vvA.vendorAdmin = newVendorAdmin;
-        await AdminService.AddVendorVendorAdminAsync(vvA);
+        if (!vvA.vendor.Country.Equals(""))
+        {
+            await AdminService.AddVendorVendorAdminAsync(vvA);
+            NavigationManager.NavigateTo("/");
+        }
     }
+    public class Countries
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+    }
+    private List<Countries> Country = new List<Countries>
+    {
+        new Countries() { Name = "Australia", Code = "AU" },
+        new Countries() { Name = "Bermuda", Code = "BM" },
+        new Countries() { Name = "Canada", Code = "CA" },
+        new Countries() { Name = "Cameroon", Code = "CM" },
+        new Countries() { Name = "Denmark", Code = "DK" },
+        new Countries() { Name = "France", Code = "FR" },
+        new Countries() { Name = "Finland", Code = "FI" },
+        new Countries() { Name = "Germany", Code = "DE" },
+        new Countries() { Name = "Greenland", Code = "GL" },
+        new Countries() { Name = "Hong Kong", Code = "HK" },
+        new Countries() { Name = "India", Code = "IN" },
+        new Countries() { Name = "Italy", Code = "IT" },
+        new Countries() { Name = "Japan", Code = "JP" },
+        new Countries() { Name = "Mexico", Code = "MX" },
+        new Countries() { Name = "Norway", Code = "NO" },
+        new Countries() { Name = "Poland", Code = "PL" },
+        new Countries() { Name = "Switzerland", Code = "CH" },
+        new Countries() { Name = "United Kingdom", Code = "GB" },
+        new Countries() { Name = "United States", Code = "US" },
+    };
 }

@@ -5,11 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
+      <ProjectReference Include="..\dk.via.ftc.businesslayer\dk.via.ftc.businesslayer.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\dk.via.ftc.businesslayer\dk.via.ftc.businesslayer.csproj" />
+      <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.52" />
     </ItemGroup>
 
 </Project>

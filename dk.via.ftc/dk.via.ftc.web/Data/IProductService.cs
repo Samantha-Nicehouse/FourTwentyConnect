@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using dk.via.ftc.businesslayer.Models;
 using System.Threading.Tasks;
+using dk.via.ftc.businesslayer.Models;
 
-namespace dk.via.businesslayer.Data.Services
+namespace dk.via.ftc.web.Data
 {
     public interface IProductService
     {
-        public Task<ProductStrain> GetProductAsyncByStrain(int strain_id);
         public Task<IList<ProductStrain>> GetProductsAllProductsAsync();
     }
 }

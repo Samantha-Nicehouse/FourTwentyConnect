@@ -15,5 +15,18 @@ namespace dk.via.ftc.businesslayer.Persistence
             Strains = new List<StrainAPIObj>();
         }
         public List<StrainAPIObj> Strains;
+
+        public StrainAPIObj GetStrainById(int id)
+        {
+            foreach (StrainAPIObj strain in Strains)
+            {
+                if (strain.id == id)
+                {
+                    return strain;
+                }
+            }
+
+            return null;
+        }
     }
 }

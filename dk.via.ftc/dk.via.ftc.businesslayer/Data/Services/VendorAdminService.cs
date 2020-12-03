@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SockNet.ClientSocket;
-
+// DO NOT ERASE WE NEED THIS FOR THE PRESCRIBER APPLICATION
 namespace dk.via.businesslayer.Data.Services
 {
     public class VendorAdminService

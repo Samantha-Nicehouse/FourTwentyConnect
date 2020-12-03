@@ -12,7 +12,6 @@ namespace dk.via.ftc.dataTier_v2_C
     {
         public Product()
         {
-            Catalogs = new HashSet<Catalog>();
             Orderlines = new HashSet<Orderline>();
         }
         [JsonPropertyName("product_id"), Key]
@@ -30,9 +29,13 @@ namespace dk.via.ftc.dataTier_v2_C
         [JsonPropertyName("vendor_id")]
         public string VendorId { get; set; }
         [ForeignKey(nameof(VendorId))]
-
+        [JsonPropertyName("reserved_inventory")]
+        public int? ReservedInventory { get; set; }
+        [JsonPropertyName("available_inventory")]
+        public int? AvailableInventory { get; set; }
+        [JsonPropertyName("is_available")]
+        public bool? IsAvailable { get; set; }
         public virtual Vendor Vendor { get; set; }
-        public virtual ICollection<Catalog> Catalogs { get; set; }
         public virtual ICollection<Orderline> Orderlines { get; set; }
     }
 }

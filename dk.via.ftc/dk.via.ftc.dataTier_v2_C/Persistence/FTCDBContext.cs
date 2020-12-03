@@ -101,14 +101,22 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
+                entity.Property(e => e.AvailableInventory).HasColumnName("available_inventory");
+
                 entity.Property(e => e.GrowType)
                     .HasColumnType("character varying")
                     .HasColumnName("grow_type")
                     .HasDefaultValueSql("'flower'::bpchar");
 
+                entity.Property(e => e.IsAvailable)
+                    .HasColumnName("is_available")
+                    .HasDefaultValueSql("true");
+
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(30)
                     .HasColumnName("product_name");
+
+                entity.Property(e => e.ReservedInventory).HasColumnName("reserved_inventory");
 
                 entity.Property(e => e.StrainId).HasColumnName("strain_id");
 
