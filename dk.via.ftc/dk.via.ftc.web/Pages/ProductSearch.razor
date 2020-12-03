@@ -1,8 +1,10 @@
 ﻿@page "/ProductSearch"
 @using dk.via.ftc.web.Data
 @using dk.via.ftc.businesslayer.Models
+@using Microsoft.AspNetCore.Http.Features
 @inject IProductService ProductService;
 @inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
 <h3>ProductSearch</h3>
 
 <p>
@@ -10,19 +12,20 @@
 </p>
 <p>
     Filter by completed status:
+ 
     <select class="form-control selectpicker" @onchange="@((arg) => FilterByCompletedStatus(arg))" style="width:100px">
         <option>Both</option>
         <option>False</option>
         <option>True</option>
     </select>
 </p>
-@if (todosToShow == null)
+@if (productsToShow == null)
 {
     <p>
         <em>Loading...</em>
     </p>
 }
-else if (!allTodos.Any())
+else if (!allProducts.Any())
 {
     <p>
         <em>No To Do items exist.</em>
@@ -41,19 +44,18 @@ else
         </tr>
         </thead>
         <tbody>
-        @foreach (ProductStrain item in todosToShow)
+        @foreach (ProductStrain item in productsToShow)
         {
             <tr>
-                <td>@item.ProductName</td>
+                <td >@item.ProductName</td>
                 <td>@item.strainname</td>
                 <td>@DisplayEffect(@item.effects.medical)</td>
-                <td>@item.ThcContent</td>
+                <td align ="center">@item.ThcContent</td>
                 <td>
 
                     <button class="btn-info" @onclick="@(() => ViewMore(item))">
                         View More
                     </button>
-                    
 
                 </td>
                 
@@ -65,8 +67,8 @@ else
 
 @code {
 
-    private IList<ProductStrain> todosToShow;
-    private IList<ProductStrain> allTodos;
+    private IList<ProductStrain> productsToShow;
+    private IList<ProductStrain> allProducts;
 
     private int? filterById;
     private bool? filterByIsCompleted;
@@ -92,13 +94,14 @@ else
     }
    
         protected override async Task OnInitializedAsync() {
-            allTodos = await ProductService.GetProductsAllProductsAsync();
-            todosToShow = allTodos;
+            allProducts = await ProductService.GetProductsAllProductsAsync();
+            productsToShow = allProducts;
         }
     
 
     private async Task ViewMore(ProductStrain ps)
     {
+        NavigationManager.NavigateTo("/Products/"+ps.ProductId);
         //var todoToRemove = allTodos.First(t => t.TodoId == todoId);
         //await TodoService.RemoveTodoAsync(todoId);
         //allTodos.Remove(todoToRemove);
@@ -137,7 +140,7 @@ else
 
     private void ExecuteFilter()
     {
-        todosToShow = allTodos.Where(t =>
+        productsToShow = allProducts.Where(t =>
             (filterById != null && t.ProductId == filterById || filterById == null) &&
             (filterByIsCompleted != null && t.IsAvailable == filterByIsCompleted || filterByIsCompleted == null)
             ).ToList();
