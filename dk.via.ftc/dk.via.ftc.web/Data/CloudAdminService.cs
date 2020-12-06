@@ -36,19 +36,14 @@ namespace dk.via.ftc.web.Data
                 "application/json");
             await client.PutAsync(uri + "/VendorAdmin", content);
         }
-        public async Task<ActionResult<string>> AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
+        public async Task AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
         {
             string vendorAsJson = JsonSerializer.Serialize(vvA);
             HttpContent content = new StringContent(vendorAsJson,
                 Encoding.UTF8,
                 "application/json");
             await client.PutAsync(uri + "/Vendor", content);
-            return null;
         }
 
-        Task<ActionResult> IAdminService.AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

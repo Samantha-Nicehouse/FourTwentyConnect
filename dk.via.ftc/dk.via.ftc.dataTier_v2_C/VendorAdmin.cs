@@ -6,19 +6,17 @@ using System.Text.Json.Serialization;
 
 #nullable disable
 
-namespace dk.via.ftc.dataTier_v2_C.Models
+namespace dk.via.ftc.dataTier_v2_C
 {
-    [Table("vendor_admin",Schema = "SEP3")]
-    public class VendorAdmin
+    [Table("vendor_admin", Schema = "SEP3")]
+    public partial class VendorAdmin
     {
-        
-
-        [JsonPropertyName("username"),Key]
+        [JsonPropertyName("username"), Key]
         public string Username { get; set; }
         [JsonPropertyName("vendor_id")]
         public string VendorId { get; set; }
         [ForeignKey(nameof(VendorId))]
-        
+
         [JsonPropertyName("pass")]
         public string Pass { get; set; }
         [JsonPropertyName("email")]
@@ -30,6 +28,6 @@ namespace dk.via.ftc.dataTier_v2_C.Models
         [JsonPropertyName("phone")]
         public string Phone { get; set; }
 
-        public Vendor Vendor { get; }
+        public virtual Vendor Vendor { get; set; }
     }
 }

@@ -4,24 +4,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SockNet.ClientSocket;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using CLR.Entity;
-using dk.via.businesslayer;
 using dk.via.ftc.businesslayer.Models;
-using FlitBit.Json;
 using Newtonsoft.Json;
 using dk.via.ftc.businesslayer.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using dk.via.ftc.businesslayer.Data;
 using dk.via.ftc.businesslayer.Data.Services;
 using Microsoft.AspNetCore;
+using dk.via.businesslayer.Data.Services;
 
 namespace dk.via.businesslayer
 {

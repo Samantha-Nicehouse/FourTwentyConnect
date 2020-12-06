@@ -24,17 +24,13 @@ namespace dk.via.businesslayer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMemoryCache();
             services.AddScoped<IVendorService_v2, VendorService_v2>();
             services.AddSingleton<IStrainAPIService, StrainAPIService>();
             services.AddSingleton<StrainContext>();
-<<<<<<< Updated upstream
-=======
             services.AddScoped<IProductService, ProductService>();
             services.AddDbContext<RootContextData>(opt => opt.UseInMemoryDatabase("RootDb"));
 
             services.AddMvc();
->>>>>>> Stashed changes
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,11 +17,11 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
     [ApiController]
     public class VendorController : ControllerBase
     {
-        private VendorService service;
+        private IVendorService service;
 
         public VendorController(IVendorService vendorService)
         {
-            this.service = new VendorService();
+            this.service = vendorService;
         }
 
         // GET: api/<ValuesController>
@@ -44,9 +44,9 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutVendorRegistration(VendorVendorAdmin vvA)
+        public async Task PutVendorRegistration(VendorVendorAdmin vvA)
          {
-             return new OkObjectResult(new{message=await service.AddVendorVendorAdmin(vvA)});
+             await service.AddVendorVendorAdmin(vvA);
          }
 
 

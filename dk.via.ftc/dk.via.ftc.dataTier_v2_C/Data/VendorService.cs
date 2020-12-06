@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using dk.via.ftc.businesslayer.Models;
 using dk.via.ftc.dataTier_v2_C.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -8,21 +9,23 @@ namespace dk.via.ftc.dataTier_v2_C.Data
 {
     public class VendorService : IVendorService
     {
+        private FTCDBContext fTCDBContext;
+        public VendorService(FTCDBContext context)
+        {
+            fTCDBContext = context;
+        }
         public async Task AddVendorAsync(Vendor vendor)
         {
-            using (FTCDBContext ftcdbContext = new FTCDBContext())
-            {
-                await ftcdbContext.Vendors.AddAsync(vendor);
-                await ftcdbContext.SaveChangesAsync();
-            }
+                await fTCDBContext.Vendors.AddAsync(vendor);
+                await fTCDBContext.SaveChangesAsync();
         }
-        public async Task<ActionResult> AddVendorVendorAdmin(VendorVendorAdmin vvA)
+        public async Task AddVendorVendorAdmin(VendorVendorAdmin vvA)
         {
             Vendor vendor = new Vendor();
             vendor.City = vvA.vendor.City;
             vendor.Country = vvA.vendor.Country;
-            vendor.stateProvince = vvA.vendor.stateProvince;
-            vendor.vendorLicense = vvA.vendor.vendorLicense;
+            vendor.State = vvA.vendor.stateProvince;
+            vendor.VendorLicense = vvA.vendor.vendorLicense;
             vendor.VendorName = vvA.vendor.VendorName;
             VendorAdmin vendorAdmin = new VendorAdmin();
             vendorAdmin.Email = vvA.vendorAdmin.Email;
@@ -35,18 +38,15 @@ namespace dk.via.ftc.dataTier_v2_C.Data
 
             try
             {
-                using (FTCDBContext ftcdbContext = new FTCDBContext())
-                {
-                    await ftcdbContext.Vendors.AddAsync(vendor);
+                
+                    await fTCDBContext.Vendors.AddAsync(vendor);
                     vendorAdmin.VendorId = vendor.VendorId;
-                    await ftcdbContext.VendorAdmins.AddAsync(vendorAdmin);
-                    await ftcdbContext.SaveChangesAsync();
-                    return new OkObjectResult(new{message="202"});
-                }
+                    await fTCDBContext.VendorAdmins.AddAsync(vendorAdmin);
+                    await fTCDBContext.SaveChangesAsync();
             }
             catch (NpgsqlException ex)
             {
-                return new OkObjectResult(new{message=ex.Message});
+                Console.WriteLine(ex);
             }
         }
     }

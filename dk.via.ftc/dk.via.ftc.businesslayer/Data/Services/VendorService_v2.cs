@@ -9,7 +9,7 @@ namespace dk.via.businesslayer.Data.Services
 {
     public class VendorService_v2 : IVendorService_v2
     {
-        private string uri = "https://localhost:44301/db";
+        private string uri = "https://localhost:44332/db";
         private readonly HttpClient client;
         public VendorService_v2()
         {
@@ -32,13 +32,13 @@ namespace dk.via.businesslayer.Data.Services
             await client.PutAsync(uri + "/VendorAdmin", content);
         }
         
-        public async Task<ActionResult> AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
+        public async Task AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
         {
             string vendorAsJson = JsonSerializer.Serialize(vvA);
             HttpContent content = new StringContent(vendorAsJson,
                 Encoding.UTF8,
                 "application/json");
-            return new OkObjectResult(new{message = await client.PutAsync(uri + "/Vendor", content)});
+            await client.PutAsync(uri + "/Vendor", content);
         }
         
     }

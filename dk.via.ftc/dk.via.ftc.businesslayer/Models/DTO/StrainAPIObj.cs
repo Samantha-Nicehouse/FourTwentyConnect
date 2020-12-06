@@ -9,16 +9,15 @@ namespace dk.via.ftc.businesslayer.Models.DTO
 {
     public class StrainAPIObj
     {
+        [JsonPropertyName("strainname")]
         public string strainname { get; set; }
+        [JsonPropertyName("id")]
         public int id { get; set; }
+        [JsonPropertyName("race")]
         public string race { get; set; }
-<<<<<<< Updated upstream
-        public virtual List<string> flavors { get; set; }
-=======
         [JsonPropertyName("flavors")]
-        public virtual IEnumerable<string> flavors { get; set; }
+        public virtual List<string> flavors { get; set; }
         [JsonPropertyName("effects")]
->>>>>>> Stashed changes
         public virtual Effects effects { get; set; }
 
         
