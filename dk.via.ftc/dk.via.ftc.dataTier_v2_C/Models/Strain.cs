@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace dk.via.ftc.businesslayer.Models
+namespace dk.via.ftc.dataTier_v2_C.Models
 {
     public partial class Strain
     {

@@ -31,6 +31,8 @@ namespace dk.via.ftc.dataTier_v2_C
             services.AddDbContext<FTCDBContext>(p => p.UseNpgsql(Configuration["DataTier:PostgreSQLCon"]));
             services.AddScoped<IVendorService, VendorService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductDBService, ProductDBService>();
+            services.AddScoped<IStrainDBService, StrainDBService>();
             services.AddMvc();
         }
 

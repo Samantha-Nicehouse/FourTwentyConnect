@@ -6,7 +6,7 @@ namespace dk.via.ftc.dataTier_v2_C.Data
 {
     public interface IVendorService
     {
-        public Task AddVendorAsync(Vendor vendor);
+        public Task AddVendorAsync(Models.Vendor vendor);
         public Task AddVendorVendorAdmin(VendorVendorAdmin vendorVendorAdmin);
     }
 }

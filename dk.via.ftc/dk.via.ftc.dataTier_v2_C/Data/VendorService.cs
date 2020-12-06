@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using dk.via.ftc.businesslayer.Models;
+using dk.via.ftc.dataTier_v2_C.Models;
 using dk.via.ftc.dataTier_v2_C.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
@@ -14,20 +15,20 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         {
             fTCDBContext = context;
         }
-        public async Task AddVendorAsync(Vendor vendor)
+        public async Task AddVendorAsync(Models.Vendor vendor)
         {
                 await fTCDBContext.Vendors.AddAsync(vendor);
                 await fTCDBContext.SaveChangesAsync();
         }
         public async Task AddVendorVendorAdmin(VendorVendorAdmin vvA)
         {
-            Vendor vendor = new Vendor();
+            Models.Vendor vendor = new Models.Vendor();
             vendor.City = vvA.vendor.City;
             vendor.Country = vvA.vendor.Country;
             vendor.State = vvA.vendor.stateProvince;
             vendor.VendorLicense = vvA.vendor.vendorLicense;
             vendor.VendorName = vvA.vendor.VendorName;
-            VendorAdmin vendorAdmin = new VendorAdmin();
+            Models.VendorAdmin vendorAdmin = new Models.VendorAdmin();
             vendorAdmin.Email = vvA.vendorAdmin.Email;
             vendorAdmin.Pass = vvA.vendorAdmin.Pass;
             vendorAdmin.Phone = vvA.vendorAdmin.Phone;
