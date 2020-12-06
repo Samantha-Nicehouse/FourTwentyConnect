@@ -28,6 +28,9 @@ namespace dk.via.businesslayer
             services.AddSingleton<IStrainAPIService, StrainAPIService>();
             services.AddSingleton<StrainContext>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddDbContext<RootContextData>(opt => opt.UseInMemoryDatabase("RootDb"));
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

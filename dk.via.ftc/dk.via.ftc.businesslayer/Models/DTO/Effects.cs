@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace dk.via.ftc.businesslayer.Models.DTO
+namespace dk.via.ftc.businesslayer.Models
 {
     public class Effects
     {

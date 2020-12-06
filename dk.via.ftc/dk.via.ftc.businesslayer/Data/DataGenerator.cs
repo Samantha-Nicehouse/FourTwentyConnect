@@ -22,8 +22,10 @@ namespace dk.via.ftc.businesslayer.Data
                 List<StrainAPIObj> strains = await sa.GetAllStrainsAsync();
                 foreach (StrainAPIObj strain in strains)
                 {
-                    sc.Strains.Add(strain);
-                }
+                Root root = new Root();
+                root.strain = strain;
+                    sc.Strains.Add(root);
+            }
             Console.WriteLine("DataGeneratorOut: "+sc.Strains.Count);
         }
     }

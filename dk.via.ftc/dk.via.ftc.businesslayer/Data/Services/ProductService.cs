@@ -36,14 +36,30 @@ namespace dk.via.businesslayer.Data.Services
             //Console.WriteLine(response.ToString());
         }
         
-        
+        public async Task<IList<Product>> GetAllProductsAsync()
+        {
+            Task<string> stringAsync = client.GetStringAsync(uri + "/Products");
+            string message = await stringAsync;
+            Product product= System.Text.Json.JsonSerializer.Deserialize<Product>(message);
+            StrainAPIObj strain = sc.GetStrainById(product.StrainId).strain;
+            ProductStrain ps = new ProductStrain();
+            ps.strain = strain;
+            ps.ProductId = product.ProductId;
+            ps.GrowType = product.GrowType;
+            ps.IsAvailable = product.IsAvailable;
+            ps.Orderlines = product.Orderlines;
+            ps.ProductName = product.ProductName;
+            ps.ReservedInventory = product.ReservedInventory;
+            ps.ThcContent = product.ThcContent;
+            ps.StrainId = product.StrainId;
+            return ps;
+        }
         
         public async Task <ProductStrain> GetProductAsyncByStrain(int strain_id)
       
         {
             Task<string> stringAsync = client.GetStringAsync(uri + "/Product/"+strain_id);
             string message = await stringAsync;
-            Product product= System.Text.Json.JsonSerializer.Deserialize<Product>(message);
             StrainAPIObj strain = sc.GetStrainById(product.StrainId);
             ProductStrain ps = new ProductStrain();
             ps.effects = strain.effects;
@@ -70,31 +86,24 @@ namespace dk.via.businesslayer.Data.Services
         {
             Task<string> stringAsync = client.GetStringAsync(uri + "/Product/Products/All");
             string message = await stringAsync;
+
             IList<Product> results = System.Text.Json.JsonSerializer.Deserialize<IList<Product>>(message);
             IList<ProductStrain> pss = new List<ProductStrain>();
             foreach (Product product in results)
             {
-                StrainAPIObj strain = sc.GetStrainById(product.StrainId);
+                StrainAPIObj strain = sc.GetStrainById(product.StrainId).strain;
                 ProductStrain ps = new ProductStrain();
-                ps.effects = strain.effects;
-                ps.flavors = strain.flavors;
+                ps.strain = strain;
                 ps.ProductId = product.ProductId;
-                ps.id = strain.id;
-                ps.StrainId = strain.id;
-                ps.race = strain.race;
-                ps.strainname = strain.strainname;
                 ps.GrowType = product.GrowType;
-                ps.Orderlines = product.Orderlines;
-                ps.Unit = product.Unit;
-                ps.Vendor = product.Vendor;
-                ps.AvailableInventory = product.AvailableInventory;
                 ps.IsAvailable = product.IsAvailable;
+                ps.Orderlines = product.Orderlines;
                 ps.ProductName = product.ProductName;
                 ps.ReservedInventory = product.ReservedInventory;
                 ps.ThcContent = product.ThcContent;
-                ps.VendorId = product.VendorId;
                 pss.Add(ps);
             }
+            Console.WriteLine(pss);
             return pss;
         }
     }

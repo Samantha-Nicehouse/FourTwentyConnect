@@ -5,6 +5,7 @@ namespace dk.via.ftc.businesslayer.Models
 {
     public class ProductStrain : Product
     {
+        public StrainAPIObj strain;
         public string strainname { get; set; }
         public int id { get; set; }
         public string race { get; set; }

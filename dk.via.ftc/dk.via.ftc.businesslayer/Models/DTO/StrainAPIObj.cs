@@ -20,5 +20,6 @@ namespace dk.via.ftc.businesslayer.Models.DTO
         [JsonPropertyName("effects")]
         public virtual Effects effects { get; set; }
 
+        
     }
 }

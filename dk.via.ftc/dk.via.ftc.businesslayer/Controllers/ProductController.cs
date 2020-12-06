@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using dk.via.businesslayer.Data.Services;
 using dk.via.ftc.businesslayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace dk.via.ftc.businesslayer.Controllers
 {
@@ -25,8 +26,9 @@ namespace dk.via.ftc.businesslayer.Controllers
             try
             {
                 IList<ProductStrain> filteredProducts = await _productService.GetProductsAllProductsAsync();
-
-                return Ok(filteredProducts);
+                string json = JsonConvert.SerializeObject(filteredProducts);
+                string res = json.Replace("[", "").Replace("]", "");
+                return Ok(res);
 
             }
             catch (Exception e)
