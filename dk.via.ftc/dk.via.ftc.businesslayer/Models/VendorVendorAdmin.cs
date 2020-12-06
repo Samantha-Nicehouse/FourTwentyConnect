@@ -2,6 +2,11 @@
 {
     public class VendorVendorAdmin
     {
+        public VendorVendorAdmin()
+        {
+            vendor = new Vendor();
+            vendorAdmin = new VendorAdmin();
+        }
         public Vendor vendor
         {
             get; set;

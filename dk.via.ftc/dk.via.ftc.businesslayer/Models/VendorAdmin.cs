@@ -8,15 +8,14 @@ using System.Text.Json.Serialization;
 
 namespace dk.via.ftc.businesslayer.Models
 {
-    [Table("vendor_admin",Schema = "SEP3")]
-    public class VendorAdmin
+    
+    public partial class VendorAdmin
     {
-        [JsonPropertyName("username"),Key]
+        [JsonPropertyName("username")]
         public string Username { get; set; }
         [JsonPropertyName("vendor_id")]
         public string VendorId { get; set; }
-        [ForeignKey(nameof(VendorId))]
-        
+
         [JsonPropertyName("pass")]
         public string Pass { get; set; }
         [JsonPropertyName("email")]

@@ -14,7 +14,7 @@ namespace dk.via.ftc.businesslayer.Models
         {
             Orderlines = new HashSet<Orderline>();
         }
-        [JsonPropertyName("product_id"), Key]
+        [JsonPropertyName("product_id")]
         public int ProductId { get; set; }
         [JsonPropertyName("product_name")]
         public string ProductName { get; set; }
@@ -28,7 +28,6 @@ namespace dk.via.ftc.businesslayer.Models
         public int StrainId { get; set; }
         [JsonPropertyName("vendor_id")]
         public string VendorId { get; set; }
-        [ForeignKey(nameof(VendorId))]
         [JsonPropertyName("reserved_inventory")]
         public int? ReservedInventory { get; set; }
         [JsonPropertyName("available_inventory")]

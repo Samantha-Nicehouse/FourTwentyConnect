@@ -20,7 +20,7 @@ namespace dk.via.ftc.businesslayer.Models
         {
            
         }
-        [JsonPropertyName("catalog_id"), Key]
+        [JsonPropertyName("catalog_id")]
         public int CatalogId { get; set; }
         [JsonPropertyName("reserved_inventory")]
         public int? ReservedInventory { get; set; }

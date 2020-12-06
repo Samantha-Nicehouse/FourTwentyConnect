@@ -14,7 +14,7 @@ namespace dk.via.ftc.businesslayer.Models
                 PurchaseOrders = new HashSet<PurchaseOrder>();
             }
         
-            [JsonPropertyName("dispensary_id"), Key]
+            [JsonPropertyName("dispensary_id")]
             public string DispensaryId { get; set; }
             [JsonPropertyName("dispensary_name")]
             public string DispensaryName { get; set; }

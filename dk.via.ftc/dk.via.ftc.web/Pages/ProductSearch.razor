@@ -3,6 +3,7 @@
 @using dk.via.ftc.businesslayer.Models
 @inject IProductService ProductService;
 @inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
 <h3>ProductSearch</h3>
 
 <p>
@@ -99,6 +100,7 @@ else
 
     private async Task ViewMore(ProductStrain ps)
     {
+        NavigationManager.NavigateTo("/Products/"+ps.ProductId);
         //var todoToRemove = allTodos.First(t => t.TodoId == todoId);
         //await TodoService.RemoveTodoAsync(todoId);
         //allTodos.Remove(todoToRemove);

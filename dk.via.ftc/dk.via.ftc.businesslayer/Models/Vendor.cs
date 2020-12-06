@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using System.Text.Json.Serialization;
 
 #nullable disable
 
 namespace dk.via.ftc.businesslayer.Models
 {
-    [Table("vendor",Schema = "SEP3")]
     public class Vendor
     {
-        [JsonPropertyName("vendorId"),Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [JsonPropertyName("vendorId")]
         public string VendorId { get; set; }
         [JsonPropertyName("vendorName")]
         public string VendorName { get; set; }

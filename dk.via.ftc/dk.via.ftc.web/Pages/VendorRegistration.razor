@@ -1,44 +1,41 @@
 ﻿@page "/VendorRegistration";
-@using dk.via.ftc.web.Models;
+@using dk.via.ftc.businesslayer.Models;
 @using dk.via.ftc.web.Data;
-@using dk.via.ftc.businesslayer.Models
-@using System.Diagnostics
 @inject IAdminService AdminService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
-@using Syncfusion.Blazor.DropDowns
 <h3>VendorRegistration</h3>
-<EditForm Model="@newVendor" OnValidSubmit="@AddNewVendorAdmin">
+<EditForm Model="@vendorVendorAdmin" OnValidSubmit="@AddNewVendorAdmin">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="form-group">
         UserName:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username" />
+        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.Username" />
     </div>
     <div class="form-group">
         Password:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Pass" />
+        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.Pass" />
     </div>
     <div class="form-group">
         Email:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Email" />
+        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.Email" />
     </div>
     <div class="form-group">
         First Name:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.FirstName" />
+        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.FirstName" />
     </div>
     <div class="form-group">
         Last Name:<br />
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.LastName" />
+        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.LastName" />
     </div>
     <div class="form-group">
         Vendor Name:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.VendorName" />
+        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendor.VendorName" />
     </div>
     <div class="form-group">
         Vendor License:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.vendorLicense" />
+        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendor.vendorLicense" />
     </div>
     <div class="form-group">
         Vendor Country:<br />
@@ -70,15 +67,13 @@
 @code {
     private readonly VendorAdmin newVendorAdmin = new VendorAdmin();
     private readonly Vendor newVendor = new Vendor();
+    private readonly VendorVendorAdmin vendorVendorAdmin = new VendorVendorAdmin();
 
     private async Task AddNewVendorAdmin()
     {
-        VendorVendorAdmin vvA = new VendorVendorAdmin();
-        vvA.vendor = newVendor;
-        vvA.vendorAdmin = newVendorAdmin;
-        if (!vvA.vendor.Country.Equals(""))
+        if (!vendorVendorAdmin.vendor.Country.Equals(""))
         {
-            await AdminService.AddVendorVendorAdminAsync(vvA);
+            await AdminService.AddVendorVendorAdminAsync(vendorVendorAdmin);
             NavigationManager.NavigateTo("/");
         }
     }
