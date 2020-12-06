@@ -1,37 +1,98 @@
 ﻿@page "/Products"
+@page "/Products/{id:int}"
 @using dk.via.ftc.web.Data
 @using dk.via.ftc.businesslayer.Models
 @inject IProductService ProductService
 @inject IJSRuntime JsRuntime
-<h3>Products</h3>
-<div id="productsWrapper" class="row">
-    @foreach (ProductStrain product in products) {
-        <div class="col-sm-3">
-            <a asp-page="/order" asp-route-id="@product.ProductId" title="Order @product.ProductName">
-                <div class="productInfo">
-                    <h3>@product.strainname</h3>
-                    @foreach (string effect in product.effects.medical)
-                    {
-                        <p class="effect">@effect</p>
-                    }
+
+@if (ps == null)
+{
+    <p>Retrieving product...</p>
+}
+else
+{
+    <h3 class="product">@ps.strainname</h3>
+    <div class="card">
+        <div class ="row">
+        <div class="col-3">
+            <img src="images/strainImg.png" class="img-fluid img-thumbnail" alt="Image of @ps.ProductName"/>
+        </div>
+            <div class="col-9">
+                <ul class="orderPageList productListObj" data-role="listview">
+                    <li class>
+                        <div class = "form-group">
+                         Race: @ps.race;
+                         </div>
+                    </li>
                     
-                </div>
-            </a>
-            <div >
-                <p class="price float-left">$@string.Format("{0:f}", product.AvailableInventory)</p>
-                <button class="btn btn-sm btn-dark order-button float-right">
-                    Order Now
-                </button>
+                    <li>
+                        <div class="form-group">
+                            THC: @ps.ThcContent<br/>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            Positive Effects: @DisplayEffect(@ps.effects.positive);
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            Negative Effects: @DisplayEffect(@ps.effects.negative);
+                        </div>
+                    </li>
+                    <li>
+                         <div class="form-group">
+                             Indications: @DisplayEffect(@ps.effects.medical);
+                             </div>
+
+                    </li>
+                </ul>
+                <p class="actions">
+                    <button class="btn btn-success order-button" type="submit">Place Order</button>
+                </p>
+            </div>
             </div>
         </div>
-    }
-</div>
+}
 
 
 @code {
+
+    [Parameter]
+    public int id { get; set; }
+
     IList<ProductStrain> products = new List<ProductStrain>();
+    ProductStrain ps { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         products = await ProductService.GetProductsAllProductsAsync();
-    }    
+        foreach (ProductStrain prod in products)
+        {
+            if (prod.ProductId == id)
+            {
+                ps = prod;
+            }
+        }
+    }
+
+    private string DisplayEffect(List<string> effects)
+    {
+        int count = effects.Count;
+        string str = "";
+        foreach (string effect in effects)
+        {
+            if (count == 1)
+            {
+                str += effect;
+            }
+            else
+            {
+                str += effect + ", ";
+            }
+            count--;
+        }
+        return str;
+    }
+
 }
