@@ -1,18 +1,28 @@
 ﻿using dk.via.ftc.businesslayer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace dk.via.ftc.dataTier_v2_C.Persistence
 {
     public class FTCDBContext: DbContext
     {
+
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<VendorAdmin> VendorAdmins{get;set;}
         
         public DbSet<Product> Products { get; set; }
+        public FTCDBContext(DbContextOptions<FTCDBContext> options) : base(options)
+    {
 
+    }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=b8zxgsmnlkoj6ypd21ro-postgresql.services.clever-cloud.com;Database=b8zxgsmnlkoj6ypd21ro;Username=u1qvxb47lih4lpp0hmzp;Password=L9CBWOWE3tlB0kpuncgG;");
-
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                Console.WriteLine("NOT CONFIGURED");
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Vendor>(entity =>

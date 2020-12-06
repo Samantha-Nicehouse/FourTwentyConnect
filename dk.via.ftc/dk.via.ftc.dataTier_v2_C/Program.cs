@@ -21,7 +21,9 @@ namespace dk.via.ftc.dataTier_v2_C
         }
         
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+            Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostContext, builder) =>
+            {
+                    builder.AddUserSecrets<Program>();
+            }).ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

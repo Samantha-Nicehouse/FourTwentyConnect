@@ -10,12 +10,16 @@ namespace dk.via.ftc.dataTier_v2_C.Data
     public class ProductService : IProductService
     {
         private List<Product> products;
+        private FTCDBContext fTCDBContext;
 
+        public ProductService(FTCDBContext context)
+        {
+            fTCDBContext = context;
+        }
         public async Task<Product> GetProductAsyncByStrain(int strain_id)
         {
-            using (FTCDBContext ftcdbContext = new FTCDBContext())
-            {
-                foreach (Product product in ftcdbContext.Products)
+
+                foreach (Product product in fTCDBContext.Products)
                 {
                     if (product.StrainId == strain_id)
                     {
@@ -27,31 +31,22 @@ namespace dk.via.ftc.dataTier_v2_C.Data
 
                 return null;
 
-            }
         }
 
         public async Task<IList<Product>> GetProductsAsync()
         {
             List<Product> products;
-            using (FTCDBContext ftcdbContext = new FTCDBContext())
-            {
-                products = ftcdbContext.Products.ToList();
-                await ftcdbContext.SaveChangesAsync();
-            }
+                products = fTCDBContext.Products.ToList();
+                await fTCDBContext.SaveChangesAsync();
 
             return products;
         }
 
         public async Task UpdateProduct(Product product)
         {
-
-            await using (FTCDBContext ftcdbContext = new FTCDBContext())
-            {
-                ftcdbContext.Update(product);
+                fTCDBContext.Update(product);
                 Console.WriteLine("updated");
-                await ftcdbContext.SaveChangesAsync();
-
-            }
+                await fTCDBContext.SaveChangesAsync();
         }
     }
 }

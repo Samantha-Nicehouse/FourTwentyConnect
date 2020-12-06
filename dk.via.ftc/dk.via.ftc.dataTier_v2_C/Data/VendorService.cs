@@ -9,13 +9,15 @@ namespace dk.via.ftc.dataTier_v2_C.Data
 {
     public class VendorService : IVendorService
     {
+        private FTCDBContext fTCDBContext;
+        public VendorService(FTCDBContext context)
+        {
+            fTCDBContext = context;
+        }
         public async Task AddVendorAsync(Vendor vendor)
         {
-            using (FTCDBContext ftcdbContext = new FTCDBContext())
-            {
-                await ftcdbContext.Vendors.AddAsync(vendor);
-                await ftcdbContext.SaveChangesAsync();
-            }
+                await fTCDBContext.Vendors.AddAsync(vendor);
+                await fTCDBContext.SaveChangesAsync();
         }
         public async Task AddVendorVendorAdmin(VendorVendorAdmin vvA)
         {
@@ -36,13 +38,11 @@ namespace dk.via.ftc.dataTier_v2_C.Data
 
             try
             {
-                using (FTCDBContext ftcdbContext = new FTCDBContext())
-                {
-                    await ftcdbContext.Vendors.AddAsync(vendor);
+                
+                    await fTCDBContext.Vendors.AddAsync(vendor);
                     vendorAdmin.VendorId = vendor.VendorId;
-                    await ftcdbContext.VendorAdmins.AddAsync(vendorAdmin);
-                    await ftcdbContext.SaveChangesAsync();
-                }
+                    await fTCDBContext.VendorAdmins.AddAsync(vendorAdmin);
+                    await fTCDBContext.SaveChangesAsync();
             }
             catch (NpgsqlException ex)
             {
