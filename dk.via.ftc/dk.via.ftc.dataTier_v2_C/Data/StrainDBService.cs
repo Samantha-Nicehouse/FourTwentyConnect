@@ -30,6 +30,8 @@ namespace dk.via.ftc.dataTier_v2_C.Data
             {
                 fTCDBContext.Strains.Remove(fTCDBContext.Strains.Where(e => e.StrainId.Equals(strain.StrainId)).ToList().FirstOrDefault());
                 Console.WriteLine(strain.StrainName + " ALREADY EXISTS, REPLACED WITH NEW");
+                fTCDBContext.Strains.Add(strain);
+                await fTCDBContext.SaveChangesAsync();
             }
         }
         //get1

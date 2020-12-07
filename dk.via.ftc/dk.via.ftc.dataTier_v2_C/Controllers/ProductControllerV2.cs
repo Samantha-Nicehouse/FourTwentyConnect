@@ -90,6 +90,7 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
         }
 
         [HttpPatch] //only updates attributes that have changed
+        [Route("Patch")]
         public async Task<ActionResult> updateProduct([FromBody] Product product)
         {
             try
@@ -104,8 +105,8 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
             }
         }
         [HttpPut]
-        [Route("Product/{strain_id}")]
-        public async Task<ActionResult> PutStrain([FromRoute] Product product)
+        [Route("Put")]
+        public async Task<ActionResult> PutProduct([FromRoute] Product product)
         {
             try
             {

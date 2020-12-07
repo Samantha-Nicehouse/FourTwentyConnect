@@ -22,12 +22,12 @@ namespace dk.via.ftc.businesslayer.Data.FTCAPI
         //add
         public async Task AddStrainAsync(StrainAPIObj strain)
         {
-            string vendorAsJson = JsonSerializer.Serialize(strain);
-            HttpContent content = new StringContent(vendorAsJson,
+            string stringAsJson = JsonSerializer.Serialize(strain);
+            HttpContent content = new StringContent(stringAsJson,
                 Encoding.UTF8,
                 "application/json");
             await client.PutAsync(uri + "/Put", content);
-            Console.WriteLine(vendorAsJson + " Sent To Data Layer");
+            Console.WriteLine(stringAsJson + " Sent To Data Layer");
         }
         //get1
         public async Task<Strain> GetStrainByIDAsync(int id)
