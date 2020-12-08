@@ -20,7 +20,7 @@ namespace dk.via.ftc.web.Models
 
 
         [Required]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         [JsonPropertyName("email")]
         public string Email { get; set; }
 
@@ -31,6 +31,17 @@ namespace dk.via.ftc.web.Models
         [Required]
         [JsonPropertyName("lastName")]
         public string LastName { get; set; }
+        [Required]
+        [JsonPropertyName("role")]
+        public string Role { get; set; }
+        
+        [Required]
+        [JsonPropertyName("securityLevel")]
+        public int SecurityLevel { get; set; }
+        
+        
+        
+      
 
         public void Update(User userToUpdate)
         {

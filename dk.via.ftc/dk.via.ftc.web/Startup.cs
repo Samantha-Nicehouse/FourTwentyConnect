@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using dk.via.ftc.web.Data;
+using System.Linq;
 
 namespace dk.via.ftc.web
 {
@@ -31,6 +32,7 @@ namespace dk.via.ftc.web
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IAdminService, CloudAdminService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICountryService, CountryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

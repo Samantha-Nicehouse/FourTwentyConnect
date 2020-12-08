@@ -1,107 +1,116 @@
 ﻿@page "/VendorRegistration";
 @using dk.via.ftc.businesslayer.Models;
 @using dk.via.ftc.web.Data;
+@using System.Diagnostics
 @inject IAdminService AdminService
+@inject ICountryService CountryService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
-<h3>VendorRegistration</h3>
-<EditForm Model="@vendorVendorAdmin" OnValidSubmit="@AddNewVendorAdmin">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+
+<h3>Vendor Registration</h3>
+@if (countries != null)
+{
+    <p>Registration with 420Connect is limited to vendors authorized by the German Federal Instiute for
+        Drugs and Medical Devices(BfArM) to import cannabis products.</p>
+<EditForm Model="@newVendor" OnValidSubmit="@AddNewVendorAdmin">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
 
     <div class="form-group">
-        UserName:<br />
-        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.Username" />
+        UserName:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username"/>
     </div>
     <div class="form-group">
-        Password:<br />
-        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.Pass" />
+        Password:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Pass"/>
     </div>
     <div class="form-group">
-        Email:<br />
-        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.Email" />
+        Email:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Email"/>
     </div>
     <div class="form-group">
-        First Name:<br />
-        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.FirstName" />
+        First Name:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.FirstName"/>
     </div>
     <div class="form-group">
-        Last Name:<br />
-        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendorAdmin.LastName" />
+        Last Name:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.LastName"/>
     </div>
     <div class="form-group">
-        Vendor Name:<br />
-        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendor.VendorName" />
+        Vendor Name:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendor.VendorName"/>
     </div>
     <div class="form-group">
-        Vendor License:<br />
-        <InputTextArea rows="1" @bind-Value="vendorVendorAdmin.vendor.vendorLicense" />
+        Vendor License:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendor.vendorLicense"/>
     </div>
     <div class="form-group">
-        Vendor Country:<br />
+        Vendor Country:<br/>
         <select class="form-control" style="width: 20%" @bind="newVendor.Country">
-            
-                <option value="Select Country"></option>
-                @foreach(var Countries in Country)
-                {
-                    <option value="@Countries.Code"> @Countries.Name </option>
-                }
+
+            <option value="Select Country"></option>
+
+            @foreach (var country in countries)
+            {
+                <option value="@country.CountryName"> @country.CountryName </option>
             }
-            
-            </select>
-        </div>
-    
+        </select>
+
+    </div>
+
     <div class="form-group">
-        Vendor State/Province:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.stateProvince" />
+        Vendor State/Province:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendor.stateProvince"/>
     </div>
     <div class="form-group">
-        Vendor City:<br />
-        <InputTextArea rows="1" @bind-Value="newVendor.City" />
+        Vendor City:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendor.City"/>
     </div>
     <p class="actions">
         <button class="btn btn-outline-dark" type="submit">Create</button>
     </p>
 </EditForm>
-
+}
+else
+{
+    <p class="bg-warning">
+        Loading form data..
+    </p>
+}
 @code {
     private readonly VendorAdmin newVendorAdmin = new VendorAdmin();
     private readonly Vendor newVendor = new Vendor();
-    private readonly VendorVendorAdmin vendorVendorAdmin = new VendorVendorAdmin();
-
+   
+    protected override async Task OnInitializedAsync() {
+        countries = await CountryService.GetCountriesAsync();
+    }
+    
     private async Task AddNewVendorAdmin()
     {
-        if (!vendorVendorAdmin.vendor.Country.Equals(""))
+       
+        VendorVendorAdmin vvA = new VendorVendorAdmin();
+        vvA.vendor = newVendor;
+        vvA.vendorAdmin = newVendorAdmin;
+        try
         {
-            await AdminService.AddVendorVendorAdminAsync(vendorVendorAdmin);
-            NavigationManager.NavigateTo("/");
+            if (!newVendor.Country.Equals(""))
+            {
+                foreach (Country country in countries)
+                {
+                    if (country.CountryName.Equals(newVendor.Country))
+                    {
+                        vvA.vendor.CountryCode = country.CountryCode;
+                        await AdminService.AddVendorVendorAdminAsync(vvA);
+                        NavigationManager.NavigateTo("/");
+                    }
+                }
+                
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Exception Message: " + ex.Message);
         }
     }
-    public class Countries
-    {
-        public string Name { get; set; }
-        public string Code { get; set; }
-    }
-    private List<Countries> Country = new List<Countries>
-    {
-        new Countries() { Name = "Australia", Code = "AU" },
-        new Countries() { Name = "Bermuda", Code = "BM" },
-        new Countries() { Name = "Canada", Code = "CA" },
-        new Countries() { Name = "Cameroon", Code = "CM" },
-        new Countries() { Name = "Denmark", Code = "DK" },
-        new Countries() { Name = "France", Code = "FR" },
-        new Countries() { Name = "Finland", Code = "FI" },
-        new Countries() { Name = "Germany", Code = "DE" },
-        new Countries() { Name = "Greenland", Code = "GL" },
-        new Countries() { Name = "Hong Kong", Code = "HK" },
-        new Countries() { Name = "India", Code = "IN" },
-        new Countries() { Name = "Italy", Code = "IT" },
-        new Countries() { Name = "Japan", Code = "JP" },
-        new Countries() { Name = "Mexico", Code = "MX" },
-        new Countries() { Name = "Norway", Code = "NO" },
-        new Countries() { Name = "Poland", Code = "PL" },
-        new Countries() { Name = "Switzerland", Code = "CH" },
-        new Countries() { Name = "United Kingdom", Code = "GB" },
-        new Countries() { Name = "United States", Code = "US" },
-    };
+    private IList<Country> countries { get; set; }
 }

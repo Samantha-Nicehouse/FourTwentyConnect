@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using dk.via.ftc.businesslayer.Models;
 using dk.via.ftc.dataTier_v2_C.Persistence;
@@ -23,14 +24,14 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         {
             Vendor vendor = new Vendor();
             vendor.City = vvA.vendor.City;
-            vendor.Country = vvA.vendor.Country;
+            vendor.CountryCode = vvA.vendor.CountryCode;
+            Console.WriteLine(vvA.vendor.CountryCode + "");
             vendor.State = vvA.vendor.stateProvince;
             vendor.VendorLicense = vvA.vendor.vendorLicense;
             vendor.VendorName = vvA.vendor.VendorName;
             VendorAdmin vendorAdmin = new VendorAdmin();
             vendorAdmin.Email = vvA.vendorAdmin.Email;
             vendorAdmin.Pass = vvA.vendorAdmin.Pass;
-            vendorAdmin.Phone = vvA.vendorAdmin.Phone;
             vendorAdmin.Username = vvA.vendorAdmin.Username;
             vendorAdmin.Vendor = vendor;
             vendorAdmin.FirstName = vvA.vendorAdmin.FirstName;
@@ -49,5 +50,10 @@ namespace dk.via.ftc.dataTier_v2_C.Data
                 Console.WriteLine(ex);
             }
         }
+
+       
     }
+  
+    
+    
 }

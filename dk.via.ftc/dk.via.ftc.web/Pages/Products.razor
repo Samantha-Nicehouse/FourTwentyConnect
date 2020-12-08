@@ -2,29 +2,27 @@
 @page "/Products/{id:int}"
 @using dk.via.ftc.web.Data
 @using dk.via.ftc.businesslayer.Models
+@using Microsoft.Extensions.Logging
 @inject IProductService ProductService
 @inject IJSRuntime JsRuntime
 
-@if (ps == null)
-{
-    <p>Retrieving product...</p>
-}
-else
+@if (ps != null)
+
 {
     <h3 class="product">@ps.strainname</h3>
     <div class="card">
-        <div class ="row">
-        <div class="col-3">
-            <img src="images/strainImg.png" class="img-fluid img-thumbnail" alt="Image of @ps.ProductName"/>
-        </div>
+        <div class="row">
+            <div class="col-3">
+                <img src="images/strainImg.png" class="img-fluid img-thumbnail" alt="Image of @ps.ProductName"/>
+            </div>
             <div class="col-9">
                 <ul class="orderPageList productListObj" data-role="listview">
                     <li class>
-                        <div class = "form-group">
-                         Race: @ps.race;
-                         </div>
+                        <div class="form-group">
+                            Race: @ps.race;
+                        </div>
                     </li>
-                    
+
                     <li>
                         <div class="form-group">
                             THC: @ps.ThcContent<br/>
@@ -41,9 +39,9 @@ else
                         </div>
                     </li>
                     <li>
-                         <div class="form-group">
-                             Indications: @DisplayEffect(@ps.effects.medical);
-                             </div>
+                        <div class="form-group">
+                            Indications: @DisplayEffect(@ps.effects.medical);
+                        </div>
 
                     </li>
                 </ul>
@@ -51,28 +49,45 @@ else
                     <button class="btn btn-success order-button" type="submit">Place Order</button>
                 </p>
             </div>
-            </div>
         </div>
+    </div>
+}
+else if (loadFailed)
+    {
+        <h1> Sorry, we could not load this product due to an error.</h1>
+    }
+else
+{<p>Retrieving product...</p>
+}
 }
 
-
 @code {
+    IList<ProductStrain> products = new List<ProductStrain>();
+    ProductStrain ps { get; set; }
+    public bool loadFailed;
 
     [Parameter]
     public int id { get; set; }
 
-    IList<ProductStrain> products = new List<ProductStrain>();
-    ProductStrain ps { get; set; }
-
+   
     protected override async Task OnInitializedAsync()
     {
-        products = await ProductService.GetProductsAllProductsAsync();
-        foreach (ProductStrain prod in products)
+        try
         {
-            if (prod.ProductId == id)
+            loadFailed = false;
+            products = await ProductService.GetProductsAllProductsAsync();
+            foreach (ProductStrain prod in products)
             {
-                ps = prod;
+                if (prod.ProductId == id)
+                {
+                    ps = prod;
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            loadFailed = true;
+
         }
     }
 

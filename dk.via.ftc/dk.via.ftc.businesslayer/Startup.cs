@@ -28,6 +28,7 @@ namespace dk.via.businesslayer
             services.AddSingleton<IStrainAPIService, StrainAPIService>();
             services.AddSingleton<StrainContext>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICountryService, CountryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
