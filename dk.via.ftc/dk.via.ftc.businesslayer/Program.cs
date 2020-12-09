@@ -31,7 +31,8 @@ namespace dk.via.businesslayer
                 try
                 {
                     var context = services.GetRequiredService<StrainContext>();
-                    await DataGenerator.Initialize(context);
+                    var context2 = services.GetRequiredService<DispensaryLicencesContext>();
+                    await DataGenerator.Initialize(context,context2);
                 }
                 catch (Exception ex)
                 {

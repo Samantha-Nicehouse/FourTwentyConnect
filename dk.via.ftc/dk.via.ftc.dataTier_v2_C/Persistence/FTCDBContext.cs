@@ -15,6 +15,9 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
         public DbSet<Country> Countries { get; set; }
         
         public DbSet<Product> Products { get; set; }
+        public DbSet<Dispensary> Dispensaries { get; set; }
+        public DbSet<DispensaryAdmin> DispensaryAdmins { get; set; }
+
         public FTCDBContext(DbContextOptions<FTCDBContext> options) : base(options)
     {
 
@@ -58,9 +61,9 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .HasColumnName("city");
 
                 entity.Property(e => e.Country)
-                    .IsRequired()
                     .HasMaxLength(15)
-                    .HasColumnName("country");
+                    .HasColumnName("country")
+                    .HasDefaultValueSql("'Germany'::character varying");
 
                 entity.Property(e => e.CountryCode)
                     .HasColumnType("character varying")
@@ -81,15 +84,56 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .IsRequired()
                     .HasMaxLength(15)
                     .HasColumnName("state");
-                entity.Property(e => e.Country)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("country");
-                
+
                 entity.HasOne(d => d.CountryCodeNavigation)
                     .WithMany(p => p.Dispensaries)
                     .HasForeignKey(d => d.CountryCode)
                     .HasConstraintName("fk_dispensary_country");
+            });
+            modelBuilder.Entity<DispensaryAdmin>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("dispensary_admin", "SEP3");
+
+                entity.HasIndex(e => e.Username, "dispensary_admin_username_key")
+                    .IsUnique();
+
+                entity.Property(e => e.DispensaryId).HasColumnName("dispensary_id");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("first_name");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("last_name");
+
+                entity.Property(e => e.Pass)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("pass");
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(15)
+                    .HasColumnName("phone");
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("username");
+
+                entity.HasOne(d => d.Dispensary)
+                    .WithMany()
+                    .HasForeignKey(d => d.DispensaryId)
+                    .HasConstraintName("dispensary_id_fk");
             });
             modelBuilder.Entity<Vendor>(entity =>
             {

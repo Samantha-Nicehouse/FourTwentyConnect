@@ -27,8 +27,10 @@ namespace dk.via.businesslayer
             services.AddScoped<IVendorService_v2, VendorService_v2>();
             services.AddSingleton<IStrainAPIService, StrainAPIService>();
             services.AddSingleton<StrainContext>();
+            services.AddSingleton<DispensaryLicencesContext>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IDispensaryService, DispensaryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

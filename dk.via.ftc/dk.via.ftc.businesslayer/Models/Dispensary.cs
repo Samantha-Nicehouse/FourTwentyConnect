@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+
 #nullable disable
 
 namespace dk.via.ftc.businesslayer.Models
@@ -16,9 +18,12 @@ namespace dk.via.ftc.businesslayer.Models
         
             [JsonPropertyName("dispensary_id")]
             public string DispensaryId { get; set; }
-            [JsonPropertyName("dispensary_name")]
+            [JsonPropertyName("DispensaryName")]
+            [Display(Name = "Dispensary Name")]
             public string DispensaryName { get; set; }
-            [JsonPropertyName("dispensary_license")]
+            [JsonPropertyName("DispensaryLicense")]
+            //[Remote("CheckLicense","Dispensary")]
+            [Display(Name = "Dispensary License")]
             public string DispensaryLicense { get; set; }
             [JsonPropertyName("city")]
             public string City { get; set; }

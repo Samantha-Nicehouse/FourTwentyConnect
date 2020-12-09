@@ -10,19 +10,6 @@ namespace dk.via.ftc.businesslayer.Data.Services
 {
     public class CountryService: ICountryService
     {
-        /*
-          public class ProductService : IProductService
-    {
-        private string uri = "https://localhost:44332/db";
-        private readonly HttpClient client = new HttpClient();
-        private StrainContext sc;
-        public ProductService(IServiceProvider serviceProvider)
-        {
-            sc = serviceProvider.GetRequiredService<StrainContext>();
-        }
-        public IList<Product> Products { get; set; }
-
-         */
 
 
         private string uri = "https://localhost:44332/db/Countries/";

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using dk.via.ftc.dataTier_v2_C.Persistence;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace dk.via.ftc.dataTier_v2_C.Data
 {
     public class ProductService : IProductService
@@ -19,35 +20,34 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         public async Task<Product> GetProductAsyncByStrain(int strain_id)
         {
 
-                foreach (Product product in fTCDBContext.Products)
+            foreach (Product product in fTCDBContext.Products)
+            {
+                if (product.StrainId == strain_id)
                 {
-                    if (product.StrainId == strain_id)
-                    {
-                        return product;
-                    }
-
-                    Console.WriteLine(product.ProductName);
+                    return product;
                 }
 
-                return null;
+                Console.WriteLine(product.ProductName);
+            }
+
+            return null;
 
         }
 
         public async Task<IList<Product>> GetProductsAsync()
         {
             List<Product> products;
-                products = fTCDBContext.Products.ToList();
-                await fTCDBContext.SaveChangesAsync();
+            products = fTCDBContext.Products.ToList();
+            await fTCDBContext.SaveChangesAsync();
 
             return products;
         }
 
         public async Task UpdateProduct(Product product)
         {
-                fTCDBContext.Update(product);
-                Console.WriteLine("updated");
-                await fTCDBContext.SaveChangesAsync();
+            fTCDBContext.Update(product);
+            Console.WriteLine("updated");
+            await fTCDBContext.SaveChangesAsync();
         }
     }
 }
-

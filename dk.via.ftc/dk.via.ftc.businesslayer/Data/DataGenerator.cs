@@ -16,7 +16,7 @@ namespace dk.via.ftc.businesslayer.Data
 {
     public class DataGenerator
     {
-        public async static Task Initialize(StrainContext sc)
+        public async static Task Initialize(StrainContext sc, DispensaryLicencesContext dlc)
         {
                 StrainAPIService sa = new StrainAPIService();
                 List<StrainAPIObj> strains = await sa.GetAllStrainsAsync();
@@ -24,7 +24,9 @@ namespace dk.via.ftc.businesslayer.Data
                 {
                     sc.Strains.Add(strain);
                 }
+                Console.WriteLine(dlc.Licenses.First().license);
             Console.WriteLine("DataGeneratorOut: "+sc.Strains.Count);
+            
         }
     }
 }

@@ -1,0 +1,90 @@
+﻿@page "/DispensaryRegistration"
+@using dk.via.ftc.businesslayer.Models;
+@using dk.via.ftc.web.Data;
+@using System.Diagnostics
+@inject IAdminService AdminService
+@inject ICountryService CountryService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject IDispensaryService DispensaryService
+
+<h3>Dispensary Registration</h3>
+   
+
+    <EditForm Model="@newDispensary" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator />
+           <ValidationSummary/>
+        <div class="form-group">
+            Dispensary Name:<br/>
+            <InputTextArea rows="1" @bind-Value="newDispensary.DispensaryName"/>
+        </div>
+        <div class="form-group">
+            Dispensary License:<br/>
+            <InputTextArea rows="1" @bind-Value="newDispensary.DispensaryLicense"/>
+        </div>
+        <div class="form-group">
+            Dispensary Country: Germany <br/>
+           
+
+        </div>
+
+        <div class="form-group">
+            Dispensary State/Province:<br/>
+            <InputTextArea rows="1" @bind-Value="newDispensary.State"/>
+        </div>
+        <div class="form-group">
+            Dispensary City:<br/>
+            <InputTextArea rows="1" @bind-Value="newDispensary.City"/>
+        </div>
+
+        <button>
+            Register
+        </button>
+        <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
+    
+    </EditForm>
+
+    
+
+@code {
+    private readonly Dispensary newDispensary = new Dispensary();
+    private bool loadFailed;
+
+    protected override async Task OnInitializedAsync()
+    {
+       
+    }
+
+    private async Task OnValidSubmit()
+    {
+        
+
+        try
+        {
+            loadFailed = false;
+            bool execute = await DispensaryService.CheckLicense(newDispensary.DispensaryLicense);
+            if (execute)
+            {
+                
+                await DispensaryService.AddDispensaryAsync(newDispensary);
+                NavigationManager.NavigateTo("/");
+                
+            }
+
+    //AlertService.Success("Registration successful", keepAfterRouteChange: true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            loadFailed = true;
+            StateHasChanged();
+            Debug.WriteLine("Exception Message: " + ex.Message);
+        }
+
+    }
+
+    
+
+
+
+}
