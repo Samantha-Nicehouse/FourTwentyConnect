@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
 {
-    [Route("ftc/api/Products")]
+    [Route("ftc/api")]
     [ApiController]
     public class APIProductController : ControllerBase
 
@@ -22,12 +22,12 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
         }
 
         [HttpGet]
-        [Route("Strain/{strain_id}")]
-        public async Task<ActionResult<IList<Product>>> GetProductByStrain([FromRoute] int strain_id)
+        [Route("{apikey}/Products/Strain/{strain_id}")]
+        public async Task<ActionResult<IList<Product>>> GetProductByStrain([FromRoute] string apikey,[FromRoute] int strain_id)
         {
             try
             {
-                Console.WriteLine(strain_id + " GET REQUEST");
+                Console.WriteLine(strain_id + " GET REQUEST "+apikey);
                 IList<Product> products = await _productService.GetProductsAsyncByStrain(strain_id);
                 string strOut = JsonConvert.SerializeObject(products);
                 if (products != null)
@@ -42,9 +42,9 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
         }
 
         [HttpGet]
-        [Route("Vendor/{vendorId}")]
+        [Route("{apikey}/Products/Vendor/{vendorId}")]
         public async Task<ActionResult<IList<Product>>>
-            GetProductsByVendor([FromRoute] string? vendorId)
+            GetProductsByVendor([FromRoute] string apikey,[FromRoute] string? vendorId)
 
         {
             IList<Product> products;
@@ -52,6 +52,7 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
             {
                 if (vendorId != null)
                 {
+                    Console.WriteLine("GET REQUEST BY VENDOR apikey " + apikey);
                     IList<Product> filteredProducts = await _productService.GetProductsAsync();
                     products = filteredProducts.Where(p =>
                         p.VendorId.Equals(vendorId)).ToList();
@@ -72,13 +73,14 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
         }
 
         [HttpGet]
-        [Route("All")]
+        [Route("{apikey}/Products/All")]
         public async Task<ActionResult<IList<Product>>>
-            GetProductsAll()
+            GetProductsAll([FromRoute] string apikey)
 
         {
             try
             {
+                Console.WriteLine("GET REQUEST BY ALL Products apikey " + apikey);
                 IList<Product> products = await _productService.GetProductsAsync();
                 string strOut = JsonConvert.SerializeObject(products);
                 return Ok(products);
@@ -91,7 +93,7 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
             }
         }
 
-        [HttpPatch] //only updates attributes that have changed
+        /*[HttpPatch] //only updates attributes that have changed
         public async Task<ActionResult> updateProduct([FromBody] Product product)
         {
             try
@@ -119,6 +121,6 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
             }
-        }
+        }*/ //Todo: Implement updateProduct, addProduct fully
     }
 }
