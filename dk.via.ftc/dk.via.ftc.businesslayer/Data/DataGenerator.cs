@@ -1,4 +1,5 @@
-﻿using dk.via.ftc.businesslayer.Data.Services;
+﻿using dk.via.ftc.businesslayer.Data.FTCAPI;
+using dk.via.ftc.businesslayer.Data.Services;
 using dk.via.ftc.businesslayer.Models;
 using dk.via.ftc.businesslayer.Models.DTO;
 using dk.via.ftc.businesslayer.Persistence;
@@ -16,17 +17,22 @@ namespace dk.via.ftc.businesslayer.Data
 {
     public class DataGenerator
     {
-        public async static Task Initialize(StrainContext sc, DispensaryLicencesContext dlc)
+        public async static Task Initialize(StrainContext sc, DispensaryLicencesContext dlc,IAPIStrainService service, IStrainAPIService saApi)
         {
-                StrainAPIService sa = new StrainAPIService();
-                List<StrainAPIObj> strains = await sa.GetAllStrainsAsync();
-                foreach (StrainAPIObj strain in strains)
-                {
-                    sc.Strains.Add(strain);
-                }
-                Console.WriteLine(dlc.Licenses.First().license);
+            
+            IStrainAPIService sa = saApi;
+            List<StrainAPIObj> strains = await sa.GetAllStrainsAsync();
+            foreach (StrainAPIObj strain in strains)
+            {
+                sc.Strains.Add(strain);
+
+            }
+            //service.AddStrainsAsync(strains);// Use Only To RePopulate whole Database of Strains/Effects
+            Console.WriteLine("DataGeneratorOut: " + sc.Strains.Count);
+            Console.WriteLine(dlc.Licenses.First().license);
             Console.WriteLine("DataGeneratorOut: "+sc.Strains.Count);
             
         }
+        
     }
 }

@@ -16,6 +16,7 @@ using dk.via.ftc.businesslayer.Data;
 using dk.via.ftc.businesslayer.Data.Services;
 using Microsoft.AspNetCore;
 using dk.via.businesslayer.Data.Services;
+using dk.via.ftc.businesslayer.Data.FTCAPI;
 
 namespace dk.via.businesslayer
 {
@@ -32,7 +33,9 @@ namespace dk.via.businesslayer
                 {
                     var context = services.GetRequiredService<StrainContext>();
                     var context2 = services.GetRequiredService<DispensaryLicencesContext>();
-                    await DataGenerator.Initialize(context,context2);
+                    var strainService = services.GetRequiredService<IAPIStrainService>();
+                    var strainAPIService = services.GetRequiredService<IStrainAPIService>();
+                    await DataGenerator.Initialize(context, context2, strainService, strainAPIService);
                 }
                 catch (Exception ex)
                 {

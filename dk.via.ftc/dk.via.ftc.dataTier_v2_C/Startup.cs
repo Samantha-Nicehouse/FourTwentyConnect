@@ -27,6 +27,7 @@ namespace dk.via.ftc.dataTier_v2_C
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<FTCDBContext>(p => p.UseNpgsql(Configuration["DataTier:PostgreSQLCon"]));
             services.AddScoped<IVendorService, VendorService>();
@@ -34,6 +35,7 @@ namespace dk.via.ftc.dataTier_v2_C
             services.AddMvc();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IDispensaryService, DispensaryService>();
+            services.AddScoped<IStrainDBService, StrainDBService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

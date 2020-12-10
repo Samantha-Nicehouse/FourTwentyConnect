@@ -1,8 +1,8 @@
-﻿using dk.via.ftc.businesslayer.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using dk.via.ftc.dataTier_v2_C;
+using dk.via.ftc.dataTier_v2_C.Models;
 
 namespace dk.via.ftc.dataTier_v2_C.Persistence
 {
@@ -11,7 +11,8 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<VendorAdmin> VendorAdmins{get;set;}
-
+        public virtual DbSet<Effect> Effects { get; set; }
+        public virtual DbSet<Strain> Strains { get; set; }
         public DbSet<Country> Countries { get; set; }
         
         public DbSet<Product> Products { get; set; }
@@ -20,7 +21,7 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
         public FTCDBContext(DbContextOptions<FTCDBContext> options) : base(options)
     {
-
+            Database.SetCommandTimeout(1800);
     }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,6 +32,48 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Effect>(entity =>
+            {
+                entity.HasKey(e => e.EffectsId)
+                    .HasName("effects_pkey");
+
+                entity.ToTable("effects", "SEP3");
+
+                entity.Property(e => e.EffectsId)
+                    .HasColumnName("effects_id")
+                    .HasDefaultValueSql("('EFF'::text || nextval('\"SEP3\".effects_id'::regclass))");
+
+                entity.Property(e => e.Medical)
+                    .HasColumnType("character varying[]")
+                    .HasColumnName("medical");
+
+                entity.Property(e => e.Negative)
+                    .HasColumnType("character varying[]")
+                    .HasColumnName("negative");
+
+                entity.Property(e => e.Positive)
+                    .HasColumnType("character varying[]")
+                    .HasColumnName("positive");
+
+                entity.Property(e => e.StrainId).HasColumnName("strain_id");
+
+            });
+            modelBuilder.Entity<Strain>(entity =>
+            {
+                entity.ToTable("strain", "SEP3");
+
+                entity.Property(e => e.StrainId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("strain_id");
+
+                entity.Property(e => e.Race)
+                    .HasMaxLength(10)
+                    .HasColumnName("race");
+
+                entity.Property(e => e.StrainName)
+                    .HasMaxLength(20)
+                    .HasColumnName("strain_name");
+            });
             modelBuilder.Entity<Country>(entity =>
             {
                 entity.HasKey(e => e.CountryCode)

@@ -21,14 +21,14 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
 
         [HttpGet]
         [Route("Strain/{strain_id}")]
-        public async Task<ActionResult<Product>> GetProductByStrain(int strain_id)
+        public async Task<ActionResult<IList<Product>>> GetProductsByStrain(int strain_id)
         {
             try
             {
                 Console.WriteLine(strain_id+" GET REQUEST");
-                Product product = await _productService.GetProductAsyncByStrain(strain_id);
-                if(product != null)
-                return Ok(product);
+                IList<Product> products = await _productService.GetProductsAsyncByStrain(strain_id);
+                if(products != null)
+                return Ok(products);
                 return NotFound();
             }
             catch (Exception e)
@@ -56,7 +56,6 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
                 {
                     return NotFound();
                 }
-
                 return Ok(products);
 
             }

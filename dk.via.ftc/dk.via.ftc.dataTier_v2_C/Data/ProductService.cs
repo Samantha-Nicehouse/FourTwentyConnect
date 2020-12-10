@@ -17,20 +17,11 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         {
             fTCDBContext = context;
         }
-        public async Task<Product> GetProductAsyncByStrain(int strain_id)
+        public async Task<IList<Product>> GetProductsAsyncByStrain(int strain_id)
         {
 
-            foreach (Product product in fTCDBContext.Products)
-            {
-                if (product.StrainId == strain_id)
-                {
-                    return product;
-                }
-
-                Console.WriteLine(product.ProductName);
-            }
-
-            return null;
+            IQueryable<Product> products = fTCDBContext.Products.Where(p => p.StrainId.Equals(strain_id)); // Todo: .Include("Strains"); When its relation is implemented;
+            return products.ToList();
 
         }
 
@@ -46,8 +37,16 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         public async Task UpdateProduct(Product product)
         {
             fTCDBContext.Update(product);
-            Console.WriteLine("updated");
+            Console.WriteLine(product.ProductName + " Updated");
             await fTCDBContext.SaveChangesAsync();
+        }
+
+        public async Task AddProductAsync(Product product)
+        {
+            fTCDBContext.Products.Add(product);
+            await fTCDBContext.SaveChangesAsync();
+
+            Console.WriteLine(product.ProductName + " Added To DB");
         }
     }
 }
