@@ -34,7 +34,12 @@ namespace dk.via.ftc.dataTier_v2_C.Data
             await  fTCDBContext.SaveChangesAsync();
             
         }
-        
+        public async Task<DispensaryAdmin> GetDispensaryByUsername(string username)
+        {
+            IQueryable<DispensaryAdmin> da = fTCDBContext.DispensaryAdmins.Where(d => d.Username.Equals(username));
+            await fTCDBContext.SaveChangesAsync();
+            return da.FirstOrDefault();
+        }
         public async Task AddDispensaryAdmin(DispensaryAdmin dispensaryAdmin)
         {
 

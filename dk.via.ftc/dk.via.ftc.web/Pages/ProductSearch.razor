@@ -4,10 +4,11 @@
 @inject IProductService ProductService;
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Policy = "DispensaryAdmin")]
 <h3>Product Search</h3>
 
 <p>
-    Filter by User Id: <input type="number" @oninput="@((arg)=> FilterByUserId(arg))" style="width:50px"/>
+    Filter by User Id: <input type="number" @oninput="@((arg)=> FilterByUserId(arg))" style="width:50px" />
 </p>
 <p>
     Filter by completed status:
@@ -33,33 +34,33 @@ else
 {
     <table class="table">
         <thead>
-        <tr>
-            <th>Product Name</th>
-            <th>Strain Name</th>
-            <th>Medical Indications</th>
-            <th>THC Content</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>Product Name</th>
+                <th>Strain Name</th>
+                <th>Medical Indications</th>
+                <th>THC Content</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (ProductStrain item in todosToShow)
-        {
-            <tr>
-                <td>@item.ProductName</td>
-                <td>@item.strainname</td>
-                <td>@DisplayEffect(@item.effects.medical)</td>
-                <td class = "align-middle">@item.ThcContent</td>
-                <td>
+            @foreach (ProductStrain item in todosToShow)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.strainname</td>
+                    <td>@DisplayEffect(@item.effects.medical)</td>
+                    <td class="align-middle">@item.ThcContent</td>
+                    <td>
 
-                    <button class="btn btn-light" @onclick="@(() => ViewMore(item))">
-                        View More
-                    </button>
-                    
+                        <button class="btn btn-light" @onclick="@(() => ViewMore(item))">
+                            View More
+                        </button>
 
-                </td>
-                
-            </tr>
-        }
+
+                    </td>
+
+                </tr>
+            }
         </tbody>
     </table>
 }
@@ -81,26 +82,27 @@ else
         {
             if (count == 1)
             {
-                str +=effect;
+                str += effect;
             }
             else
             {
-                str +=effect + ", ";
+                str += effect + ", ";
             }
             count--;
         }
         return str;
     }
-   
-        protected override async Task OnInitializedAsync() {
-            allTodos = await ProductService.GetProductsAllProductsAsync();
-            todosToShow = allTodos;
-        }
-    
+
+    protected override async Task OnInitializedAsync()
+    {
+        allTodos = await ProductService.GetProductsAllProductsAsync();
+        todosToShow = allTodos;
+    }
+
 
     private async Task ViewMore(ProductStrain ps)
     {
-        NavigationManager.NavigateTo("/Products/"+ps.ProductId);
+        NavigationManager.NavigateTo("/Products/" + ps.ProductId);
         //var todoToRemove = allTodos.First(t => t.TodoId == todoId);
         //await TodoService.RemoveTodoAsync(todoId);
         //allTodos.Remove(todoToRemove);
@@ -108,7 +110,7 @@ else
 
     private async Task CompletedChange(ChangeEventArgs evt, ProductStrain todo)
     {
-        
+
         //todo.IsCompleted = (bool) evt.Value;
         //await TodoService.UpdateAsync(todo);
     }
@@ -133,7 +135,7 @@ else
         {
             filterByIsCompleted = bool.Parse(args.Value.ToString());
         }
-    catch(Exception e){}
+        catch (Exception e) { }
         ExecuteFilter();
     }
 

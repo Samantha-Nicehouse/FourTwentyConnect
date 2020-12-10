@@ -51,6 +51,25 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
                 return StatusCode(200, e.Message);
             }
         }
+        [HttpGet]
+        [Route("Dispensary/{username}")]
+        public async Task<ActionResult<IList<Dispensary>>> GetDispensaryAdmin([FromRoute] string username)
+
+        {
+            try
+            {
+                DispensaryAdmin dispensaryAdmin = await _dispensaryService.GetDispensaryByUsername(username);
+                string s = JsonConvert.SerializeObject(dispensaryAdmin);
+                Console.WriteLine(s);
+                return Ok(s);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(200, e.Message);
+            }
+        }
 
 
 

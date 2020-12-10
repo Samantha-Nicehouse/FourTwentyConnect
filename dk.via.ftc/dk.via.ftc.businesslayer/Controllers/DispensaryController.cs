@@ -102,6 +102,44 @@ namespace dk.via.ftc.businesslayer.Controllers
             await _dispensaryService.AddDispensaryAdminAsync(dispensaryAdmin);
             
         }
-        
+
+        [HttpGet]
+        [Route("Dispensary/{username}")]
+        public async Task<ActionResult<DispensaryAdmin>> GetDispensaryAdmin([FromRoute] string username)
+
+        {
+            try
+            {
+                DispensaryAdmin dispensaryAdmin = await _dispensaryService.GetDispensaryByUsername(username);
+                string s = JsonConvert.SerializeObject(dispensaryAdmin);
+                Console.WriteLine(s);
+                return Ok(s);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(200, e.Message);
+            }
+        }
+        [HttpGet]
+        [Route("DAValidate/{username}/{password}")]
+        public async Task<ActionResult<bool>> ValidateDispensaryAdmin([FromRoute] string username, [FromRoute] string password)
+
+        {
+            try
+            {
+                bool validation = await _dispensaryService.ValidateDispensaryAdmin(username,password);
+                Console.WriteLine("Login Validation: "+ validation);
+                return Ok(validation);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(200, e.Message);
+            }
+        }
+
     }
 }
