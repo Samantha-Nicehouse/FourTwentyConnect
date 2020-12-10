@@ -65,7 +65,7 @@
             bool execute = await DispensaryService.CheckLicense(newDispensary.DispensaryLicense);
             if (execute)
             {
-
+              
                 await DispensaryService.AddDispensaryAsync(newDispensary);
                 NavigationManager.NavigateTo("/DispensaryAdminRegistration/"+newDispensary.DispensaryLicense);
 

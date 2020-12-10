@@ -2,6 +2,7 @@
 @page "/DispensaryAdminRegistration/{license}"
 @using dk.via.ftc.businesslayer.Models
 @using dk.via.ftc.web.Data;
+@using dk.via.ftc.web.Security;
 @using System.Diagnostics
 @inject IAdminService CloudAdminService
 @inject ICountryService CountryService
@@ -103,7 +104,7 @@ else
                 {   loadFailed = false;
                     if (!dA.Equals(" "))
                     {
-
+                        dA.Pass = Security.HashPassword(newDispensaryAdmin.Pass);
                         await CloudAdminService.AddDispensaryAdminAsync(newDispensaryAdmin);
                         NavigationManager.NavigateTo("/");
 
