@@ -17,13 +17,16 @@ using dk.via.ftc.businesslayer.Data.Services;
 using Microsoft.AspNetCore;
 using dk.via.businesslayer.Data.Services;
 using dk.via.ftc.businesslayer.Data.FTCAPI;
+using dk.via.ftc.businesslayer.Data.Sockets;
 
 namespace dk.via.businesslayer
 {
     public class Program
     {
+        static IProductService productService;
         public static async Task Main(string[] args)
         {
+            
             var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
@@ -35,6 +38,7 @@ namespace dk.via.businesslayer
                     var context2 = services.GetRequiredService<DispensaryLicencesContext>();
                     var strainService = services.GetRequiredService<IAPIStrainService>();
                     var strainAPIService = services.GetRequiredService<IStrainAPIService>();
+                    productService = services.GetRequiredService<IProductService>();
                     await DataGenerator.Initialize(context, context2, strainService, strainAPIService);
                 }
                 catch (Exception ex)
@@ -43,7 +47,7 @@ namespace dk.via.businesslayer
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
-
+            FTCSockets ftcSockets = new FTCSockets(productService);
             host.Run();
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
