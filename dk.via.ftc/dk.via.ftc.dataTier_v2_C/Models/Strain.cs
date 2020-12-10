@@ -1,10 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 #nullable disable
 
-namespace dk.via.ftc.businesslayer.Models
+namespace dk.via.ftc.dataTier_v2_C.Models
 {
     public partial class Strain
     {
@@ -18,7 +17,5 @@ namespace dk.via.ftc.businesslayer.Models
         public string Race { get; set; }
 
         public virtual ICollection<Effect> Effects { get; set; }
-
-
     }
 }

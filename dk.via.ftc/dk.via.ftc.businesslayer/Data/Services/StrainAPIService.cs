@@ -34,8 +34,9 @@ namespace dk.via.ftc.businesslayer.Data.Services
             for (int i = messageTrim.Length; i > 10;)
 
             {
-                string strainName = messageTrim.Substring(0, messageTrim.IndexOf(":{")); // Gets the name of strain
-                string strainNameCut = messageTrim.Replace(strainName + ":", ""); // removes name of strain
+                string strainName = messageTrim.Substring(0, messageTrim.IndexOf(":{")).Trim('"'); // Gets the name of strain
+                string strainNameOut = messageTrim.Substring(0, messageTrim.IndexOf(":{")); // Gets the name of strain
+                string strainNameCut = messageTrim.Replace(strainNameOut + ":", ""); // removes name of strain
                 string strainCut;
                 if (strainNameCut.IndexOf("},") > 0)
                 {

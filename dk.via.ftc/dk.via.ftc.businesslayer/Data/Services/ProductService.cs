@@ -18,6 +18,7 @@ namespace dk.via.businesslayer.Data.Services
     public class ProductService : IProductService
     {
         private string uri = "https://localhost:44332/db";
+        private string uri2 = "https://localhost:44332/db/Strains";
         private readonly HttpClient client = new HttpClient();
         private StrainContext sc;
         public ProductService(IServiceProvider serviceProvider)
@@ -35,24 +36,33 @@ namespace dk.via.businesslayer.Data.Services
             //HttpResponseMessage response = await client.PutAsync(uri + "/Products", content);
             //Console.WriteLine(response.ToString());
         }
-        
-        
-        
+        public async Task<Strain> GetStrainByIDAsync(int id)
+        {
+            Task<string> stringAsync = client.GetStringAsync(uri2 + "/Strain/" + id);
+            string message = await stringAsync;
+            Strain strain = System.Text.Json.JsonSerializer.Deserialize<Strain>(message);
+            return strain;
+        }
+
         public async Task <ProductStrain> GetProductAsyncByStrain(int strain_id)
       
         {
             Task<string> stringAsync = client.GetStringAsync(uri + "/Product/"+strain_id);
             string message = await stringAsync;
             Product product= System.Text.Json.JsonSerializer.Deserialize<Product>(message);
-            StrainAPIObj strain = sc.GetStrainById(product.StrainId);
+            Strain strain = await GetStrainByIDAsync(strain_id);
             ProductStrain ps = new ProductStrain();
-            ps.effects = strain.effects;
-            ps.flavors = strain.flavors;
+            ftc.businesslayer.Models.DTO.Effects ef = new ftc.businesslayer.Models.DTO.Effects();
+            ef.medical = strain.Effects.First().Medical.ToList();
+            ef.negative = strain.Effects.First().Negative.ToList();
+            ef.positive = strain.Effects.First().Positive.ToList();
+            ps.effects = ef;
+            ps.flavors.Add("DisabledDueToRestrictions");
             ps.ProductId = product.ProductId;
-            ps.id = strain.id;
-            ps.StrainId = strain.id;
-            ps.race = strain.race;
-            ps.strainname = strain.strainname;
+            ps.id = strain.StrainId;
+            ps.StrainId = strain.StrainId;
+            ps.race = strain.Race;
+            ps.strainname = strain.StrainName;
             ps.GrowType = product.GrowType;
             ps.Orderlines = product.Orderlines;
             ps.Unit = product.Unit;

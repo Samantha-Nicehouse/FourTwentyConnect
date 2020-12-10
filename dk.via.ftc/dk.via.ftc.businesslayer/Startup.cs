@@ -14,6 +14,7 @@ using dk.via.ftc.businesslayer.Persistence;
 using dk.via.ftc.businesslayer.Data.Services;
 using Microsoft.Extensions.Caching.Memory;
 using dk.via.ftc.businesslayer.Data;
+using dk.via.ftc.businesslayer.Data.FTCAPI;
 
 namespace dk.via.businesslayer
 {
@@ -31,6 +32,8 @@ namespace dk.via.businesslayer
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IDispensaryService, DispensaryService>();
+            services.AddScoped<IAPIStrainService, APIStrainService>();
+            services.AddScoped<IAPIProductService, APIProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
