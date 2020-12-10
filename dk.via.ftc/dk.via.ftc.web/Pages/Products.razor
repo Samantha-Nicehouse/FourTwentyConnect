@@ -5,7 +5,7 @@
 @using Microsoft.Extensions.Logging
 @inject IProductService ProductService
 @inject IJSRuntime JsRuntime
-
+@attribute [Authorize(Policy = "DispensaryAdmin")]
 @if (ps != null)
 
 {
@@ -13,7 +13,7 @@
     <div class="card">
         <div class="row">
             <div class="col-3">
-                <img src="images/strainImg.png" class="img-fluid img-thumbnail" alt="Image of @ps.ProductName"/>
+                <img src="images/strainImg.png" class="img-fluid img-thumbnail" alt="Image of @ps.ProductName" />
             </div>
             <div class="col-9">
                 <ul class="orderPageList productListObj" data-role="listview">
@@ -25,7 +25,7 @@
 
                     <li>
                         <div class="form-group">
-                            THC: @ps.ThcContent<br/>
+                            THC: @ps.ThcContent<br />
                         </div>
                     </li>
                     <li>
@@ -53,9 +53,9 @@
     </div>
 }
 else if (loadFailed)
-    {
-        <h1> Sorry, we could not load this product due to an error.</h1>
-    }
+{
+    <h1> Sorry, we could not load this product due to an error.</h1>
+}
 else
 {<p>Retrieving product...</p>
 }
@@ -69,7 +69,7 @@ else
     [Parameter]
     public int id { get; set; }
 
-   
+
     protected override async Task OnInitializedAsync()
     {
         try

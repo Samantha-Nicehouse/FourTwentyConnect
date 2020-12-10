@@ -9,5 +9,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
          Task<IList<Dispensary>> GetDispensariesAsync();
          Task AddDispensaryAsync(Dispensary dispensary);
          Task AddDispensaryAdminAsync(DispensaryAdmin dispensaryAdmin);
+        public Task<DispensaryAdmin> GetDispensaryByUsername(string username);
+        public Task<bool> ValidateDispensaryAdmin(string username, string password);
     }
 }

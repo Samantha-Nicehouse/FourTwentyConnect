@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using dk.via.ftc.web.Data;
 using System.Linq;
+using System.Security.Claims;
+using dk.via.ftc.web.Auth;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace dk.via.ftc.web
 {
@@ -34,6 +37,24 @@ namespace dk.via.ftc.web
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IDispensaryService, DispensaryService>();
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+            services.AddAuthorization(options =>
+            {
+
+                options.AddPolicy("GuestAndMember", a => a.RequireAuthenticatedUser().RequireClaim("Level", "0", "1", "2", "3"));
+
+                options.AddPolicy("SecurityLevel4", a => a.RequireAuthenticatedUser().RequireClaim("Level", "4", "5"));
+
+                options.AddPolicy("DispensaryAdmin", a => a.RequireAuthenticatedUser().RequireClaim("Role", "DispensaryAdmin"));
+
+                options.AddPolicy("SecurityLevel2", a => a.RequireAuthenticatedUser().RequireAssertion(context =>
+                {
+                    Claim levelClaim = context.User.FindFirst(claim => claim.Type.Equals("Level"));
+                    if (levelClaim == null) return false;
+                    return int.Parse(levelClaim.Value) >= 2;
+                }));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
