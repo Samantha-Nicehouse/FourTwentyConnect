@@ -33,6 +33,7 @@ namespace dk.via.ftc.web.Data
         }
         public async Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
         {
+            
             string vendorAsJson = JsonSerializer.Serialize(vendorAdmin);
             HttpContent content = new StringContent(vendorAsJson,
                 Encoding.UTF8,

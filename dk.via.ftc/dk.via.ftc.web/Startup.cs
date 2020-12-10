@@ -14,6 +14,7 @@ using System.Linq;
 using System.Security.Claims;
 using dk.via.ftc.web.Auth;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Security.Cryptography;
 
 namespace dk.via.ftc.web
 {

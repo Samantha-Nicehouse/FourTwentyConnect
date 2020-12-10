@@ -10,6 +10,7 @@ using dk.via.ftc.businesslayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Vendor = dk.via.ftc.businesslayer.Models.Vendor;
 using VendorAdmin = dk.via.ftc.businesslayer.Models.VendorAdmin;
+using dk.via.ftc.businesslayer.Data;
 
 namespace dk.via.ftc.businesslayer.Controllers
 {
@@ -44,6 +45,7 @@ namespace dk.via.ftc.businesslayer.Controllers
        [HttpPut]
         public async Task RegisterVendorVendorAdmin(VendorVendorAdmin vvA)
         {
+            vvA.vendorAdmin.Pass = FTCEncrypt.EncryptString(vvA.vendorAdmin.Pass);
             await service.AddVendorVendorAdminAsync(vvA);
             
         }

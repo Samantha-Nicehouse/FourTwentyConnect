@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using dk.via.ftc.businesslayer.Models;
 using dk.via.ftc.dataTier_v2_C.Persistence;
@@ -11,9 +12,11 @@ namespace dk.via.ftc.dataTier_v2_C.Data
     public class VendorService : IVendorService
     {
         private FTCDBContext fTCDBContext;
+        private readonly HttpClient client;
         public VendorService(FTCDBContext context)
         {
             fTCDBContext = context;
+            client = new HttpClient();
         }
         public async Task AddVendorAsync(Vendor vendor)
         {

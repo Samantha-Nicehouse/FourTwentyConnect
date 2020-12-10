@@ -31,6 +31,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
             Task<string> stringAsync = client.GetStringAsync(uri + "/Dispensary/"+username);
             string message = await stringAsync;
             DispensaryAdmin obj = JsonConvert.DeserializeObject<DispensaryAdmin>(message);
+            obj.Pass = FTCEncrypt.DecryptString(obj.Pass);
             return obj;
         }
         
@@ -59,6 +60,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
         
         public async Task AddDispensaryAdminAsync(DispensaryAdmin dispensaryAdmin)
         {
+            dispensaryAdmin.Pass = FTCEncrypt.EncryptString(dispensaryAdmin.Pass);
             string dispensaryAdminAsJson = JsonConvert.SerializeObject(dispensaryAdmin);
             
             HttpContent content = new StringContent(dispensaryAdminAsJson,

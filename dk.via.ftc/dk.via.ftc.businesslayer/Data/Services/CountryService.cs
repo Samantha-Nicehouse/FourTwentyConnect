@@ -12,7 +12,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
     {
 
 
-        private string uri = "https://localhost:44332/db/Countries/";
+        private string uri = "https://localhost:44332/db/Countries";
         private readonly HttpClient client = new HttpClient();
         public async Task<IList<Country>> GetCountriesAsync()
         {
