@@ -29,8 +29,8 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
             await _dispensaryService.AddDispensary(dispensary);
         }
 
-       
-        
+
+
 
         [HttpGet]
         [Route("Dispensary/All")]
@@ -39,8 +39,9 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
         {
             try
             {
-                IList<Dispensary> dispensaries= await _dispensaryService.GetDispensariesAsync();
-
+                IList<Dispensary> dispensaries = await _dispensaryService.GetDispensariesAsync();
+                string s = JsonConvert.SerializeObject(dispensaries);
+                Console.WriteLine(s);
                 return Ok(dispensaries);
 
             }
@@ -49,6 +50,17 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
                 Console.WriteLine(e);
                 return StatusCode(200, e.Message);
             }
+        }
+
+
+
+        [HttpPut]
+        [Route("DispensaryAdmin")]
+        public async Task PutDispensaryAdminRegistration(DispensaryAdmin dispensaryAdmin)
+        {
+            string s = JsonConvert.SerializeObject(dispensaryAdmin);
+            Console.WriteLine(s);
+            await _dispensaryService.AddDispensaryAdmin(dispensaryAdmin);
         }
 
     }

@@ -90,10 +90,10 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .HasForeignKey(d => d.CountryCode)
                     .HasConstraintName("fk_dispensary_country");
             });
+
             modelBuilder.Entity<DispensaryAdmin>(entity =>
             {
-                entity.HasNoKey();
-
+                entity.HasKey(e => e.Username).HasName("dispensary_admin_pk");
                 entity.ToTable("dispensary_admin", "SEP3");
 
                 entity.HasIndex(e => e.Username, "dispensary_admin_username_key")
@@ -118,7 +118,6 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
                 entity.Property(e => e.Pass)
                     .IsRequired()
-                    .HasMaxLength(15)
                     .HasColumnName("pass");
 
                 entity.Property(e => e.Phone)
@@ -135,98 +134,8 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .HasForeignKey(d => d.DispensaryId)
                     .HasConstraintName("dispensary_id_fk");
             });
-            modelBuilder.Entity<Vendor>(entity =>
-            {
-                entity.ToTable("vendor", "SEP3");
 
-                entity.Property(e => e.VendorId)
-                    .HasColumnName("vendor_id")
-                    .HasDefaultValueSql("('V'::text || nextval('\"SEP3\".vendor_id'::regclass))");
-
-                entity.Property(e => e.City)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("city");
-
-                entity.Property(e => e.Country)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("country");
-
-                entity.Property(e => e.CountryCode)
-                    .HasColumnType("character varying")
-                    .HasColumnName("country_code");
-
-                entity.Property(e => e.State)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("state");
-
-                entity.Property(e => e.VendorLicense)
-                    .IsRequired()
-                    .HasMaxLength(8)
-                    .HasColumnName("vendor_license");
-
-                entity.Property(e => e.VendorName)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("vendor_name");
-                entity.Property(e => e.Country)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("country");
-                entity.HasOne(d => d.CountryCodeNavigation)
-                    .WithMany(p => p.Vendors)
-                    .HasForeignKey(d => d.CountryCode)
-                    .HasConstraintName("fk_vendor_country");
-            });
-
-            modelBuilder.Entity<VendorAdmin>(entity =>
-            {
-                entity.HasKey(e => e.Username)
-                    .HasName("vendor_admin_username_key");
-
-                entity.ToTable("vendor_admin", "SEP3");
-
-                entity.HasIndex(e => e.Email, "vendor_admin_email_uindex")
-                    .IsUnique();
-
-                entity.Property(e => e.Username)
-                    .HasMaxLength(15)
-                    .HasColumnName("username");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("email");
-
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("first_name");
-
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("last_name");
-
-                entity.Property(e => e.Pass)
-                    .IsRequired()
-                    .HasMaxLength(15)
-                    .HasColumnName("pass");
-
-                entity.Property(e => e.Phone)
-                    .HasMaxLength(15)
-                    .HasColumnName("phone");
-
-                entity.Property(e => e.VendorId).HasColumnName("vendor_id");
-
-                entity.HasOne(d => d.Vendor)
-                    .WithMany(p => p.VendorAdmins)
-                    .HasForeignKey(d => d.VendorId)
-                    .HasConstraintName("fk_vendor_id");
-            });
-
+            
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("product", "SEP3");
@@ -267,6 +176,92 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.VendorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_vendor_id");
+            });
+    modelBuilder.Entity<Vendor>(entity =>
+            {
+                entity.ToTable("vendor", "SEP3");
+
+                entity.Property(e => e.VendorId)
+                    .HasColumnName("vendor_id")
+                    .HasDefaultValueSql("('V'::text || nextval('\"SEP3\".vendor_id'::regclass))");
+
+                entity.Property(e => e.City)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("city");
+
+                entity.Property(e => e.Country)
+                    .HasMaxLength(15)
+                    .HasColumnName("country");
+
+                entity.Property(e => e.CountryCode)
+                    .HasColumnType("character varying")
+                    .HasColumnName("country_code");
+
+                entity.Property(e => e.State)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("state");
+
+                entity.Property(e => e.VendorLicense)
+                    .IsRequired()
+                    .HasMaxLength(8)
+                    .HasColumnName("vendor_license");
+
+                entity.Property(e => e.VendorName)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnName("vendor_name");
+
+                entity.HasOne(d => d.CountryCodeNavigation)
+                    .WithMany(p => p.Vendors)
+                    .HasForeignKey(d => d.CountryCode)
+                    .HasConstraintName("fk_vendor_country");
+            });
+
+            modelBuilder.Entity<VendorAdmin>(entity =>
+            {
+                entity.HasKey(e => e.Username)
+                    .HasName("vendor_admin_username_key");
+
+                entity.ToTable("vendor_admin", "SEP3");
+
+                entity.HasIndex(e => e.Email, "vendor_admin_email_uindex")
+                    .IsUnique();
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(15)
+                    .HasColumnName("username");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("first_name");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(15)
+                    .HasColumnName("last_name");
+
+                entity.Property(e => e.Pass)
+                    .IsRequired()
+                    .HasColumnName("pass");
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(15)
+                    .HasColumnName("phone");
+
+                entity.Property(e => e.VendorId).HasColumnName("vendor_id");
+
+                entity.HasOne(d => d.Vendor)
+                    .WithMany(p => p.VendorAdmins)
+                    .HasForeignKey(d => d.VendorId)
                     .HasConstraintName("fk_vendor_id");
             });
 

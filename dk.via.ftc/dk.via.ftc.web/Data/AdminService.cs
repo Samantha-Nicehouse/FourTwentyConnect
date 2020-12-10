@@ -76,5 +76,10 @@ namespace dk.via.ftc.web.Data
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task AddDispensaryAdminAsync(DispensaryAdmin aD)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace dk.via.ftc.web.Data
     {
         public Task<bool> CheckLicense(string license);
         public Task AddDispensaryAsync(Dispensary dispensary);
+        public Task<string> GetDispensaryLicense(string license);
     }
 }

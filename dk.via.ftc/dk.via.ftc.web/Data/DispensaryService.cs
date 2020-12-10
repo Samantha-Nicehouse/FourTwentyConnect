@@ -29,6 +29,13 @@ namespace dk.via.ftc.web.Data
             bool obj = JsonConvert.DeserializeObject<bool>(message);
             return obj;
         }
+        
+        public async Task<string> GetDispensaryLicense(string license)
+        {
+            Task<string> stringAsync = client.GetStringAsync(uri + "/DispensaryLic/"+license);
+            string message = await stringAsync;
+            return message;
+        }
 
         public async Task AddDispensaryAsync(Dispensary dispensary)
         {

@@ -9,7 +9,8 @@
 @inject IDispensaryService DispensaryService
 
 <h3>Dispensary Registration</h3>
-   
+    <p>Registration with 420Connect is limited to pharmacies authorized by the German Federal Instiute for
+           Drugs and Medical Devices(BfArM).</p>
 
     <EditForm Model="@newDispensary" OnValidSubmit="@OnValidSubmit">
         <DataAnnotationsValidator />
@@ -24,8 +25,6 @@
         </div>
         <div class="form-group">
             Dispensary Country: Germany <br/>
-           
-
         </div>
 
         <div class="form-group">
@@ -37,10 +36,10 @@
             <InputTextArea rows="1" @bind-Value="newDispensary.City"/>
         </div>
 
-        <button>
+        <button class="btn btn-primary">
             Register
         </button>
-        <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
+        <NavLink href="index" class="btn btn-link">Cancel</NavLink>
     
     </EditForm>
 
@@ -49,6 +48,7 @@
 @code {
     private readonly Dispensary newDispensary = new Dispensary();
     private bool loadFailed;
+   
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,13 +65,11 @@
             bool execute = await DispensaryService.CheckLicense(newDispensary.DispensaryLicense);
             if (execute)
             {
-                
-                await DispensaryService.AddDispensaryAsync(newDispensary);
-                NavigationManager.NavigateTo("/");
-                
-            }
 
-    //AlertService.Success("Registration successful", keepAfterRouteChange: true);
+                await DispensaryService.AddDispensaryAsync(newDispensary);
+                NavigationManager.NavigateTo("/DispensaryAdminRegistration/"+newDispensary.DispensaryLicense);
+
+            }
         }
         catch (Exception ex)
         {
@@ -84,7 +82,7 @@
     }
 
     
-
+   
 
 
 }

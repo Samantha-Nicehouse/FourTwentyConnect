@@ -6,10 +6,15 @@
 
     <ItemGroup>
       <ProjectReference Include="..\dk.via.ftc.businesslayer\dk.via.ftc.businesslayer.csproj" />
+      <ProjectReference Include="..\dk.via.ftc.dataTier_v2_C\dk.via.ftc.dataTier_v2_C.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Syncfusion.Blazor" Version="18.3.0.52" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\Impl" />
     </ItemGroup>
 
 </Project>

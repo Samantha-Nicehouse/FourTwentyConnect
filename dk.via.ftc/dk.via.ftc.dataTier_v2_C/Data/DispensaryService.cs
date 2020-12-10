@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dk.via.ftc.dataTier_v2_C.Persistence;
@@ -34,6 +35,13 @@ namespace dk.via.ftc.dataTier_v2_C.Data
             
         }
         
-        
+        public async Task AddDispensaryAdmin(DispensaryAdmin dispensaryAdmin)
+        {
+
+            await fTCDBContext.DispensaryAdmins.AddAsync(dispensaryAdmin);
+            Console.WriteLine(dispensaryAdmin.DispensaryId);
+            await  fTCDBContext.SaveChangesAsync();
+            
+        }
     }
 }

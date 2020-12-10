@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace dk.via.ftc.businesslayer.Data.Services
 
         public async Task<IList<Dispensary>> GetDispensariesAsync()
         {
-            Task<string> stringAsync = client.GetStringAsync(uri + "/All");
+            Task<string> stringAsync = client.GetStringAsync(uri + "/Dispensary/All");
             string message = await stringAsync;
             IList<Dispensary> obj = JsonConvert.DeserializeObject<IList<Dispensary>>(message);
             return obj;
@@ -33,6 +34,17 @@ namespace dk.via.ftc.businesslayer.Data.Services
                 Encoding.UTF8,
                 "application/json");
             await client.PutAsync(uri + "/Dispensary", content);
+        }
+        
+        public async Task AddDispensaryAdminAsync(DispensaryAdmin dispensaryAdmin)
+        {
+            string dispensaryAdminAsJson = JsonConvert.SerializeObject(dispensaryAdmin);
+            
+            HttpContent content = new StringContent(dispensaryAdminAsJson,
+                Encoding.UTF8,
+                "application/json");
+            Console.WriteLine(dispensaryAdminAsJson);
+            await client.PutAsync(uri + "/DispensaryAdmin", content);
         }
     }
 }

@@ -4,7 +4,7 @@
 @inject IProductService ProductService;
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
-<h3>ProductSearch</h3>
+<h3>Product Search</h3>
 
 <p>
     Filter by User Id: <input type="number" @oninput="@((arg)=> FilterByUserId(arg))" style="width:50px"/>
@@ -48,10 +48,10 @@ else
                 <td>@item.ProductName</td>
                 <td>@item.strainname</td>
                 <td>@DisplayEffect(@item.effects.medical)</td>
-                <td>@item.ThcContent</td>
+                <td class = "align-middle">@item.ThcContent</td>
                 <td>
 
-                    <button class="btn-info" @onclick="@(() => ViewMore(item))">
+                    <button class="btn btn-light" @onclick="@(() => ViewMore(item))">
                         View More
                     </button>
                     

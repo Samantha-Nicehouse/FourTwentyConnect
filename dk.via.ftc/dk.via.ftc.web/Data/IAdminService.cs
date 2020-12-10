@@ -14,5 +14,7 @@ namespace dk.via.ftc.web.Data
         Task AddVendorAdminAsync(VendorAdmin vendorAdmin);
 
         Task AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin);
+        Task AddDispensaryAdminAsync(DispensaryAdmin aD);
+      
     }
 }

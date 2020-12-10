@@ -14,7 +14,9 @@ namespace dk.via.ftc.dataTier_v2_C
             PurchaseOrders = new HashSet<PurchaseOrder>();
         }
         
-        [JsonPropertyName("dispensary_id")]
+        [JsonPropertyName("DispensaryId")]
+                
+        [Display(Name = "DispensaryId")]
         public string DispensaryId { get; set; }
         [JsonPropertyName("DispensaryName")]
         [Display(Name = "Dispensary Name")]

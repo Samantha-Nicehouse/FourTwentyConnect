@@ -7,5 +7,6 @@ namespace dk.via.ftc.dataTier_v2_C.Data
     {
         public Task AddDispensary(Dispensary dispensary);
         public Task<IList<Dispensary>> GetDispensariesAsync();
+        public Task AddDispensaryAdmin(DispensaryAdmin dispensaryAdmin);
     }
 }

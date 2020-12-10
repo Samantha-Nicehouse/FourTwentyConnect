@@ -2,6 +2,8 @@
 @using dk.via.ftc.businesslayer.Models;
 @using dk.via.ftc.web.Data;
 @using System.Diagnostics
+@using dk.via.ftc.web.Security
+@using Newtonsoft.Json
 @inject IAdminService AdminService
 @inject ICountryService CountryService
 @inject NavigationManager NavigationManager
@@ -10,33 +12,13 @@
 <h3>Vendor Registration</h3>
 @if (countries != null)
 {
-    <p>Registration with 420Connect is limited to vendors authorized by the German Federal Instiute for
-        Drugs and Medical Devices(BfArM) to import cannabis products.</p>
+    <p>Registration with 420Connect is limited to vendors authorized to import cannabis products by the German Federal Instiute for
+        Drugs and Medical Devices(BfArM).</p>
+    <label>@result</label>
 <EditForm Model="@newVendor" OnValidSubmit="@AddNewVendorAdmin">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
-
-    <div class="form-group">
-        UserName:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username"/>
-    </div>
-    <div class="form-group">
-        Password:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Pass"/>
-    </div>
-    <div class="form-group">
-        Email:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Email"/>
-    </div>
-    <div class="form-group">
-        First Name:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.FirstName"/>
-    </div>
-    <div class="form-group">
-        Last Name:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.LastName"/>
-    </div>
-    <div class="form-group">
+  <div class="form-group">
         Vendor Name:<br/>
         <InputTextArea rows="1" @bind-Value="newVendor.VendorName"/>
     </div>
@@ -66,8 +48,35 @@
         Vendor City:<br/>
         <InputTextArea rows="1" @bind-Value="newVendor.City"/>
     </div>
+    <div>
+         <h2>Contact Information</h2> 
+    </div>
+   
+     <div class="form-group">
+            First Name:<br/>
+            <InputTextArea rows="1" @bind-Value="newVendorAdmin.FirstName"/>
+        </div>
+        <div class="form-group">
+            Last Name:<br/>
+            <InputTextArea rows="1" @bind-Value="newVendorAdmin.LastName"/>
+        </div>
+    <div class="form-group">
+        UserName:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username"/>
+    </div>
+    <div class="form-group">
+        Password:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Pass"/>
+    </div>
+    <div class="form-group">
+        Email:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Email"/>
+    </div>
+   
+  
     <p class="actions">
-        <button class="btn btn-outline-dark" type="submit">Create</button>
+        <button class="btn btn-primary" type="submit">Register</button>
+        <button class="btn badge-secondary" type="submit">Cancel</button>
     </p>
 </EditForm>
 }
@@ -80,11 +89,35 @@ else
 @code {
     private readonly VendorAdmin newVendorAdmin = new VendorAdmin();
     private readonly Vendor newVendor = new Vendor();
+    private string result { get; set; }
+  
+   
    
     protected override async Task OnInitializedAsync() {
         countries = await CountryService.GetCountriesAsync();
     }
-    
+
+   /* private void  usernameInUse()
+    {
+     <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username" @bind-Value:event ="usernameInUse()"/>
+        VendorAdmin vendorAdmin = newVendorAdmin();
+        
+        try
+        {
+            if (!newVendorAdmin.Username.Equals(""))
+            {
+                vendorAdmin.Username = newVendorAdmin.Username;
+                string username = vendorAdmin.Username;
+                 UserManager.userNameInUseAsync(string username);
+            }
+           
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Exception Message: " + ex.Message);
+        }
+    }*/
+
     private async Task AddNewVendorAdmin()
     {
        
@@ -93,13 +126,15 @@ else
         vvA.vendorAdmin = newVendorAdmin;
         try
         {
-            if (!newVendor.Country.Equals(""))
+           
+            if (!newVendor.Country.Equals("") && !newVendorAdmin.Pass.Equals(" "))
             {
                 foreach (Country country in countries)
                 {
                     if (country.CountryName.Equals(newVendor.Country))
                     {
                         vvA.vendor.CountryCode = country.CountryCode;
+                        vvA.vendorAdmin.Pass = Security.HashPassword(newVendorAdmin.Pass);
                         await AdminService.AddVendorVendorAdminAsync(vvA);
                         NavigationManager.NavigateTo("/");
                     }

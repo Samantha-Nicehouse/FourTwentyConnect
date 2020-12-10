@@ -38,25 +38,14 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
         }
 
         // POST api/<ValuesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+    
 
         [HttpPut]
         public async Task PutVendorRegistration(VendorVendorAdmin vvA)
          {
              await service.AddVendorVendorAdmin(vvA);
          }
-
-
-
-
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
         

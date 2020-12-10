@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using dk.via.ftc.dataTier_v2_C;
+using dk.via.ftc.businesslayer.Models;
 
 #nullable disable
 
-namespace dk.via.ftc.dataTier_v2_C
+namespace dk.via.ftc.businesslayer.Models
 {
     public partial class DispensaryAdmin
     {
-        [Display(Name = "Username"), Key]
+        [Display(Name = "Username"),Key]
         public string Username { get; set; }
         [JsonPropertyName("DispensaryId")]
-                
         [Display(Name = "DispensaryId")]
-        
         public string DispensaryId { get; set; }
         [JsonPropertyName("pass")]
         public string Pass { get; set; }
