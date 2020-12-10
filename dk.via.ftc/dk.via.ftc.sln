@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketTest", "SocketTest\So
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dk.via.ftc.dataTier_v2_C", "dk.via.ftc.dataTier_v2_C\dk.via.ftc.dataTier_v2_C.csproj", "{55EE0791-AA15-4451-8D32-AB508EBE3CFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{CAF08C47-2360-4ACE-9BEE-B8EE42F2CAA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{55EE0791-AA15-4451-8D32-AB508EBE3CFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55EE0791-AA15-4451-8D32-AB508EBE3CFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55EE0791-AA15-4451-8D32-AB508EBE3CFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF08C47-2360-4ACE-9BEE-B8EE42F2CAA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF08C47-2360-4ACE-9BEE-B8EE42F2CAA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF08C47-2360-4ACE-9BEE-B8EE42F2CAA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF08C47-2360-4ACE-9BEE-B8EE42F2CAA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
