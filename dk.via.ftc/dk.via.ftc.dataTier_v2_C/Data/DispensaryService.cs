@@ -31,6 +31,7 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         {
 
             await fTCDBContext.Dispensaries.AddAsync(dispensary);
+            Console.WriteLine("Registering A Dispensary"+dispensary.DispensaryName);
             await  fTCDBContext.SaveChangesAsync();
             
         }

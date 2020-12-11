@@ -98,13 +98,11 @@ else
     private async Task OnValidSubmit()
     {
         {
-            DispensaryAdmin dA = new DispensaryAdmin();
             {
                 try
                 {   loadFailed = false;
-                    if (!dA.Equals(" "))
+                    if (!newDispensaryAdmin.Equals(" "))
                     {
-                        dA.Pass = Security.HashPassword(newDispensaryAdmin.Pass);
                         await CloudAdminService.AddDispensaryAdminAsync(newDispensaryAdmin);
                         NavigationManager.NavigateTo("/");
 

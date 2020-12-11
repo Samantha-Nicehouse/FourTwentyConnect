@@ -43,6 +43,7 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
         [HttpPut]
         public async Task PutVendorRegistration(VendorVendorAdmin vvA)
          {
+
              await service.AddVendorVendorAdmin(vvA);
          }
         

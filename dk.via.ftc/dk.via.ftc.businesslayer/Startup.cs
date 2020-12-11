@@ -15,6 +15,8 @@ using dk.via.ftc.businesslayer.Data.Services;
 using Microsoft.Extensions.Caching.Memory;
 using dk.via.ftc.businesslayer.Data;
 using dk.via.ftc.businesslayer.Data.FTCAPI;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 
 namespace dk.via.businesslayer
 {
@@ -34,6 +36,7 @@ namespace dk.via.businesslayer
             services.AddScoped<IDispensaryService, DispensaryService>();
             services.AddScoped<IAPIStrainService, APIStrainService>();
             services.AddScoped<IAPIProductService, APIProductService>();
+            services.AddDataProtection();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

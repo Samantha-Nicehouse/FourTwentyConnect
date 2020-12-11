@@ -15,14 +15,6 @@ namespace dk.via.businesslayer.Data.Services
         {
             client = new HttpClient();
         }
-        public async Task AddVendorAsync(Vendor vendor)
-        {
-            string vendorAsJson = JsonSerializer.Serialize(vendor);
-            HttpContent content = new StringContent(vendorAsJson,
-                Encoding.UTF8,
-                "application/json");
-            await client.PutAsync(uri + "/Vendor", content);
-        }
         public async Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
         {
             string vendorAsJson = JsonSerializer.Serialize(vendorAdmin);
