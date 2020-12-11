@@ -1,5 +1,6 @@
 package dk.via.ftc.prescribe.dao;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -10,6 +11,9 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import com.google.gson.GsonBuilder;
+import dk.via.ftc.prescribe.dao.dto.DrugDTO;
+import dk.via.ftc.prescribe.dao.dto.SuperDTO;
 import dk.via.ftc.prescribe.model.Drug;
 
 public class PrescribeSocketClient {
@@ -40,8 +44,8 @@ public class PrescribeSocketClient {
 		}
 	}
 	
-	public Drug[] loadAllDrugsFromBusinessLayer() {
-		Drug[] drugs = null;
+	public DrugDTO[] loadAllDrugsFromBusinessLayer() {
+		DrugDTO[] drugs = null;
 		try {
 			pw.write("Hi FTC");
 			pw.flush();
@@ -50,7 +54,7 @@ public class PrescribeSocketClient {
 			byte[] buffer = new byte[1024];
 			int count = in.read(buffer);
 			String s = new String(buffer, StandardCharsets.UTF_8);
-			drugs = gson.fromJson(s, Drug[].class);
+			drugs = gson.fromJson(s, DrugDTO[].class);
 			
 			// print message to console
 			System.out.println(s);
@@ -66,6 +70,8 @@ public class PrescribeSocketClient {
 		int port = 4012;
 		InputStream in;
 		PrintWriter pw;
+        ObjectMapper om = new ObjectMapper();
+
 
 		try (Socket socket = new Socket(hostname, port)) {
 					System.out.println("Client Connected");
@@ -81,6 +87,12 @@ public class PrescribeSocketClient {
 					String s = new String(buffer, StandardCharsets.UTF_8);
 					// print message to console
 		            System.out.println(s);
+
+                    Root root = om.readValue(s, Root.class);
+            for (Drug2 prod : root.drugs) {
+                System.out.println(prod.indications);
+            }
+
 		        } catch (UnknownHostException ex) {
 		            System.out.println("Server not found: " + ex.getMessage());
 		        } catch (IOException ex) {
@@ -88,3 +100,18 @@ public class PrescribeSocketClient {
 		        }
 		    }
 	}
+
+// import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
+// import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1
+/* ObjectMapper om = new ObjectMapper();
+Root root = om.readValue(myJsonString), Root.class); */
+ class Drug2{
+	public String productName;
+	public String strain;
+	public String indications;
+	public int product_id;
+}
+
+ class Root{
+	public List<Drug2> drugs;
+}

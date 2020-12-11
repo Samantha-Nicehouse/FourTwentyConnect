@@ -21,14 +21,19 @@ namespace dk.via.ftc.businesslayer.Models
             public string DispensaryId { get; set; }
             [JsonPropertyName("DispensaryName")]
             [Display(Name = "Dispensary Name")]
+            [Required]
             public string DispensaryName { get; set; }
             [JsonPropertyName("DispensaryLicense")]
             //[Remote("CheckLicense","Dispensary")]
             [Display(Name = "Dispensary License")]
+            [Required]
             public string DispensaryLicense { get; set; }
             [JsonPropertyName("city")]
+            [Required]
             public string City { get; set; }
             [JsonPropertyName("state")]
+            [Required]
+            
             public string State { get; set; }
             [JsonPropertyName("country")]
             public string Country { get; set; }

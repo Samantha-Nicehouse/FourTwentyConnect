@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dk.via.ftc.businesslayer.Data.Sockets.SocketModels
 {
-    public class PrescriberProduct
+    public class Drug
     {
         public String productName { get; set; }
         public String strain { get; set; }
