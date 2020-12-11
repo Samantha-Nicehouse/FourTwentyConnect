@@ -21,7 +21,7 @@ namespace dk.via.ftc.businesslayer.Models
             public string VendorName { get; set; }
             [JsonPropertyName("vendorLicense")]
             [Display(Name = "Vendor License")]
-            [StringLength(8, ErrorMessage = "License number is a maximum of 8 characters")]
+    
             public string vendorLicense { get; set; }
             [JsonPropertyName("city")]
             public string City { get; set; }
