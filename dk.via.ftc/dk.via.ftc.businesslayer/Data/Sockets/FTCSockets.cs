@@ -44,11 +44,12 @@ namespace dk.via.ftc.businesslayer.Data.Sockets
                 {
                     Console.WriteLine("Recieved Data");
                     IList<ProductStrain> list = await _service.GetProductsAllProductsAsync();
-                    
-                    IList<PrescriberProduct> pprod = new List<PrescriberProduct>();
+
+                    DrugRoot drugRoot = new DrugRoot(list.Count);
+                    int counter = 0;
                     foreach(ProductStrain ps in list)
                     {
-                        PrescriberProduct prod1 = new PrescriberProduct();
+                        Drug prod1 = new Drug();
                         string indi = "";
                         foreach (string strI in ps.effects.medical)
                         {
@@ -58,9 +59,10 @@ namespace dk.via.ftc.businesslayer.Data.Sockets
                         prod1.productName = ps.ProductName;
                         prod1.strain = ps.strainname;
                         prod1.product_id = ps.ProductId;
-                        pprod.Add(prod1);
+                        drugRoot.drugs[counter] = prod1;
+                        counter++;
                     }
-                    string output = JsonConvert.SerializeObject(pprod);
+                    string output = JsonConvert.SerializeObject(drugRoot);
                     Console.WriteLine("Json To Send:" + output);
                     var data = socketServer.GetData();
                     Console.WriteLine(data.Value);
