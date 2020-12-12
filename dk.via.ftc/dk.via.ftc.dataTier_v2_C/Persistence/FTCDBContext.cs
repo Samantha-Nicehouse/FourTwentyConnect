@@ -146,17 +146,17 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("email");
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("first_name");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("last_name");
 
                 entity.Property(e => e.Pass)
@@ -169,7 +169,7 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
                 entity.Property(e => e.Username)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("username");
 
                 entity.HasOne(d => d.Dispensary)
@@ -249,7 +249,7 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
                 entity.Property(e => e.VendorLicense)
                     .IsRequired()
-                    .HasMaxLength(8)
+                    .HasMaxLength(20)
                     .HasColumnName("vendor_license");
 
                 entity.Property(e => e.VendorName)
@@ -274,22 +274,22 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
                     .IsUnique();
 
                 entity.Property(e => e.Username)
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("username");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("email");
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("first_name");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(25)
                     .HasColumnName("last_name");
 
                 entity.Property(e => e.Pass)

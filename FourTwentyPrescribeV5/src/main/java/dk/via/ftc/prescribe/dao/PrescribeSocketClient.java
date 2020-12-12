@@ -1,21 +1,16 @@
 package dk.via.ftc.prescribe.dao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.*;
+import dk.via.ftc.prescribe.model.Drug;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
-
-import com.google.gson.GsonBuilder;
-import dk.via.ftc.prescribe.dao.dto.DrugDTO;
-import dk.via.ftc.prescribe.dao.dto.SuperDTO;
-import dk.via.ftc.prescribe.model.Drug;
 
 public class PrescribeSocketClient {
 	
@@ -24,13 +19,13 @@ public class PrescribeSocketClient {
 	InputStream in;
 	PrintWriter pw;
 	Socket socket;
-	Gson gson;
+
 	
 	String sampleJSON =
 			"[{\"productName\":\"C8\",\"strain\":\"Afpak\",\"indications\":\"Depression, Insomnia, Pain, Stress, Lack of Appetite\",\"product_id\":1},{\"productName\":\"Product2\",\"strain\":\"Strain2\",\"indications\":\"Pain, Stress, Lack of Appetite\",\"product_id\":2}]";
 
 	public PrescribeSocketClient() {
-		gson = new Gson();
+
 		try {
 			socket = new Socket(hostname, port);
 			System.out.println("Client Connected");
@@ -132,6 +127,6 @@ Root root = om.readValue(myJsonString), Root.class); */
 	public int product_id;
 }
 
- class Root{
-	public List<Drug2> drugs;
+class Root{
+   public List<Drug2> drugs;
 }

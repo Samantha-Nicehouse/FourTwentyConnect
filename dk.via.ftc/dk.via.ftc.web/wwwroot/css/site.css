@@ -31,7 +31,7 @@ app {
 }
 
     .main .top-row {
-        background-color: #f7f7f7;
+        background-color: #948f8f;
         border-bottom: 1px solid #d6d5d5;
         justify-content: flex-end;
     }
@@ -47,7 +47,8 @@ app {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #064147 70%);
+    background-image:
+            linear-gradient(180deg, rgb(5, 39, 103) 0%, #415c60 70%);
 }
 
     .sidebar .top-row {
@@ -179,5 +180,34 @@ app {
     .sidebar .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
+    }
+    .jsgrid-grid-header {
+        text-align: center;
+        border-collapse: collapse;
+        background: #ebebeb;
+    }
+
+    .jsgrid-row-item:hover {
+        background: #9fcdf4;
+    }
+
+    th, td {
+        padding: 15px;
+        border: 1px solid #d1d1d1;
+        text-align: center;
+    }
+
+    .pagebutton {
+        margin-right: 5px;
+        margin-top: 5px;
+    }
+    .viewmorebutton{
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .currentpage {
+        background-color: dodgerblue;
+        color: white;
     }
 }

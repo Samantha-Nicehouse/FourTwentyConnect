@@ -61,34 +61,7 @@ else
     private bool loadFailed;
     private string result { get; set; }
 
-    /*
-     *  private async Task OnValidSubmit()
-    {
-        
-
-        try
-        {
-            loadFailed = false;
-            bool execute = await DispensaryService.CheckLicense(newDispensary.DispensaryLicense);
-            if (execute)
-            {
-
-                await DispensaryService.AddDispensaryAsync(newDispensary);
-                NavigationManager.NavigateTo("/DispensaryAdminRegistration");
-
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            loadFailed = true;
-            StateHasChanged();
-            Debug.WriteLine("Exception Message: " + ex.Message);
-        }
-
-    }
-
-     */
+    
     private string dispensaryId { get; set; }
     protected override async Task OnInitializedAsync() {
         dispensaryId = await DispensaryService.GetDispensaryLicense(license);
