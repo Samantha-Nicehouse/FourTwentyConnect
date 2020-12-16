@@ -46,6 +46,14 @@ namespace dk.via.ftc.web.Data
                 "application/json");
             await client.PutAsync(uri, content);
         }
-
+        public async Task AddDispensaryAdminAsync(DispensaryAdmin dispensaryAdmin)
+        {
+            string dispensaryAdminAsJson = JsonConvert.SerializeObject(dispensaryAdmin);
+            Console.WriteLine(dispensaryAdminAsJson);
+            HttpContent content = new StringContent(dispensaryAdminAsJson,
+                Encoding.UTF8,
+                "application/json");
+            await client.PutAsync(uri+"/Dispensary/DispensaryAdmin", content);
+        }
     }
 }

@@ -12,14 +12,15 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using Vendor = dk.via.ftc.businesslayer.Models.Vendor;
 using VendorAdmin = dk.via.ftc.businesslayer.Models.VendorAdmin;
 
-
 namespace dk.via.ftc.web.Data
 {
-    public class CloudAdminService : IAdminService
+    public class VendorService: IVendorService
     {
+        
+    
         private string uri = "https://localhost:44373/api";
         private readonly HttpClient client;
-        public CloudAdminService()
+        public VendorService()
         {
             client = new HttpClient();
         }
@@ -56,15 +57,8 @@ namespace dk.via.ftc.web.Data
           string message = await stringAsync;
           return message;
       }
-        public async Task AddDispensaryAdminAsync(DispensaryAdmin dispensaryAdmin)
-        {
-            string dispensaryAdminAsJson = JsonConvert.SerializeObject(dispensaryAdmin);
-            Console.WriteLine(dispensaryAdminAsJson);
-            HttpContent content = new StringContent(dispensaryAdminAsJson,
-                Encoding.UTF8,
-                "application/json");
-            await client.PutAsync(uri+"/Dispensary/DispensaryAdmin", content);
-        }
+       
         
 }
 }
+

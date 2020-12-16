@@ -5,7 +5,7 @@
 @using dk.via.ftc.web.Models
 @using dk.via.ftc.web.Security
 @using Newtonsoft.Json
-@inject IAdminService AdminService
+@inject IVendorService VendorService
 @inject ICountryService CountryService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
@@ -138,7 +138,7 @@ else
                     {
                         newVendor.CountryCode = country.CountryCode;
                         Console.WriteLine(newVendor.CountryCode);
-                        await AdminService.AddVendorAsync(newVendor);
+                        await VendorService.AddVendorAsync(newVendor);
                         NavigationManager.NavigateTo("/VendorAdminRegistration/"+ newVendor.VendorLicense);
                     }
                 }

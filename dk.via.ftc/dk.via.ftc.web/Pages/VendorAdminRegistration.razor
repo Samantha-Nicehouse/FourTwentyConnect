@@ -4,7 +4,7 @@
 @using dk.via.ftc.web.Data;
 @using dk.via.ftc.web.Security;
 @using System.Diagnostics
-@inject IAdminService CloudAdminService
+@inject IVendorService VendorService
 @inject ICountryService CountryService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
@@ -64,7 +64,7 @@ else
     
     private string vendorId { get; set; }
     protected override async Task OnInitializedAsync() {
-        vendorId = await CloudAdminService.GetVendorByLicense(license);
+        vendorId = await VendorService.GetVendorByLicense(license);
         newVendorAdmin.VendorId = vendorId;
         Console.WriteLine(vendorId + " Is the retrieved ID");
     }
@@ -76,7 +76,7 @@ else
                 {   loadFailed = false;
                     if (!newVendorAdmin.Equals(" "))
                     {
-                        await CloudAdminService.AddVendorAdminAsync(newVendorAdmin);
+                        await VendorService.AddVendorAdminAsync(newVendorAdmin);
                         Console.WriteLine(license+" retrieved id is "+vendorId);
                         NavigationManager.NavigateTo("/");
 

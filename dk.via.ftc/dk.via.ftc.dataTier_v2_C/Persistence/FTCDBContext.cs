@@ -127,7 +127,7 @@ namespace dk.via.ftc.dataTier_v2_C.Persistence
 
                 entity.Property(e => e.State)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(30)
                     .HasColumnName("state");
 
                 entity.HasOne(d => d.CountryCodeNavigation)

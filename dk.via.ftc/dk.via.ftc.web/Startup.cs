@@ -39,6 +39,7 @@ namespace dk.via.ftc.web
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IDispensaryService, DispensaryService>();
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IVendorService, VendorService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             services.AddAuthorization(options =>
             {
