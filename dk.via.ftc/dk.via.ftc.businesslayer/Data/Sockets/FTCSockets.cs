@@ -22,7 +22,7 @@ namespace dk.via.ftc.businesslayer.Data.Sockets
             _service = service;
             socketServer = new SocketServer();
             socketServer.InitializeSocketServer("127.0.0.1", 4012);
-            socketServer.SetReaderBufferBytes(1024);
+            socketServer.SetReaderBufferBytes(5120);
             socketServer.StartListening();
             Console.WriteLine("Socket Server Initialised");
             //Thread threadReceiveData = new Thread(new ThreadStart(recieveConnections));

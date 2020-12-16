@@ -14,5 +14,6 @@ namespace dk.via.ftc.businesslayer.Data.FTCAPI
         public Task UpdateProduct(Product product);
 
         public Task AddProductAsync(Product product);
+        public Task AddProductsAsync(List<Product> products);
     }
 }

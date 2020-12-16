@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using dk.via.ftc.dataTier_v2_C.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Newtonsoft.Json;
 
 namespace dk.via.ftc.dataTier_v2_C.Controllers
 {
@@ -21,12 +23,13 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
 
         [HttpGet]
         [Route("Strain/{strain_id}")]
-        public async Task<ActionResult<IList<Product>>> GetProductsByStrain(int strain_id)
+        public async Task<ActionResult<IList<Product>>> GetProductsByStrain([FromRoute]int strain_id)
         {
             try
             {
                 Console.WriteLine(strain_id+" GET REQUEST");
                 IList<Product> products = await _productService.GetProductsAsyncByStrain(strain_id);
+                Console.WriteLine(JsonConvert.SerializeObject(products));
                 if(products != null)
                 return Ok(products);
                 return NotFound();
@@ -100,6 +103,29 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [HttpPost]
+        [Route("Post")]
+        public async Task PutProduct([FromBody]Product product)
+        {
+            
+            await _productService.AddProductAsync(product);
+        }
+        [HttpPost]
+        [Route("List")]
+        public async Task PutProducts([FromBody]List<Product> products)
+        {
+            
+            await _productService.AddProductsAsync(products);
+        }
 
+        [HttpPatch]
+        [Route("Patch/{id}")]
+        public async Task PatchProduct([FromRoute]Product product,[FromRoute]int id)
+        {
+            if (id == product.ProductId)
+            {
+                await _productService.UpdateProduct(product);
+            }
+        }
     }
 }

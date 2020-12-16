@@ -9,6 +9,7 @@ namespace dk.via.ftc.businesslayer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ProductController : ControllerBase
     {
         private IProductService _productService;

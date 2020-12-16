@@ -2,6 +2,7 @@
 @using dk.via.ftc.businesslayer.Models;
 @using dk.via.ftc.web.Data;
 @using System.Diagnostics
+@using dk.via.ftc.web.Models
 @using dk.via.ftc.web.Security
 @using Newtonsoft.Json
 @inject IAdminService AdminService
@@ -15,7 +16,7 @@
     <p>Registration with 420Connect is limited to vendors authorized to import cannabis products by the German Federal Instiute for
         Drugs and Medical Devices(BfArM).</p>
     <label>@result</label>
-<EditForm Model="@newVendor" OnValidSubmit="@AddNewVendorAdmin">
+<EditForm Model="@newVendor" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
   <div class="form-group">
@@ -24,7 +25,7 @@
     </div>
     <div class="form-group">
         Vendor License:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendor.vendorLicense"/>
+        <InputTextArea rows="1" @bind-Value="newVendor.VendorLicense"/>
     </div>
     <div class="form-group">
         Vendor Country:<br/>
@@ -42,37 +43,13 @@
 
     <div class="form-group">
         Vendor State/Province:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendor.stateProvince"/>
+        <InputTextArea rows="1" @bind-Value="newVendor.State"/>
     </div>
     <div class="form-group">
         Vendor City:<br/>
         <InputTextArea rows="1" @bind-Value="newVendor.City"/>
     </div>
-    <div>
-         <h2>Contact Information</h2> 
-    </div>
-   
-     <div class="form-group">
-            First Name:<br/>
-            <InputTextArea rows="1" @bind-Value="newVendorAdmin.FirstName"/>
-        </div>
-        <div class="form-group">
-            Last Name:<br/>
-            <InputTextArea rows="1" @bind-Value="newVendorAdmin.LastName"/>
-        </div>
-    <div class="form-group">
-        UserName:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username"/>
-    </div>
-    <div class="form-group">
-        Password:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Pass"/>
-    </div>
-    <div class="form-group">
-        Email:<br/>
-        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Email"/>
-    </div>
-   
+    
   
     <p class="actions">
         <button class="btn btn-primary" type="submit">Register</button>
@@ -118,7 +95,7 @@ else
         }
     }*/
 
-    private async Task AddNewVendorAdmin()
+   /* private async Task AddNewVendorAdmin()
     {
        
         VendorVendorAdmin vvA = new VendorVendorAdmin();
@@ -134,7 +111,6 @@ else
                     if (country.CountryName.Equals(newVendor.Country))
                     {
                         vvA.vendor.CountryCode = country.CountryCode;
-                        vvA.vendorAdmin.Pass = Security.HashPassword(newVendorAdmin.Pass);
                         await AdminService.AddVendorVendorAdminAsync(vvA);
                         NavigationManager.NavigateTo("/");
                     }
@@ -146,6 +122,36 @@ else
         {
             Debug.WriteLine("Exception Message: " + ex.Message);
         }
+    }*/
+
+    private async Task OnValidSubmit()
+    {
+
+        try
+        {
+
+            if (!newVendor.Country.Equals(""))
+            {
+                foreach (Country country in countries)
+                {
+                    if (country.CountryName.Equals(newVendor.Country))
+                    {
+                        newVendor.CountryCode = country.CountryCode;
+                        Console.WriteLine(newVendor.CountryCode);
+                        await AdminService.AddVendorAsync(newVendor);
+                        NavigationManager.NavigateTo("/VendorAdminRegistration/"+ newVendor.VendorLicense);
+                    }
+                }
+
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Exception Message: " + ex.Message);
+        }
     }
+
     private IList<Country> countries { get; set; }
+    
+  
 }

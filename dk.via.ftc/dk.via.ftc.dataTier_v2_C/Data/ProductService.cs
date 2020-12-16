@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using dk.via.ftc.dataTier_v2_C.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 
 namespace dk.via.ftc.dataTier_v2_C.Data
@@ -44,9 +45,29 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         public async Task AddProductAsync(Product product)
         {
             fTCDBContext.Products.Add(product);
+            
             await fTCDBContext.SaveChangesAsync();
-
+            
             Console.WriteLine(product.ProductName + " Added To DB");
+        }
+        
+        public async Task AddProductsAsync(List<Product> products)
+        {
+            foreach (Product product in products)
+            {
+                
+                if (!fTCDBContext.Products.Where(e => e.ProductId.Equals(product.ProductId)).Any())
+                {
+                    fTCDBContext.Products.Add(product);
+                    Console.WriteLine(product.ProductId + " Added To DB");
+                }
+                else
+                {
+                    Console.WriteLine(product.ProductId + " Already exists!!");
+                    
+                }
+                await fTCDBContext.SaveChangesAsync();
+            }
         }
     }
 }

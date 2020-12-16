@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using dk.via.ftc.businesslayer.Models;
 using dk.via.ftc.dataTier_v2_C;
-using dk.via.ftc.dataTier_v2_C.Models;
+using Effect = dk.via.ftc.dataTier_v2_C.Models.Effect;
+using Strain = dk.via.ftc.dataTier_v2_C.Models.Strain;
 
 namespace dk.via.ftc.dataTier_v2_C.Persistence
 {

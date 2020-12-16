@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using dk.via.ftc.businesslayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 
 namespace dk.via.ftc.web.Data
@@ -24,7 +25,8 @@ namespace dk.via.ftc.web.Data
         {
             Task<string> stringAsync = client.GetStringAsync(uri + "/Product");
             string message = await stringAsync;
-            List<ProductStrain> results = System.Text.Json.JsonSerializer.Deserialize<List<ProductStrain>>(message);
+            Console.WriteLine(message);
+            List<ProductStrain> results = JsonConvert.DeserializeObject<List<ProductStrain>>(message);
             return results;
         }
 

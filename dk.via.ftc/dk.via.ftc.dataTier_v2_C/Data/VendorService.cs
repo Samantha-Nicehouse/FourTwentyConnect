@@ -23,14 +23,30 @@ namespace dk.via.ftc.dataTier_v2_C.Data
                 await fTCDBContext.Vendors.AddAsync(vendor);
                 await fTCDBContext.SaveChangesAsync();
         }
+        
+        public async Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
+        {
+            await fTCDBContext.VendorAdmins.AddAsync(vendorAdmin);
+            await fTCDBContext.SaveChangesAsync();
+        }
+
+        public async Task<string> GetVendorByLicense(string license)
+        {
+            IQueryable<Vendor> vendor = fTCDBContext.Vendors.Where(v => v.VendorLicense.Equals(license));
+            string vendorId = vendor.FirstOrDefault().VendorId;
+            await fTCDBContext.SaveChangesAsync();
+            Console.WriteLine("Sending VendorId:"+vendorId);
+            return vendorId;
+        }
+
         public async Task AddVendorVendorAdmin(VendorVendorAdmin vvA)
         {
             Vendor vendor = new Vendor();
             vendor.City = vvA.vendor.City;
             vendor.CountryCode = vvA.vendor.CountryCode;
             Console.WriteLine(vvA.vendor.CountryCode + "");
-            vendor.State = vvA.vendor.stateProvince;
-            vendor.VendorLicense = vvA.vendor.vendorLicense;
+            vendor.State = vvA.vendor.State;
+            vendor.VendorLicense = vvA.vendor.VendorLicense;
             vendor.VendorName = vvA.vendor.VendorName;
             VendorAdmin vendorAdmin = new VendorAdmin();
             vendorAdmin.Email = vvA.vendorAdmin.Email;

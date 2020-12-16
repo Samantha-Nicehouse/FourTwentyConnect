@@ -29,7 +29,12 @@ namespace dk.via.ftc.web.Data
         }
         public async Task AddVendorAsync(Vendor vendor)
         {
-            vendors.Add(vendor);
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<string> GetVendorByLicense(string license)
+        {
+            throw new System.NotImplementedException();
         }
 
         public Task AddVendorAdminAsync(VendorAdmin vendorAdmin)
@@ -37,7 +42,11 @@ namespace dk.via.ftc.web.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<ActionResult<string>> AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
+      /*  public Task<ActionResult<string>> AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
+        {
+            throw new System.NotImplementedException();
+        }*/
+        public Task<ActionResult<string>> AddVendorAsync(VendorVendorAdmin vendorVendorAdmin)
         {
             throw new System.NotImplementedException();
         }
@@ -49,18 +58,18 @@ namespace dk.via.ftc.web.Data
                 new Vendor
                 {
                     VendorName = "React",
-                    vendorLicense = "LA28123",
+                    VendorLicense = "LA28123",
                     City = "Berlin",
                     Country = "Germany",
-                    stateProvince = "test"
+                    State = "test"
                 },
                 new Vendor
                 {
                     VendorName = "PharmaSupply",
-                    vendorLicense = "LA23899",
+                    VendorLicense = "LA23899",
                     City = "Berlin",
                     Country = "Germany",
-                    stateProvince = "test"
+                    State = "test"
                 }
             };
             vendors = ps.ToList();
@@ -72,10 +81,10 @@ namespace dk.via.ftc.web.Data
             File.WriteAllText(vendorsFile, productsAsJson);
         }
 
-        Task IAdminService.AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
+      /*  Task IAdminService.AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin)
         {
             throw new System.NotImplementedException();
-        }
+        }*/
 
         public async Task AddDispensaryAdminAsync(DispensaryAdmin aD)
         {

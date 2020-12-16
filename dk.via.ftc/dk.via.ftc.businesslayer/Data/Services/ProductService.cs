@@ -80,7 +80,7 @@ namespace dk.via.businesslayer.Data.Services
         {
             Task<string> stringAsync = client.GetStringAsync(uri + "/Product/Products/All");
             string message = await stringAsync;
-            IList<Product> results = System.Text.Json.JsonSerializer.Deserialize<IList<Product>>(message);
+            IList<Product> results = JsonConvert.DeserializeObject < IList<Product>>(message);
             IList<ProductStrain> pss = new List<ProductStrain>();
             foreach (Product product in results)
             {

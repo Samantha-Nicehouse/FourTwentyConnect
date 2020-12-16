@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.junit.*;
 public class PrescribeSocketClient {
 	
 	String hostname = "localhost";
@@ -58,7 +58,7 @@ public class PrescribeSocketClient {
 			pw.flush();
 
 			//Data recieved in bytes
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[5120];
 			int count = in.read(buffer);
 			String s = new String(buffer, StandardCharsets.UTF_8);
 			// print message to console
@@ -79,7 +79,6 @@ public class PrescribeSocketClient {
 
 		return drugs;
 	}
-	
 	public static void main(String[] args) {
 		String hostname = "localhost";
 		int port = 4012;

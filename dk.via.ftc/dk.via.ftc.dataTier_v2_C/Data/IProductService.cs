@@ -9,5 +9,6 @@ namespace dk.via.ftc.dataTier_v2_C.Data
         public Task<IList<Product>> GetProductsAsync();
         public Task UpdateProduct(Product product);
         public Task AddProductAsync(Product product);
+        public Task AddProductsAsync(List<Product> products);
     }
 }

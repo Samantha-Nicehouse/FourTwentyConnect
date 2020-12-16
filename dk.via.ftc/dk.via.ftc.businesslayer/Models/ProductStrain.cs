@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using dk.via.ftc.businesslayer.Models.DTO;
 
 namespace dk.via.ftc.businesslayer.Models

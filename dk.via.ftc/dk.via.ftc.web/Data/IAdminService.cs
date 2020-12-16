@@ -11,10 +11,11 @@ namespace dk.via.ftc.web.Data
     public interface IAdminService
     {
         Task AddVendorAsync(Vendor vendor);
-        Task AddVendorAdminAsync(VendorAdmin vendorAdmin);
+      //  Task AddVendorAdminAsync(VendorAdmin vendorAdmin);
 
-        Task AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin);
+       // Task AddVendorVendorAdminAsync(VendorVendorAdmin vendorVendorAdmin);
+       public Task<string> GetVendorByLicense(string license);
         Task AddDispensaryAdminAsync(DispensaryAdmin aD);
-      
+        public Task AddVendorAdminAsync(VendorAdmin vendorAdmin);
     }
 }

@@ -17,6 +17,8 @@ using dk.via.ftc.businesslayer.Data;
 using dk.via.ftc.businesslayer.Data.FTCAPI;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace dk.via.businesslayer
 {
@@ -37,6 +39,10 @@ namespace dk.via.businesslayer
             services.AddScoped<IAPIStrainService, APIStrainService>();
             services.AddScoped<IAPIProductService, APIProductService>();
             services.AddDataProtection();
+            services.AddSwaggerGen(c =>
+            {
+                c.DocumentFilter<RemoveFilter>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +52,7 @@ namespace dk.via.businesslayer
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger();
             app.UseHttpsRedirection();
             var wsOptions = new WebSocketOptions()
             {
@@ -60,8 +66,29 @@ namespace dk.via.businesslayer
             {
                 endpoints.MapControllers();
             });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FTCAPI v1");
+                c.RoutePrefix = string.Empty;
+            });
 
+        }
+        
+    }
+    public class RemoveFilter : IDocumentFilter
+    {
 
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        {
+            //swaggerDoc.Components.Schemas.Remove("Product");
+            //swaggerDoc.Components.Schemas.Remove("Effect");
+            //swaggerDoc.Components.Schemas.Remove("Country");
+            //swaggerDoc.Components.Schemas.Remove("Vendor");
+            //swaggerDoc.Components.Schemas.Remove("VendorAdmin");
+            //swaggerDoc.Components.Schemas.Remove("Dispensary");
+            //swaggerDoc.Components.Schemas.Remove("PurchaseOrder");
+            //swaggerDoc.Components.Schemas.Remove("Orderline");
+            //swaggerDoc.Components.Schemas.Remove("Strain");
         }
     }
 }

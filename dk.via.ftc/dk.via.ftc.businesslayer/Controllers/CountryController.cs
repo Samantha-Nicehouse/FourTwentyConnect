@@ -10,6 +10,7 @@ namespace dk.via.ftc.businesslayer.Controllers
 {
     [Route("api/Countries")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CountryController : ControllerBase
     {
         private ICountryService _service;

@@ -90,10 +90,10 @@ namespace dk.via.businesslayer
             byte[] recData = null;
             Vendor vendor = new Vendor();
             vendor.VendorName = "Name";
-            vendor.vendorLicense = "12345678";
+            vendor.VendorLicense = "12345678";
             vendor.City = "City";
             vendor.Country = "Country";
-            vendor.stateProvince = "State";
+            vendor.State = "State";
 
             string output = JsonConvert.SerializeObject(vendor);
             SocketClient client = new SocketClient("localhost", 4012);

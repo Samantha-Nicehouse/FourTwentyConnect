@@ -38,9 +38,9 @@ namespace dk.via.ftc.web.Data
             HttpContent content = new StringContent(vendorAsJson,
                 Encoding.UTF8,
                 "application/json");
-            await client.PutAsync(uri + "/VendorAdmin", content);
+            await client.PutAsync(uri + "/Vendor/VendorAdmin", content);
         }
-        public async Task AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
+      /*  public async Task AddVendorVendorAdminAsync(VendorVendorAdmin vvA)
         {
             string vendorAsJson = JsonSerializer.Serialize(vvA);
             Console.WriteLine(vendorAsJson);
@@ -48,8 +48,14 @@ namespace dk.via.ftc.web.Data
                 Encoding.UTF8,
                 "application/json");
             await client.PutAsync(uri + "/Vendor", content);
-        }
+        }*/
 
+      public async Task<string> GetVendorByLicense(string license)
+      {
+          Task<string> stringAsync = client.GetStringAsync(uri + "/Vendor/VendorLic/"+license);
+          string message = await stringAsync;
+          return message;
+      }
         public async Task AddDispensaryAdminAsync(DispensaryAdmin dispensaryAdmin)
         {
             string dispensaryAdminAsJson = JsonConvert.SerializeObject(dispensaryAdmin);
@@ -59,5 +65,6 @@ namespace dk.via.ftc.web.Data
                 "application/json");
             await client.PutAsync(uri+"/Dispensary/DispensaryAdmin", content);
         }
-    }
+        
+}
 }

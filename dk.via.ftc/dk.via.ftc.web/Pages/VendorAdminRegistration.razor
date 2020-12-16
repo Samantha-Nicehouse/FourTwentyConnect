@@ -1,0 +1,97 @@
+﻿@page "/VendorAdminRegistration"
+@page "/VendorAdminRegistration/{license}"
+@using dk.via.ftc.businesslayer.Models
+@using dk.via.ftc.web.Data;
+@using dk.via.ftc.web.Security;
+@using System.Diagnostics
+@inject IAdminService CloudAdminService
+@inject ICountryService CountryService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@inject IDispensaryService DispensaryService
+<h3>DispensaryAdminRegistration</h3>
+<p>Registration with 420Connect is limited to vendors authorized by the German Federal Instiute for
+        Drugs and Medical Devices(BfArM) to import cannabis products.</p>
+<label>@result</label>
+@if (vendorId != null)
+{
+<EditForm Model="@newVendorAdmin" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <h2>Contact Information</h2>
+
+
+    <div class="form-group">
+        First Name:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.FirstName"/>
+    </div>
+    <div class="form-group">
+        Last Name:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.LastName"/>
+    </div>
+    <div class="form-group">
+        UserName:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Username"/>
+    </div>
+    <div class="form-group">
+        Password:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Pass"/>
+    </div>
+    <div class="form-group">
+        Email:<br/>
+        <InputTextArea rows="1" @bind-Value="newVendorAdmin.Email"/>
+    </div>
+
+
+    <p class="actions">
+        <button class="btn btn-primary" type="submit">Register</button>
+        <button class="btn badge-secondary" type="submit">Cancel</button>
+    </p>
+</EditForm>
+}
+
+else
+{
+    <p>Loading form..</p>
+}
+@code {
+    [Parameter]
+    public string license { get; set; }
+    private readonly VendorAdmin newVendorAdmin = new VendorAdmin();
+    private bool loadFailed;
+    private string result { get; set; }
+
+    
+    private string vendorId { get; set; }
+    protected override async Task OnInitializedAsync() {
+        vendorId = await CloudAdminService.GetVendorByLicense(license);
+        newVendorAdmin.VendorId = vendorId;
+        Console.WriteLine(vendorId + " Is the retrieved ID");
+    }
+    private async Task OnValidSubmit()
+    {
+        {
+            {
+                try
+                {   loadFailed = false;
+                    if (!newVendorAdmin.Equals(" "))
+                    {
+                        await CloudAdminService.AddVendorAdminAsync(newVendorAdmin);
+                        Console.WriteLine(license+" retrieved id is "+vendorId);
+                        NavigationManager.NavigateTo("/");
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    loadFailed = true;
+                    Debug.WriteLine("Exception Message: " + ex.Message);
+                }
+
+            }
+        }
+    }
+
+}
+

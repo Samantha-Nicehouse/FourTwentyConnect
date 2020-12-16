@@ -22,7 +22,7 @@ namespace dk.via.ftc.dataTier_v2_C
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        [JsonPropertyName("countryCode")]
+       
         public string CountryCode { get; set; }
 
         public virtual Country CountryCodeNavigation { get; set; }

@@ -3,6 +3,7 @@ module FourTwentyPrescribeV5 {
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires junit;
     opens dk.via.ftc.prescribe to javafx.fxml;
     exports dk.via.ftc.prescribe;
     opens dk.via.ftc.prescribe.controller to javafx.fxml;

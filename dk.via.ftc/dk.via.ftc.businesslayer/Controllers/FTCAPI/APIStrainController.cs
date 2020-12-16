@@ -19,7 +19,10 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
         {
             _strainService = strainService;
         }
-
+        /// <summary>
+        /// Returns a Strain by Strain Id
+        /// </summary>
+        /// <param name="strain_id"></param>  
         [HttpGet]
         [Route("{apikey}/Strains/Strain/{strain_id}")]
         public async Task<ActionResult<Strain>> GetStrain([FromRoute] string apikey,[FromRoute] int strain_id)
@@ -39,7 +42,9 @@ namespace dk.via.ftc.businesslayer.Controllers.FTCAPI
                 return StatusCode(500, e.Message);
             }
         }
-
+        /// <summary>
+        /// Returns a list of Strains
+        /// </summary>
         [HttpGet]
         [Route("{apikey}/Strains/All")]
         public async Task<ActionResult<IList<Strain>>> GetAllStrains([FromRoute] string apikey)

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace dk.via.ftc.businesslayer.Data.FTCAPI
 {
@@ -19,19 +20,30 @@ namespace dk.via.ftc.businesslayer.Data.FTCAPI
         }
         public async Task AddProductAsync(Product product)
         {
-            string stringAsJson = JsonSerializer.Serialize(product);
+            string stringAsJson = JsonConvert.SerializeObject(product);
             HttpContent content = new StringContent(stringAsJson,
                 Encoding.UTF8,
                 "application/json");
-            await client.PutAsync(uri + "/Put", content);
+            await client.PostAsync(uri + "/Post", content);
             Console.WriteLine(stringAsJson + " Sent To Data Layer");
         }
+        
+        public async Task AddProductsAsync(List<Product> product)
+        {
+            string stringAsJson = JsonConvert.SerializeObject(product);
+            HttpContent content = new StringContent(stringAsJson,
+                Encoding.UTF8,
+                "application/json");
+            await client.PostAsync(uri + "/List", content);
+            Console.WriteLine(stringAsJson + " Sent To Data Layer");
+        }
+
 
         public async Task<IList<Product>> GetProductsAsync()
         {
             Task<string> stringAsync = client.GetStringAsync(uri + "/Products/All");
             string message = await stringAsync;
-            IList<Product> products = System.Text.Json.JsonSerializer.Deserialize<IList<Product>>(message);
+            IList<Product> products = JsonConvert.DeserializeObject<IList<Product>>(message);
             return products;
         }
 
@@ -39,17 +51,17 @@ namespace dk.via.ftc.businesslayer.Data.FTCAPI
         {
             Task<string> stringAsync = client.GetStringAsync(uri + "/Strain/"+strain_id);
             string message = await stringAsync;
-            IList<Product> products = System.Text.Json.JsonSerializer.Deserialize<IList<Product>>(message);
+            IList<Product> products = JsonConvert.DeserializeObject<IList<Product>>(message);
             return products;
         }
 
         public async Task UpdateProduct(Product product)
         {
-            string stringAsJson = JsonSerializer.Serialize(product);
+            string stringAsJson = JsonConvert.SerializeObject(product);
             HttpContent content = new StringContent(stringAsJson,
                 Encoding.UTF8,
                 "application/json");
-            await client.PutAsync(uri + "/Patch", content);
+            await client.PatchAsync(uri + "/Patch/"+product.ProductId, content);
             Console.WriteLine(stringAsJson + " Sent To Data Layer");
         }
     }

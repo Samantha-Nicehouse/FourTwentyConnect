@@ -14,6 +14,7 @@ namespace dk.via.ftc.businesslayer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class DispensaryController : ControllerBase
     {
         private DispensaryLicencesContext context; 

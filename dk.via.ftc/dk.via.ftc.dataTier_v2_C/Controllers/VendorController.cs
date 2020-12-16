@@ -8,6 +8,7 @@ using System.Diagnostics;
 using dk.via.ftc.businesslayer.Models;
 using dk.via.ftc.dataTier_v2_C.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Vendor = dk.via.ftc.businesslayer.Models.Vendor;
 using VendorAdmin = dk.via.ftc.businesslayer.Models.VendorAdmin;
 
@@ -44,8 +45,44 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
         public async Task PutVendorRegistration(VendorVendorAdmin vvA)
          {
 
-             await service.AddVendorVendorAdmin(vvA);
+             //await service.AddVendorVendorAdmin(vvA);
          }
+        
+        [HttpPut]
+        [Route("Vendor")]
+        public async Task AddVendorRegistration([FromBody]Vendor vendor)
+        {
+            string s = JsonConvert.SerializeObject(vendor);
+            Console.WriteLine(s);
+            await service.AddVendorAsync(vendor);
+        }
+        [HttpPut]
+        [Route("VendorAdmin")]
+        public async Task AddVendorAdminRegistration([FromBody]VendorAdmin vendorAdmin)
+        {
+            string s = JsonConvert.SerializeObject(vendorAdmin);
+            Console.WriteLine(s);
+            await service.AddVendorAdminAsync(vendorAdmin);
+        }
+        
+        [HttpGet]
+        [Route("License/{license}")]
+        public async Task<ActionResult<string>> GetVendorByLicense([FromRoute]string license)
+        {
+            try
+            {
+                Console.WriteLine(license+" GET REQUEST");
+                string vendor = await service.GetVendorByLicense(license);
+                if(vendor != null)
+                    return Ok(vendor);
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
         
     }
 }

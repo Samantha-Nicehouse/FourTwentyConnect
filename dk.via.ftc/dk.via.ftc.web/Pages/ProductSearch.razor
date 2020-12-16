@@ -38,12 +38,12 @@ else
              <td>@item.ProductName</td>
              <td>@item.strainname</td>
              <td>@DisplayEffect(@item.effects.medical)</td>
-             <td class="align-content-center">@item.ThcContent</td>
+             <td>@item.ThcContent</td>
              <td>
 
-                 <button class = "btn btn-primary"  @onclick="@(() => ViewMore(item))">
+                 <button class = "btn btn-primary"  @onclick=@(() => ViewMore(item))>
                      View More
-                 </button>"
+                 </button>
 
 
              </td>

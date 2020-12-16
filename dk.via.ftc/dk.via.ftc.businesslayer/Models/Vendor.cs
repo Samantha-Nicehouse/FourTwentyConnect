@@ -14,20 +14,23 @@ namespace dk.via.ftc.businesslayer.Models
        
         public class Vendor
         {
-            [JsonPropertyName("vendorId")]
+            
            
             public string VendorId { get; set; }
-            [JsonPropertyName("vendorName")]
+            
+            [Required]
             public string VendorName { get; set; }
-            [JsonPropertyName("vendorLicense")]
             [Display(Name = "Vendor License")]
-    
-            public string vendorLicense { get; set; }
-            [JsonPropertyName("city")]
+            [Required]
+            public string VendorLicense { get; set; }
+           
+            [Required]
             public string City { get; set; }
-            [JsonPropertyName("stateProvince")]
-            public string stateProvince { get; set; }
-            [JsonPropertyName("country")]
+           
+            [Required]
+            public string State { get; set; }
+          
+            [Required]
             public string Country { get; set; }
             
             public virtual Country CountryCodeNavigation { get; set; }
@@ -38,7 +41,7 @@ namespace dk.via.ftc.businesslayer.Models
                 Products = new HashSet<Product>();
                 VendorAdmins = new HashSet<VendorAdmin>();
             }
-            [JsonPropertyName("countryCode")]
+           
             public string CountryCode { get; set; }
             public virtual ICollection<Orderline> Orderlines { get; set; }
             public virtual ICollection<Product> Products { get; set; }

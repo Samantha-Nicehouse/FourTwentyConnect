@@ -15,7 +15,7 @@ namespace dk.via.ftc.businesslayer.Models
     {
         [JsonPropertyName("username")]
         [Required]
-        [Display(Name = "Username")]
+        //[Display(Name = "Username")]
         public string Username { get; set; }
         [JsonPropertyName("vendor_id")]
         public string VendorId { get; set; }
