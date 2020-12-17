@@ -34,7 +34,6 @@ namespace dk.via.ftc.web
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddScoped<IAdminService, CloudAdminService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IDispensaryService, DispensaryService>();
