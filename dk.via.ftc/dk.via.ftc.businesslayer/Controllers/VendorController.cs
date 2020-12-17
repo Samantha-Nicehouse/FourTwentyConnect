@@ -26,24 +26,7 @@ namespace dk.via.ftc.businesslayer.Controllers
         {
             this.service = vendorService;
         }
-        // GET: api/<ValuesController>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vendor>>> GetVendors()
-        {
-            return null;
-        }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Vendor>> GetVendor(int id)
-        {
-            return null;
-        }
-
-        // POST api/<ValuesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
     /*   [HttpPut]
         public async Task RegisterVendorVendorAdmin(VendorVendorAdmin vvA)
         {
@@ -88,13 +71,6 @@ namespace dk.via.ftc.businesslayer.Controllers
                 Console.WriteLine(e.Message);
                 return StatusCode(500, false);
             }
-        }
-        
-      
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
