@@ -25,29 +25,7 @@ namespace dk.via.ftc.dataTier_v2_C.Controllers
             this.service = vendorService;
         }
 
-        // GET: api/<ValuesController>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vendor>>> GetVendors()
-        {
-            return null;
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Vendor>> GetVendor(int id)
-        {
-            return null;
-        }
-
-        // POST api/<ValuesController>
-    
-
-        [HttpPut]
-        public async Task PutVendorRegistration(VendorVendorAdmin vvA)
-         {
-
-             //await service.AddVendorVendorAdmin(vvA);
-         }
-        
+       
         [HttpPut]
         [Route("Vendor")]
         public async Task AddVendorRegistration([FromBody]Vendor vendor)
