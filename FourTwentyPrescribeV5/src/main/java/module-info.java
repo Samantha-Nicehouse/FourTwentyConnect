@@ -4,6 +4,7 @@ module FourTwentyPrescribeV5 {
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
     requires junit;
+    requires org.junit.jupiter.api;
     opens dk.via.ftc.prescribe to javafx.fxml;
     exports dk.via.ftc.prescribe;
     opens dk.via.ftc.prescribe.controller to javafx.fxml;
